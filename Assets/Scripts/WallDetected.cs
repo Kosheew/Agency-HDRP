@@ -1,22 +1,51 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+public enum StandardVector
+{
+    Up,
+    Down,
+    Left,
+    Right,
+    Forward,
+    Back,
+    Zero
+}
 
 public class WallDetected : MonoBehaviour
 {
     [SerializeField] private Animator animator;
-    
-    [Range(-1f, 1f)]
-    [SerializeField] private int wallDetected;
-    
+
+    [SerializeField] private Vector3 _dir;
+    [SerializeField] private StandardVector vectorChoice;
+
     [SerializeField] private Transform leftHandTarget; // Точка контакту для лівої руки
     [SerializeField] private Transform rightHandTarget; // Точка контакту для правої руки
     private bool isTouchingWall = false;
-    
+
     [SerializeField] private Transform startPositionModel;
     private Quaternion _startRotation;
-    
+
+    private void OnValidate()
+    {
+        _dir = GetVector(vectorChoice);
+    }
+
+    private Vector3 GetVector(StandardVector choice)
+    {
+        return choice switch
+        {
+            StandardVector.Up => Vector3.up,
+            StandardVector.Down => Vector3.down,
+            StandardVector.Left => Vector3.left,
+            StandardVector.Right => Vector3.right,
+            StandardVector.Forward => Vector3.forward,
+            StandardVector.Back => Vector3.back,
+            StandardVector.Zero => Vector3.zero,
+            _ => Vector3.zero,
+        };
+    }
+
     private void Start()
     {
         _startRotation = transform.rotation;
@@ -31,18 +60,8 @@ public class WallDetected : MonoBehaviour
             // Увімкнення анімації
             animator.SetBool("StandWall", true);
 
-            // Розрахунок розвороту персонажа спиною до стіни
-            Vector3 wallNormal = other.transform.forward; // Напрямок нормалі стіни
-            Vector3 characterPosition = transform.position;
-            
-            
-            // Позиціювання персонажа спиною до стіни
-            Quaternion targetRotation = Quaternion.LookRotation(wallDetected * wallNormal, Vector3.up);
-            transform.parent.rotation = targetRotation;
-
-            // Отримання точок для IK
-            //  leftHandTarget = other.transform.Find("LeftHandPoint");
-            // rightHandTarget = other.transform.Find("RightHandPoint");
+            // Визначення повороту персонажа
+            RotateCharacterToWall(other.transform);
         }
     }
 
@@ -51,16 +70,32 @@ public class WallDetected : MonoBehaviour
         if (other.CompareTag("Wall"))
         {
             isTouchingWall = false;
+
+            // Вимкнення анімації
             animator.SetBool("StandWall", false);
+
+            // Повернення початкового обертання
             startPositionModel.eulerAngles = _startRotation.eulerAngles;
         }
+    }
+
+    private void RotateCharacterToWall(Transform wallTransform)
+    {
+        // Отримання нормалі поверхні стіни
+        Vector3 wallNormal = -wallTransform.forward; // Персонаж має стояти спиною до стіни
+
+        // Розрахунок цільового обертання
+        Quaternion targetRotation = Quaternion.LookRotation(wallNormal, _dir);
+
+        // Застосування обертання до персонажа
+        startPositionModel.rotation = targetRotation;
     }
 
     private void OnAnimatorIK(int layerIndex)
     {
         if (isTouchingWall)
         {
-            // Налаштування позиції для лівої руки
+            // Налаштування IK для лівої руки
             if (leftHandTarget != null)
             {
                 animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
@@ -69,7 +104,7 @@ public class WallDetected : MonoBehaviour
                 animator.SetIKRotation(AvatarIKGoal.LeftHand, leftHandTarget.rotation);
             }
 
-            // Налаштування позиції для правої руки
+            // Налаштування IK для правої руки
             if (rightHandTarget != null)
             {
                 animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
