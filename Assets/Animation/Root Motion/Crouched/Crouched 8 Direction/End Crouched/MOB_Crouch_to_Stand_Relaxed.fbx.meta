@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a9cb8b2bb87d00a42856f2d306eae4c4
+guid: e065821a32c8ac14d8741fb3dd732db9
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable:
@@ -524,7 +524,7 @@ ModelImporter:
     second: Motus_Man_01
   - first:
       74: 7400000
-    second: MOB_Stand_Relaxed_Fgt_v1
+    second: MOB_Crouch_to_Stand_Relaxed
   - first:
       95: 9500000
     second: //RootNode
@@ -561,21 +561,21 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: MOB_Stand_Relaxed_Fgt_v1
-      takeName: MOB_Stand_Relaxed_Fgt_v1
+      name: MOB_Crouch_to_Stand_Relaxed
+      takeName: MOB_Crouch_to_Stand_Relaxed
       internalID: 0
       firstFrame: 0
-      lastFrame: 151
+      lastFrame: 66
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
-      loopBlendPositionY: 0
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1
