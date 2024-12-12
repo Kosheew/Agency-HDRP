@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace StarterAssets
+namespace InputActions
 {
 	public class BundleInputs : MonoBehaviour
 	{
@@ -10,7 +10,8 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
-
+		public bool crouch;
+		
 		[Header("Movement Settings")]
 		public bool analogMovement;
 
@@ -41,7 +42,15 @@ namespace StarterAssets
 			SprintInput(value.isPressed);
 		}
 
+		public void OnCrouched(InputValue value)
+		{
+			CrouchInput(value.isPressed);
+		}
 
+		public void CrouchInput(bool value)
+		{
+			crouch = value;
+		}
 		public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;

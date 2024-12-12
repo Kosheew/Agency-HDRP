@@ -1,7 +1,9 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using InputActions;
 
-namespace StarterAssets
+namespace Controllers
 {
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(PlayerInput))]
@@ -67,7 +69,8 @@ namespace StarterAssets
         private int _animIDJump;
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
-
+        private int _animIDCrouched;
+        
         private PlayerInput _playerInput;
         private Animator _animator;
         private CharacterController _controller;
@@ -77,7 +80,8 @@ namespace StarterAssets
         private const float _threshold = 0.01f;
 
         private bool _hasAnimator;
-
+        private bool _crouched;
+        
         private bool IsCurrentDeviceMouse
         {
             get
@@ -113,6 +117,7 @@ namespace StarterAssets
 
             JumpAndGravity();
             GroundedCheck();
+            Crouch();
             Move();
         }
         
@@ -124,6 +129,7 @@ namespace StarterAssets
             _animIDJump = Animator.StringToHash("Jump");
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+            _animIDCrouched = Animator.StringToHash("Crouched");
         }
 
         private void GroundedCheck()
@@ -138,10 +144,29 @@ namespace StarterAssets
                 _animator.SetBool(_animIDGrounded, Grounded);
             }
         }
+
+        public void Crouch()
+        {
+            if (_input.crouch && Grounded) 
+            {
+                _crouched = !_crouched; 
+
+                if (_hasAnimator)
+                {
+                    _animator.SetBool(_animIDCrouched, _crouched);
+
+                    if (_crouched)
+                    {
+                        _animator.SetTrigger("isCrouched");
+                    }
+                }
+                _input.crouch = false;
+            }
+        }
         
         private void Move()
         {
-            float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+            float targetSpeed = _input.sprint && !_crouched ? SprintSpeed : MoveSpeed;
             
             if (_input.move == Vector2.zero) targetSpeed = 0.0f;
             
@@ -194,6 +219,7 @@ namespace StarterAssets
             
             if (_hasAnimator)
             {
+                
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
             }
@@ -220,19 +246,16 @@ namespace StarterAssets
                 {
                     if (_hasAnimator)
                     {
-                        // Увімкнення анімації початку стрибка
                         _animator.SetBool(_animIDJump, true);
                     }
-
-                    // Перевірка завершення анімації початку стрибка
-                   
                 }
-                     AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
-                                        if (stateInfo.IsName("MOB_Stand_Relaxed_Jump_IP")  && stateInfo.normalizedTime >= 0.5f && !_animator.IsInTransition(0) )
-                                        {
-                                            // Передаємо імпульс для стрибка після завершення анімації
-                                            _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
-                                        }
+                
+                if (IsInAnimationState(new[] { "MOB_Stand_Relaxed_Jump_IP", "MOB_Walk_F_Jump_IP_Start", "MOB_Run_F_Jump_LU_IP_Start" }))
+                {
+                    _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+                }
+
+                
                 if (_jumpTimeoutDelta >= 0.0f)
                 {
                     _jumpTimeoutDelta -= Time.deltaTime;
@@ -262,12 +285,12 @@ namespace StarterAssets
                 _verticalVelocity += Gravity * Time.deltaTime;
             }
         }
-
-        private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
+        
+        
+        private bool IsInAnimationState(string[] stateNames, float threshold = 0.5f)
         {
-            if (lfAngle < -360f) lfAngle += 360f;
-            if (lfAngle > 360f) lfAngle -= 360f;
-            return Mathf.Clamp(lfAngle, lfMin, lfMax);
+            AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
+            return stateNames.Any(stateInfo.IsName) && stateInfo.normalizedTime >= threshold && !_animator.IsInTransition(0);
         }
 
         private void OnDrawGizmosSelected()

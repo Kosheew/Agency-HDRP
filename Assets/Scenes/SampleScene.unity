@@ -3156,6 +3156,7 @@ MonoBehaviour:
   look: {x: 0, y: 0}
   jump: 0
   sprint: 0
+  crouch: 0
   analogMovement: 0
   cursorLocked: 0
   cursorInputForLook: 1
@@ -3178,7 +3179,7 @@ MonoBehaviour:
   LandingAudioClip: {fileID: 0}
   FootstepAudioClips: []
   FootstepAudioVolume: 0.5
-  JumpHeight: 1.2
+  JumpHeight: 0.6
   Gravity: -15
   JumpTimeout: 0.5
   FallTimeout: 0.15
