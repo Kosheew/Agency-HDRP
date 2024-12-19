@@ -9,10 +9,12 @@ namespace InputActions
 		[Header("Character Input Values")]
 		private Vector2 _move;
 		private Vector2 _look;
-		private bool _jump;
-		private bool _sprint;
-		private bool _crouch;
-
+		
+		[SerializeField] private bool jump;
+		[SerializeField] private bool sprint;
+		[SerializeField] private bool crouch;
+		[SerializeField] private bool equip;
+		
 		[Header("Movement Settings")]
 		[SerializeField] private bool analogMovement;
 
@@ -22,11 +24,12 @@ namespace InputActions
 
 		public Vector2 Move => _move;
 		public Vector2 Look => _look;
-		public bool Jump => _jump;
-		public bool Sprint => _sprint;
-		public bool Crouch => _crouch;
+		public bool Jump => jump;
+		public bool Sprint => sprint;
+		public bool Crouch => crouch;
 		public bool AnalogMovement => analogMovement;
-
+		public bool Equip => equip;
+		
 		public void OnMove(InputValue value) => _move = value.Get<Vector2>();
 		public void OnLook(InputValue value)
 		{
@@ -36,10 +39,10 @@ namespace InputActions
 			}
 		}
 
-		public void OnJump(InputValue value) => _jump = value.isPressed;
-		public void OnSprint(InputValue value) => _sprint = value.isPressed;
-		public void OnCrouched(InputValue value) => _crouch = value.isPressed;
-
+		public void OnJump(InputValue value) => jump = value.isPressed;
+		public void OnSprint(InputValue value) => sprint = value.isPressed;
+		public void OnCrouched(InputValue value) => crouch = value.isPressed;
+		public void OnEquipped(InputValue value) => equip = value.isPressed;
 		private void OnApplicationFocus(bool hasFocus)
 		{
 			if (hasFocus)
@@ -54,5 +57,4 @@ namespace InputActions
 			Cursor.visible = !newState;
 		}
 	}
-	
 }

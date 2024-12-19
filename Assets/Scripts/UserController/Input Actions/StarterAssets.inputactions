@@ -25,9 +25,9 @@
                 },
                 {
                     "name": "Jump",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "8c4abdf8-4099-493a-aa1a-129acec7c3df",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "DiscreteButton",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -43,9 +43,18 @@
                 },
                 {
                     "name": "Crouched",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "949843ed-5c1b-45f0-b2c5-d5d1e6b08bde",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "DiscreteButton",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Equipped",
+                    "type": "PassThrough",
+                    "id": "5518f106-0a3e-4a52-be82-7d930053583f",
+                    "expectedControlType": "DiscreteButton",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -236,6 +245,17 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "Crouched",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f9daa9a5-8069-460b-b0c9-aa352ec20cba",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Equipped",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
