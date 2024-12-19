@@ -3323,11 +3323,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4374024249f05c54d99f5a8216817f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  move: {x: 0, y: 0}
-  look: {x: 0, y: 0}
   jump: 0
   sprint: 0
   crouch: 0
+  equip: 0
   analogMovement: 0
   cursorLocked: 0
   cursorInputForLook: 1
@@ -3349,7 +3348,7 @@ MonoBehaviour:
   SpeedChangeRate: 60
   JumpHeight: 1.2
   Gravity: -9.81
-  Grounded: 1
+  Grounded: 0
 --- !u!4 &1419822894 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400086, guid: cba3f5e2d613a104b8bf6706dd7a2786,

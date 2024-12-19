@@ -47,6 +47,7 @@ namespace Controllers
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
         private int _animIDCrouched;
+        private int _animIDEquipped;
         
         private PlayerInput _playerInput;
         private Animator _animator;
@@ -81,6 +82,7 @@ namespace Controllers
             JumpAndGravity();
             GroundedCheck();
             Crouch();
+            Equip();
             Move();
         }
 
@@ -92,6 +94,7 @@ namespace Controllers
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
             _animIDCrouched = Animator.StringToHash("Crouched");
+            _animIDEquipped = Animator.StringToHash("Equipped");
         }
 
         private void GroundedCheck()
@@ -216,6 +219,18 @@ namespace Controllers
             if (_verticalVelocity < _terminalVelocity)
             {
                 _verticalVelocity += Gravity * Time.deltaTime;
+            }
+        }
+
+        private void Equip()
+        {
+            if (_input.Equip)
+            {
+                _animator.SetBool(_animIDEquipped, true);
+            }
+            else
+            {
+                _animator.SetBool(_animIDEquipped, false);
             }
         }
     }

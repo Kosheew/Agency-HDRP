@@ -43,18 +43,18 @@
                 },
                 {
                     "name": "Crouched",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "949843ed-5c1b-45f0-b2c5-d5d1e6b08bde",
-                    "expectedControlType": "DiscreteButton",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
                     "name": "Equipped",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "5518f106-0a3e-4a52-be82-7d930053583f",
-                    "expectedControlType": "DiscreteButton",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
