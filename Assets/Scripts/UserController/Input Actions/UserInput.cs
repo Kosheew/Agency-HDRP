@@ -26,10 +26,17 @@ namespace InputActions
 		public Vector2 Look => _look;
 		public bool Jump => jump;
 		public bool Sprint => sprint;
-		public bool Crouch => crouch;
+		public bool Crouch { 
+			get => crouch;
+			set => crouch = value; 
+		} 
 		public bool AnalogMovement => analogMovement;
-		public bool Equip => equip;
-		
+		public bool Equip
+		{
+			get => equip; 
+			set => equip = value;
+		}
+
 		public void OnMove(InputValue value) => _move = value.Get<Vector2>();
 		public void OnLook(InputValue value)
 		{
@@ -43,6 +50,9 @@ namespace InputActions
 		public void OnSprint(InputValue value) => sprint = value.isPressed;
 		public void OnCrouched(InputValue value) => crouch = value.isPressed;
 		public void OnEquipped(InputValue value) => equip = value.isPressed;
+		
+		
+		
 		private void OnApplicationFocus(bool hasFocus)
 		{
 			if (hasFocus)

@@ -41,23 +41,15 @@ namespace Controllers
         private float _verticalVelocity;
         private float _terminalVelocity = 53.0f;
         
-        private int _animIDSpeed;
-        private int _animIDGrounded;
-        private int _animIDJump;
-        private int _animIDFreeFall;
-        private int _animIDMotionSpeed;
-        private int _animIDCrouched;
-        private int _animIDEquipped;
-        
         private PlayerInput _playerInput;
-        private Animator _animator;
         private CharacterController _controller;
         private UserInput _input;
         private GameObject _mainCamera;
-
-        private bool _hasAnimator;
-        private bool _crouched;
         
+        private PlayerAnimation _playerAnimation;
+        
+        private bool _crouched;
+        private bool _equipped;
 
         private void Awake()
         {
@@ -69,12 +61,11 @@ namespace Controllers
 
         private void Start()
         {
-            _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<UserInput>();
             _playerInput = GetComponent<PlayerInput>();
-
-            AssignAnimationIDs();
+            _playerAnimation = GetComponent<PlayerAnimation>();
+            _playerAnimation.Init();
         }
 
         private void Update()
@@ -85,26 +76,11 @@ namespace Controllers
             Equip();
             Move();
         }
-
-        private void AssignAnimationIDs()
-        {
-            _animIDSpeed = Animator.StringToHash("Speed");
-            _animIDGrounded = Animator.StringToHash("Grounded");
-            _animIDJump = Animator.StringToHash("Jump");
-            _animIDFreeFall = Animator.StringToHash("FreeFall");
-            _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
-            _animIDCrouched = Animator.StringToHash("Crouched");
-            _animIDEquipped = Animator.StringToHash("Equipped");
-        }
-
+        
         private void GroundedCheck()
         {
             Grounded = _controller.isGrounded;
-            
-            if (_hasAnimator)
-            {
-                _animator.SetBool(_animIDGrounded, Grounded);
-            }
+           _playerAnimation.SetGrounded(Grounded);
         }
 
         public void Crouch()
@@ -112,17 +88,8 @@ namespace Controllers
             if (_input.Crouch && Grounded) 
             {
                 _crouched = !_crouched; 
-
-                if (_hasAnimator)
-                {
-                    _animator.SetBool(_animIDCrouched, _crouched);
-
-                    if (_crouched)
-                    {
-                        _animator.SetTrigger("isCrouched");
-                    }
-                }
-               // _input.crouch = false;
+                _playerAnimation.SetCrouched(_crouched);
+                _input.Crouch = false;
             }
         }
         
@@ -174,23 +141,15 @@ namespace Controllers
             _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
                              new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
             
-            if (_hasAnimator)
-            {
-                
-                _animator.SetFloat(_animIDSpeed, _animationBlend);
-                _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
-            }
+           _playerAnimation.MovementAnim(_animationBlend, inputMagnitude);
         }
 
         private void JumpAndGravity()
         {
             if (Grounded)
             {
-                if (_hasAnimator)
-                {
-                    _animator.SetBool(_animIDJump, false);
-                    _animator.SetBool(_animIDFreeFall, false);
-                }
+               _playerAnimation.SetJump(false);
+               _playerAnimation.SetFreeFall(false);
                 
                 if (_verticalVelocity < 0.0f)
                 {
@@ -201,19 +160,12 @@ namespace Controllers
                 {
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
                     
-                    if (_hasAnimator)
-                    {
-                        _animator.SetBool(_animIDJump, true);
-                    }
+                    _playerAnimation.SetJump(true);
                 }
             }
             else
             {
-                if (_hasAnimator)
-                {
-                    _animator.SetBool(_animIDFreeFall, true);
-                }
-              //  _input.jump = false;
+                _playerAnimation.SetFreeFall(true);
             }
             
             if (_verticalVelocity < _terminalVelocity)
@@ -226,11 +178,9 @@ namespace Controllers
         {
             if (_input.Equip)
             {
-                _animator.SetBool(_animIDEquipped, true);
-            }
-            else
-            {
-                _animator.SetBool(_animIDEquipped, false);
+                _equipped = !_equipped;
+                _playerAnimation.SetEquipped(_equipped);
+                _input.Equip = false;
             }
         }
     }
