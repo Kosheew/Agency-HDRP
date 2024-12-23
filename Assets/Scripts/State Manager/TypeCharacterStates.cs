@@ -7,5 +7,5 @@ public enum TypeCharacterStates
    Move,
    Dead,
    Combat,
-   Reqular
+   Regular
 }

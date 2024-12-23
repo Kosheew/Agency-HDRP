@@ -10,7 +10,7 @@ namespace Player.State
         private PlayerSetting _playerSetting;
         private CharacterController _controller;
         private UserInput _userInput;
-        private PlayerAnimation _playerAnimation;
+        protected PlayerAnimation _playerAnimation;
         
         private float _speed;
         private float _animationBlend;
@@ -37,6 +37,7 @@ namespace Player.State
             GroundedCheck();
             Crouch();
             Move(player.TransformMain);
+            Debug.Log("Base State Entered");
         }
 
         public virtual void ExitState(IPlayer player)
@@ -105,7 +106,6 @@ namespace Player.State
         {
             if (_isGrounded)
             {
-                _playerAnimation.SetJump(false);
                 _playerAnimation.SetFreeFall(false);
 
                 if (_verticalVelocity < 0)
@@ -116,8 +116,6 @@ namespace Player.State
                 if (_userInput.Jump )
                 {
                     _verticalVelocity = Mathf.Sqrt(_playerSetting.JumpHeight * -2f * _playerSetting.Gravity);
-                    
-                    _playerAnimation.SetJump(true);
                 }
             }
             else

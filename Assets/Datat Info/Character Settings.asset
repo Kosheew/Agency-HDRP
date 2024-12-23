@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f37508c5fb6a43579b4c7be627e3ad1a, type: 3}
   m_Name: Character Settings
   m_EditorClassIdentifier: 
-  moveSpeed: 0
+  moveSpeed: 2
   turnSpeed: 0
   characterAudioSettings: {fileID: 11400000, guid: f39955d200b77dc449c27dab6d946f8b,
     type: 2}
   maxClamp: 0
   accelerationRate: 0
   sprintSpeed: 5.335
-  rotationSmoothTime: 0
-  jumpHeight: 0
-  gravity: 9.81
-  speedChangeRate: 10
+  rotationSmoothTime: 0.12
+  jumpHeight: 1.2
+  gravity: -15
+  speedChangeRate: 60

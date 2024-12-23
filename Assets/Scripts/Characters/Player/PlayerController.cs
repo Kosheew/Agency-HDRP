@@ -33,12 +33,18 @@ namespace Characters.Player
             UserInput = GetComponent<UserInput>();
             PlayerAnimation = GetComponent<PlayerAnimation>();
             
+            PlayerAnimation.Init();
+            
             CharacterAudioSettings = playerSetting.CharacterAudioSettings;
             
             FootstepHandler = new FootstepAudioAudioHandler(audioSource, CharacterAudioSettings);
             
-            _commandFactory.CreateMoveCommand(this);
+            _commandFactory.CreateRegularCommand(this);
         }
-        
+
+        private void LateUpdate()
+        {
+            UserInput.ResetInput();
+        }
     }
 }

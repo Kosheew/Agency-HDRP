@@ -1,10 +1,8 @@
 using Wallet;
 using Characters;
-using InitGame.Level;
 using Characters.Enemy;
 using Characters.Player;
 using Commands;
-using Keys;
 using Loader;
 using Scene_Manager;
 using Timer;
@@ -23,15 +21,13 @@ public class Game : MonoBehaviour
     [Header("Player Settings")]
     [SerializeField] private PlayerController player;
         
-    [Header("Game Completion")]
-    [SerializeField] private GameCompleted gameCompleted;
+ 
     [FormerlySerializedAs("loadingScene")] [SerializeField] private SceneLoader sceneLoader;
     
     [Header("Enemy Manager")] 
     [SerializeField] private EnemyController[] enemies;
-
-    [Header("Key Manager")] 
-    [SerializeField] private Key[] keys;
+    
+    [SerializeField] private BatleZone batleZone;
 
     [Header("Weapons")] 
     [SerializeField] private Weapon[] weapons;
@@ -67,7 +63,6 @@ public class Game : MonoBehaviour
         
         _container = new DependencyContainer();
         
-        _wallet = new WalletModel(keys.Length);
         _timer = new TimerModel();
         _pause = new PauseModel();
         
@@ -82,7 +77,7 @@ public class Game : MonoBehaviour
         _commandEnemyFactory = new CommandEnemyFactory();
         _commandPlayerFactory = new CommandPlayerFactory();
         
-        _sceneController = new SceneController(sceneLoader);
+      //  _sceneController = new SceneController(sceneLoader);
         
         RegisterDependency();
             
@@ -122,36 +117,34 @@ public class Game : MonoBehaviour
         _commandPlayerFactory.Inject(_container);
         _commandEnemyFactory.Inject(_container);
         
+        batleZone.Inject(_container);
         player.Inject(_container);
 
-        foreach (var enemy in enemies)
+       /* foreach (var enemy in enemies)
         {
             enemy.Inject(_container);
-        }
+        }*/
 
-        foreach (var key in keys)
-        {
-            key.Inject(_container);
-        }
+     
         
-        pauseView.Inject(_container);
-        loaderView.Inject(_container);
+      //  pauseView.Inject(_container);
+     //   loaderView.Inject(_container);
     }
         
     private void Init()
     {
-        audioManager.Init();
+        /*audioManager.Init();
 
         foreach (var weapon in weapons)
         {
             weapon.Init();
-        }
+        }*/
     }
 
     private void InitView()
     {
-        new WalletController(_wallet, walletView);
-        new TimerController(_timer, timerView);
+        /*new WalletController(_wallet, walletView);
+        new TimerController(_timer, timerView);*/
         
     }
 
@@ -159,12 +152,12 @@ public class Game : MonoBehaviour
     private void Update()
     {
         _statePlayerManager.UpdateState(player);
-        foreach (var enemy in enemies)
+        /*foreach (var enemy in enemies)
         {
             _stateEnemyManager?.UpdateState(enemy);
         }
         
-        _timer.UpdateTimer(Time.deltaTime);
+        _timer.UpdateTimer(Time.deltaTime);*/
     }
 
     private void LateUpdate()

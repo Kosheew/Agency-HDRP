@@ -10,7 +10,7 @@ namespace Characters
             return stateName switch
             {
                 TypeCharacterStates.Combat => new CombatState(),
-                TypeCharacterStates.Reqular => new RegularState(),
+                TypeCharacterStates.Regular => new RegularState(),
                 TypeCharacterStates.Dead => new DeadState(),
                 _ => throw new ArgumentException($"Unknown state: {stateName}")
             };

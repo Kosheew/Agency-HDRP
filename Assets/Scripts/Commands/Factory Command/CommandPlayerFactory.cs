@@ -21,9 +21,16 @@ namespace Commands
             _invoker.ExecuteCommands();
         }
 
-        public void CreateMoveCommand(IPlayer player)
+        public void CreateRegularCommand(IPlayer player)
         {
             ICommand moveCommand = new RegularCommand(_container, player);
+            _invoker.SetCommand(moveCommand);
+            _invoker.ExecuteCommands();
+        }
+
+        public void CreateCombatCommand(IPlayer player)
+        {
+            ICommand moveCommand = new CombatCommand(_container, player);
             _invoker.SetCommand(moveCommand);
             _invoker.ExecuteCommands();
         }

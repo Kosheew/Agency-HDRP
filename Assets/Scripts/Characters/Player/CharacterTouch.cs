@@ -6,10 +6,7 @@ namespace Characters
     {
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.TryGetComponent(out ITouching objectTouch))
-            {
-                objectTouch.Touch();
-            }
+           
         }
     }
 }

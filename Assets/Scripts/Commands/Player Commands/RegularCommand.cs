@@ -15,7 +15,7 @@ namespace Characters.Command
 
         public void Execute()
         {
-            var characterState = _stateEnemyFactory.CreateState(TypeCharacterStates.Reqular);
+            var characterState = _stateEnemyFactory.CreateState(TypeCharacterStates.Regular);
             _stateEnemyManager.SetState(characterState, _player);
         }
     }
