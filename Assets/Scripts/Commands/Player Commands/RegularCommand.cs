@@ -1,12 +1,12 @@
 namespace Characters.Command
 {
-    public class MoveCommand : ICommand
+    public class RegularCommand : ICommand
     {
         private readonly StatePlayerManager _stateEnemyManager;
         private readonly StatePlayerFactory _stateEnemyFactory;
         private readonly IPlayer _player;
         
-        public MoveCommand(DependencyContainer container, IPlayer player)
+        public RegularCommand(DependencyContainer container, IPlayer player)
         {
             _stateEnemyManager = container.Resolve<StatePlayerManager>();
             _stateEnemyFactory = container.Resolve<StatePlayerFactory>();
@@ -15,7 +15,7 @@ namespace Characters.Command
 
         public void Execute()
         {
-            var characterState = _stateEnemyFactory.CreateState(TypeCharacterStates.Move);
+            var characterState = _stateEnemyFactory.CreateState(TypeCharacterStates.Reqular);
             _stateEnemyManager.SetState(characterState, _player);
         }
     }

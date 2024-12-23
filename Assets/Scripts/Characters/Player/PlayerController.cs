@@ -1,24 +1,24 @@
-using System;
 using UnityEngine;
-using UserController;
 using Commands;
 using CharacterSettings;
-using Characters;
 using Audio;
+using InputActions;
 
 namespace Characters.Player
 {
     [RequireComponent(typeof(CharacterTouch))]
+    [RequireComponent(typeof(CharacterController))]
+    [RequireComponent(typeof(UserInput))]
     public class PlayerController : MonoBehaviour, IPlayer
     {
         [SerializeField] private PlayerSetting playerSetting;
         [SerializeField] private AudioSource audioSource;
         public CharacterAudioSettings CharacterAudioSettings { get; private set; }
         public CharacterController Controller { get; private set; }
-        public Camera CameraMain { get; private set; }
+        public UserInput UserInput { get; private set; }
         public PlayerSetting PlayerSetting => playerSetting;
+        public PlayerAnimation PlayerAnimation { get; private set; }
         public IFootstepAudioHandler FootstepHandler { get; private set; }
-        public IUserInputs UserInputs { get; private set; }
         public Transform TransformMain => transform;
         
         public bool Alive { get; set; }
@@ -30,21 +30,15 @@ namespace Characters.Player
             _commandFactory = container.Resolve<CommandPlayerFactory>();
             
             Controller = GetComponent<CharacterController>();
-            UserInputs = container.Resolve<IUserInputs>();
+            UserInput = GetComponent<UserInput>();
+            PlayerAnimation = GetComponent<PlayerAnimation>();
+            
             CharacterAudioSettings = playerSetting.CharacterAudioSettings;
             
             FootstepHandler = new FootstepAudioAudioHandler(audioSource, CharacterAudioSettings);
-            CameraMain = Camera.main;
             
             _commandFactory.CreateMoveCommand(this);
         }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.TryGetComponent(out Weapon weapon))
-            {
-                _commandFactory.CreateDeadCommand(this);
-            }
-        }
+        
     }
 }

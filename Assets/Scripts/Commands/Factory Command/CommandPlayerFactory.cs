@@ -23,7 +23,7 @@ namespace Commands
 
         public void CreateMoveCommand(IPlayer player)
         {
-            ICommand moveCommand = new MoveCommand(_container, player);
+            ICommand moveCommand = new RegularCommand(_container, player);
             _invoker.SetCommand(moveCommand);
             _invoker.ExecuteCommands();
         }

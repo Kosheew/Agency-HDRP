@@ -5,5 +5,7 @@ public enum TypeCharacterStates
    Chased,
    Idle,
    Move,
-   Dead
+   Dead,
+   Combat,
+   Reqular
 }

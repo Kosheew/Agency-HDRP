@@ -1,10 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UserController;
 
 namespace InputActions
 {
-	public class UserInput : MonoBehaviour, IUserInputs
+	public class UserInput : MonoBehaviour
 	{
 		[Header("Character Input Values")]
 		private Vector2 _move;
@@ -26,16 +25,8 @@ namespace InputActions
 		public Vector2 Look => _look;
 		public bool Jump => jump;
 		public bool Sprint => sprint;
-		public bool Crouch { 
-			get => crouch;
-			set => crouch = value; 
-		} 
+		public bool Crouch => crouch;
 		public bool AnalogMovement => analogMovement;
-		public bool Equip
-		{
-			get => equip; 
-			set => equip = value;
-		}
 
 		public void OnMove(InputValue value) => _move = value.Get<Vector2>();
 		public void OnLook(InputValue value)
@@ -50,8 +41,11 @@ namespace InputActions
 		public void OnSprint(InputValue value) => sprint = value.isPressed;
 		public void OnCrouched(InputValue value) => crouch = value.isPressed;
 		public void OnEquipped(InputValue value) => equip = value.isPressed;
-		
-		
+
+		public void ResetInput()
+		{
+			crouch = false;
+		}
 		
 		private void OnApplicationFocus(bool hasFocus)
 		{

@@ -1,20 +1,16 @@
-using System;
 using Wallet;
 using Characters;
 using InitGame.Level;
 using Characters.Enemy;
 using Characters.Player;
 using Commands;
-using InputActions;
 using Keys;
 using Loader;
 using Scene_Manager;
 using Timer;
 using Paused;
 using UnityEngine;
-using UnityEngine.InputSystem.Users;
 using UnityEngine.Serialization;
-using UserController;
 
 public class Game : MonoBehaviour
 {
@@ -63,10 +59,6 @@ public class Game : MonoBehaviour
     private CommandEnemyFactory _commandEnemyFactory;
     
     private SceneController _sceneController;
-    
-    
-    
-    private IUserInputs _userInputs;
         
     private void Awake()
     {
@@ -78,8 +70,6 @@ public class Game : MonoBehaviour
         _wallet = new WalletModel(keys.Length);
         _timer = new TimerModel();
         _pause = new PauseModel();
-        
-        _userInputs = new UserInput();
         
         _commandInvoker = new CommandInvoker();
         
@@ -94,8 +84,6 @@ public class Game : MonoBehaviour
         
         _sceneController = new SceneController(sceneLoader);
         
-        IUserInputs input = gameObject.AddComponent<UserInput>();
-        
         RegisterDependency();
             
         Injection();
@@ -107,8 +95,6 @@ public class Game : MonoBehaviour
 
     private void RegisterDependency()
     {
-        _container.Register(_userInputs);
-        
         _container.Register(_commandInvoker);
         
         _container.Register(_wallet);

@@ -1,7 +1,9 @@
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using InputActions;
+using Unity.VisualScripting;
 
 namespace Controllers
 {
@@ -73,7 +75,6 @@ namespace Controllers
             JumpAndGravity();
             GroundedCheck();
             Crouch();
-            Equip();
             Move();
         }
         
@@ -89,7 +90,6 @@ namespace Controllers
             {
                 _crouched = !_crouched; 
                 _playerAnimation.SetCrouched(_crouched);
-                _input.Crouch = false;
             }
         }
         
@@ -97,7 +97,7 @@ namespace Controllers
         {
             float targetSpeed = _input.Sprint && !_crouched ? SprintSpeed : MoveSpeed;
             
-            if (_input.Move == Vector2.zero) targetSpeed = 0.0f;
+             if (_input.Move == Vector2.zero) targetSpeed = 0.0f;
             
             float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
 
@@ -150,12 +150,12 @@ namespace Controllers
             {
                _playerAnimation.SetJump(false);
                _playerAnimation.SetFreeFall(false);
-                
-                if (_verticalVelocity < 0.0f)
-                {
-                    _verticalVelocity = -2f;
-                }
-                
+
+               if (_verticalVelocity < 0)
+               {
+                   _verticalVelocity = -2;
+               }
+               
                 if (_input.Jump )
                 {
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
@@ -174,14 +174,9 @@ namespace Controllers
             }
         }
 
-        private void Equip()
+        private void LateUpdate()
         {
-            if (_input.Equip)
-            {
-                _equipped = !_equipped;
-                _playerAnimation.SetEquipped(_equipped);
-                _input.Equip = false;
-            }
+            _input.ResetInput();
         }
     }
 }
