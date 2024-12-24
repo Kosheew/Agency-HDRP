@@ -9,12 +9,13 @@ namespace Player.State
         { 
             base.EnterState(player);
             Debug.Log("Entered CombatState");
-            _playerAnimation.SetEquipped(true);
+            
         }
 
         public override void UpdateState(IPlayer player)
         {
             base.UpdateState(player);
+            _playerAnimation.SetEquipped(true);
         }
 
         public override void ExitState(IPlayer player)

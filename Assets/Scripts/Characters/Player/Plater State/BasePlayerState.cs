@@ -112,7 +112,7 @@ namespace Player.State
                     _verticalVelocity = -2;
                 }
                
-                if (_userInput.Jump )
+                if (_userInput.Jump && !_isCrouching)
                 {
                     _verticalVelocity = Mathf.Sqrt(_playerSetting.JumpHeight * -2f * _playerSetting.Gravity);
                 }
@@ -128,11 +128,11 @@ namespace Player.State
             }
         }
         
-        public void Crouch()
+        private void Crouch()
         {
-            if (_userInput.Crouch && _isGrounded) 
+            if (_userInput.Crouch && _isGrounded)
             {
-                _isCrouching = !_isCrouching; 
+                _isCrouching = !_isCrouching;
                 _playerAnimation.SetCrouched(_isCrouching);
             }
         }

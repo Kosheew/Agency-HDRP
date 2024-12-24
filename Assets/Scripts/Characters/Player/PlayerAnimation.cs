@@ -51,11 +51,11 @@ public class PlayerAnimation : MonoBehaviour
     public void SetCrouched(bool isCrouched)
     {
         _animator.SetBool(_animIDCrouched, isCrouched);
-        
         if(isCrouched)
             _animator.SetTrigger(_animIDisCrouched);
     }
-
+    
+    
     public void MovementAnim(float speed, float motionSpeed)
     {
         _animator.SetFloat(_animIDSpeed, speed);
@@ -65,14 +65,8 @@ public class PlayerAnimation : MonoBehaviour
     public void SetEquipped(bool equipped)
     {
         _animator.SetBool(_animIDEquipped, equipped);
-        if (equipped)
-        {
-            _animator.SetLayerWeight(1, 1);
-        }
-        else
-        {
-            StartCoroutine(DisableLayerWeightAfterAnimation());
-        }
+    
+     //   _animator.SetLayerWeight(1, equipped ? 1.0f : 0.0f);
     }
     
     private IEnumerator DisableLayerWeightAfterAnimation()

@@ -22,4 +22,4 @@ MonoBehaviour:
   rotationSmoothTime: 0.12
   jumpHeight: 1.2
   gravity: -15
-  speedChangeRate: 60
+  speedChangeRate: 200
