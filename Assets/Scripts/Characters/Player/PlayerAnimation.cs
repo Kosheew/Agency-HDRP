@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections;
 public class PlayerAnimation : MonoBehaviour
 {
     private Animator _animator;
@@ -64,7 +64,28 @@ public class PlayerAnimation : MonoBehaviour
 
     public void SetEquipped(bool equipped)
     {
-        _animator.SetLayerWeight(1, equipped ? 1 : 0);
         _animator.SetBool(_animIDEquipped, equipped);
+        if (equipped)
+        {
+            _animator.SetLayerWeight(1, 1);
+        }
+        else
+        {
+            StartCoroutine(DisableLayerWeightAfterAnimation());
+        }
+    }
+    
+    private IEnumerator DisableLayerWeightAfterAnimation()
+    {
+        AnimatorStateInfo stateInfo;
+
+        do
+        {
+            stateInfo = _animator.GetCurrentAnimatorStateInfo(1); 
+            yield return null; 
+        } 
+        while (stateInfo.normalizedTime < 1f || !stateInfo.IsName("Rifle Put Away"));
+
+        _animator.SetLayerWeight(1, 0);
     }
 }

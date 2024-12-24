@@ -21,13 +21,13 @@ public class Game : MonoBehaviour
     [Header("Player Settings")]
     [SerializeField] private PlayerController player;
         
- 
+    [Header("Game Completion")]
     [FormerlySerializedAs("loadingScene")] [SerializeField] private SceneLoader sceneLoader;
+    
+    [SerializeField] private BatleZone batleZone;
     
     [Header("Enemy Manager")] 
     [SerializeField] private EnemyController[] enemies;
-    
-    [SerializeField] private BatleZone batleZone;
 
     [Header("Weapons")] 
     [SerializeField] private Weapon[] weapons;
@@ -55,6 +55,7 @@ public class Game : MonoBehaviour
     private CommandEnemyFactory _commandEnemyFactory;
     
     private SceneController _sceneController;
+    
         
     private void Awake()
     {
@@ -77,7 +78,7 @@ public class Game : MonoBehaviour
         _commandEnemyFactory = new CommandEnemyFactory();
         _commandPlayerFactory = new CommandPlayerFactory();
         
-      //  _sceneController = new SceneController(sceneLoader);
+        _sceneController = new SceneController(sceneLoader);
         
         RegisterDependency();
             
@@ -116,26 +117,25 @@ public class Game : MonoBehaviour
     {
         _commandPlayerFactory.Inject(_container);
         _commandEnemyFactory.Inject(_container);
-        
+      
         batleZone.Inject(_container);
+        
         player.Inject(_container);
 
-       /* foreach (var enemy in enemies)
+        /*foreach (var enemy in enemies)
         {
             enemy.Inject(_container);
-        }*/
-
-     
+        }
         
-      //  pauseView.Inject(_container);
-     //   loaderView.Inject(_container);
+        pauseView.Inject(_container);
+        loaderView.Inject(_container);*/
     }
         
     private void Init()
     {
-        /*audioManager.Init();
+      //  audioManager.Init();
 
-        foreach (var weapon in weapons)
+        /*foreach (var weapon in weapons)
         {
             weapon.Init();
         }*/
@@ -143,8 +143,10 @@ public class Game : MonoBehaviour
 
     private void InitView()
     {
-        /*new WalletController(_wallet, walletView);
-        new TimerController(_timer, timerView);*/
+        /*
+        new WalletController(_wallet, walletView);
+        new TimerController(_timer, timerView);
+        */
         
     }
 

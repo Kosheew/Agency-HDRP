@@ -19,7 +19,6 @@ namespace Player.State
         private float _verticalVelocity;
         private float _terminalVelocity = 53.0f;
         
-        
         private bool _isGrounded;
         private bool _isCrouching;
         
@@ -53,7 +52,7 @@ namespace Player.State
         
         private void Move(Transform transform)
         {
-            float targetSpeed = _userInput.Sprint && ! _isCrouching ? _playerSetting.SprintSpeed : _playerSetting.MoveSpeed;
+            float targetSpeed = !_isCrouching && _userInput.Sprint   ? _playerSetting.SprintSpeed : _playerSetting.MoveSpeed;
             
             if (_userInput.Move == Vector2.zero) targetSpeed = 0.0f;
             

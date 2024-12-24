@@ -27,7 +27,8 @@ namespace InputActions
 		public bool Sprint => sprint;
 		public bool Crouch => crouch;
 		public bool AnalogMovement => analogMovement;
-
+		public bool Equip => equip;
+		
 		public void OnMove(InputValue value) => _move = value.Get<Vector2>();
 		public void OnLook(InputValue value)
 		{
@@ -46,7 +47,6 @@ namespace InputActions
 		{
 			crouch = false;
 		}
-		
 		private void OnApplicationFocus(bool hasFocus)
 		{
 			if (hasFocus)
