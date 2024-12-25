@@ -100,7 +100,7 @@ public class Game : MonoBehaviour
             
         Injection();
             
-        Init();
+        //Init();
         
         InitView();
     }
@@ -152,15 +152,15 @@ public class Game : MonoBehaviour
         loaderView.Inject(_container);
     }
         
-    private void Init()
-    {
-        audioManager.Init();
+    //private void Init()
+    //{
+    //    audioManager.Init();
 
-        foreach (var weapon in weapons)
-        {
-            weapon.Init();
-        }
-    }
+    //    foreach (var weapon in weapons)
+    //    {
+    //        weapon.Init();
+    //    }
+    //}
 
     private void InitView()
     {

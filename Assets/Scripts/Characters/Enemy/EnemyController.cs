@@ -63,15 +63,15 @@ namespace Characters.Enemy
             StopCoroutine(routine);
         }
         
-        public void ActiveWeapon()
-        {
-            weapon.ActiveCollider();
-        }
+        //public void ActiveWeapon()
+        //{
+        //    weapon.ActiveCollider();
+        //}
 
-        public void DeactiveWeapon()
-        {
-            weapon.DeactiveCollider();
-        }
+        //public void DeactiveWeapon()
+        //{
+        //    weapon.DeactivateCollider();
+        //}
         
     }
 }
