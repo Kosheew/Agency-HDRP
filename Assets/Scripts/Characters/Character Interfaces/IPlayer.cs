@@ -15,6 +15,8 @@ namespace Characters
         public Transform TransformMain { get; }
         public PlayerAnimation PlayerAnimation { get;  }
         public bool Alive { get; set; }
+        public bool Sneaked { get; set; }
+        public bool Grounded { get; set; }
         
     }
 }

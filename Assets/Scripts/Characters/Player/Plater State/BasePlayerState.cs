@@ -19,8 +19,6 @@ namespace Player.State
         private float _verticalVelocity;
         private float _terminalVelocity = 53.0f;
         
-        private bool _isGrounded;
-        private bool _isCrouching;
         
         public virtual void EnterState(IPlayer player)
         { 
@@ -29,14 +27,13 @@ namespace Player.State
             _userInput = player.UserInput;
             _playerAnimation = player.PlayerAnimation;
         }
-
+        
         public virtual void UpdateState(IPlayer player)
         {
-            JumpAndGravity();
-            GroundedCheck();
-            Crouch();
-            Move(player.TransformMain);
-            Debug.Log("Base State Entered");
+            JumpAndGravity(player);
+            GroundedCheck(player);
+            Crouch(player);
+            Move(player);
         }
 
         public virtual void ExitState(IPlayer player)
@@ -44,15 +41,15 @@ namespace Player.State
           
         }
         
-        private void GroundedCheck()
+        private void GroundedCheck(IPlayer player)
         {
-            _isGrounded = _controller.isGrounded;
-            _playerAnimation.SetGrounded(_isGrounded);
+            player.Grounded = _controller.isGrounded;
+            _playerAnimation.SetGrounded(player.Grounded);
         }
         
-        private void Move(Transform transform)
+        private void Move(IPlayer player)
         {
-            float targetSpeed = !_isCrouching && _userInput.Sprint   ? _playerSetting.SprintSpeed : _playerSetting.MoveSpeed;
+            float targetSpeed = !player.Sneaked && _userInput.Sprint   ? _playerSetting.SprintSpeed : _playerSetting.MoveSpeed;
             
             if (_userInput.Move == Vector2.zero) targetSpeed = 0.0f;
             
@@ -87,10 +84,10 @@ namespace Player.State
             if (_userInput.Move != Vector2.zero)
             {
                 _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg;
-                float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
+                float rotation = Mathf.SmoothDampAngle(player.TransformMain.eulerAngles.y, _targetRotation, ref _rotationVelocity,
                     _playerSetting.RotationSmoothTime);
                 
-                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+                player.TransformMain.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
             
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
@@ -101,9 +98,9 @@ namespace Player.State
             _playerAnimation.MovementAnim(_animationBlend, inputMagnitude);
         }
         
-        private void JumpAndGravity()
+        private void JumpAndGravity(IPlayer player)
         {
-            if (_isGrounded)
+            if (player.Grounded)
             {
                 _playerAnimation.SetFreeFall(false);
 
@@ -112,7 +109,7 @@ namespace Player.State
                     _verticalVelocity = -2;
                 }
                
-                if (_userInput.Jump && !_isCrouching)
+                if (_userInput.Jump && !player.Sneaked)
                 {
                     _verticalVelocity = Mathf.Sqrt(_playerSetting.JumpHeight * -2f * _playerSetting.Gravity);
                 }
@@ -128,13 +125,14 @@ namespace Player.State
             }
         }
         
-        private void Crouch()
+        private void Crouch(IPlayer player)
         {
-            if (_userInput.Crouch && _isGrounded)
+            if (_userInput.Crouch && player.Grounded)
             {
-                _isCrouching = !_isCrouching;
-                _playerAnimation.SetCrouched(_isCrouching);
+                player.Sneaked = !player.Sneaked;
+                _playerAnimation.SetCrouched(player.Sneaked);
             }
+            Debug.Log(player.Sneaked);
         }
         
         private bool IsMoving(Vector3 velocity)

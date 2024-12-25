@@ -20,10 +20,10 @@ namespace Characters.Player
         public PlayerAnimation PlayerAnimation { get; private set; }
         public IFootstepAudioHandler FootstepHandler { get; private set; }
         public Transform TransformMain => transform;
-        
-        public bool Alive { get; set; }
-        
         private CommandPlayerFactory _commandFactory;
+        public bool Alive { get; set; }
+        public bool Sneaked { get; set; }
+        public bool Grounded { get; set; }
         
         public void Inject(DependencyContainer container)
         {
