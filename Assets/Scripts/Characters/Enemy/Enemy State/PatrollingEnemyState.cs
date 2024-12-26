@@ -21,6 +21,8 @@ namespace Enemy.State
         public override void UpdateState(IEnemy enemy)
         { 
            // Debug.Log(enemy.TargetPlayer.TransformMain.position);
+           CanSeeTarget(enemy, enemy.TargetPlayer);
+           
             if (CanSeeTarget(enemy, enemy.TargetPlayer))
             {
                 enemy.CommandEnemy.CreateChasingCommand(enemy);

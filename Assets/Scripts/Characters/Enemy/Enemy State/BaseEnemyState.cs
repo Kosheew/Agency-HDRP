@@ -20,26 +20,52 @@ namespace Enemy.State
             return Vector3.Distance(enemy.MainPosition.position, player.TransformMain.position) <= range;
         }
 
+        private readonly RaycastHit[] _raycastHits = new RaycastHit[10]; 
         protected virtual bool CanSeeTarget(IEnemy enemy, IPlayer player)
         {
             if (!player.Alive) return false;
-            
-            var setting = enemy.EnemySetting;
-            var directionToTarget = (player.TransformMain.position - enemy.EyesPosition.position).normalized;
-            var angleToTarget = Vector3.Angle(enemy.EyesPosition.forward, directionToTarget);
 
+            var setting = enemy.EnemySetting;
+            
+            var directionToTarget = (player.TransformMain.position - enemy.EyesPosition.position).normalized;
+            
+            var angleToTarget = Vector3.Angle(enemy.EyesPosition.forward, directionToTarget);
+            
             if (angleToTarget > setting.FieldOfViewAngle / 2f)
                 return false;
+            
+            Debug.DrawRay(enemy.EyesPosition.position, enemy.EyesPosition.forward * setting.VisionDistance, Color.green, 0.1f);
 
-            if (Physics.Raycast(enemy.EyesPosition.position, directionToTarget, out var hit, setting.VisionDistance, setting.VisionMask))
+            const int additionalRays = 4; 
+            float stepAngle = 10f; 
+            for (int i = 1; i <= additionalRays; i++)
             {
-                Debug.Log("I see your hit");
-                return hit.transform == player.TransformMain; 
+                Vector3 offsetDirection = Quaternion.Euler(0, stepAngle * i, 0) * enemy.EyesPosition.forward;
+                Debug.DrawRay(enemy.EyesPosition.position, offsetDirection * setting.VisionDistance, Color.yellow, 0.1f);
+                if (Physics.RaycastNonAlloc(enemy.EyesPosition.position, offsetDirection, _raycastHits, setting.VisionDistance, setting.VisionMask) > 0)
+                {
+                    if (_raycastHits[0].transform == player.TransformMain)
+                    {
+                        return true;
+                    }
+                }
+                
+                offsetDirection = Quaternion.Euler(0, -stepAngle * i, 0) * enemy.EyesPosition.forward;
+                Debug.DrawRay(enemy.EyesPosition.position, offsetDirection * setting.VisionDistance, Color.yellow, 0.1f);
+                if (Physics.RaycastNonAlloc(enemy.EyesPosition.position, offsetDirection, _raycastHits, setting.VisionDistance, setting.VisionMask) > 0)
+                {
+                    if (_raycastHits[0].transform == player.TransformMain)
+                    {
+                        return true;
+                    }
+                }
             }
 
             return false;
         }
 
+
+       
         public abstract void EnterState(IEnemy enemy);
         public abstract void UpdateState(IEnemy enemy);
         public abstract void ExitState(IEnemy enemy);
