@@ -65,12 +65,12 @@ namespace Characters.Enemy
         
         public void ActiveWeapon()
         {
-            weapon.ActiveCollider();
+            weapon?.ActiveCollider();
         }
 
         public void DeactiveWeapon()
         {
-            weapon.DeactiveCollider();
+            weapon?.DeactiveCollider();
         }
         
     }

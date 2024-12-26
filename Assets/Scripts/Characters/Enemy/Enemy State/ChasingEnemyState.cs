@@ -37,7 +37,7 @@ namespace Enemy.State
             }
             
             enemy.CharacterAnimator.Running(enemy.Agent.velocity.magnitude);
-            enemy.FootstepHandler.PlayFootstepSound();
+          //  enemy.FootstepHandler.PlayFootstepSound();
             enemy.Agent.SetDestination(_currentTarget.position);
 
 

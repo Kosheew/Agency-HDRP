@@ -20,13 +20,14 @@ namespace Enemy.State
 
         public override void UpdateState(IEnemy enemy)
         { 
+           // Debug.Log(enemy.TargetPlayer.TransformMain.position);
             if (CanSeeTarget(enemy, enemy.TargetPlayer))
             {
                 enemy.CommandEnemy.CreateChasingCommand(enemy);
                 return;
             }
             enemy.CharacterAnimator.Running(enemy.Agent.velocity.magnitude);
-            enemy.FootstepHandler.PlayFootstepSound();
+       //     enemy.FootstepHandler.PlayFootstepSound();
             
             if (enemy.Agent.remainingDistance < 0.1f)
             {

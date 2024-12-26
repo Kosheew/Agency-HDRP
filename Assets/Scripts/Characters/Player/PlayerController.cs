@@ -27,6 +27,7 @@ namespace Characters.Player
         
         public void Inject(DependencyContainer container)
         {
+            Alive = true;
             _commandFactory = container.Resolve<CommandPlayerFactory>();
             
             Controller = GetComponent<CharacterController>();

@@ -33,6 +33,7 @@ namespace Enemy.State
 
             if (Physics.Raycast(enemy.EyesPosition.position, directionToTarget, out var hit, setting.VisionDistance, setting.VisionMask))
             {
+                Debug.Log("I see your hit");
                 return hit.transform == player.TransformMain; 
             }
 

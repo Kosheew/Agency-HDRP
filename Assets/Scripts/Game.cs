@@ -122,11 +122,11 @@ public class Game : MonoBehaviour
         
         player.Inject(_container);
 
-        /*foreach (var enemy in enemies)
+        foreach (var enemy in enemies)
         {
             enemy.Inject(_container);
         }
-        
+        /*
         pauseView.Inject(_container);
         loaderView.Inject(_container);*/
     }
@@ -154,11 +154,11 @@ public class Game : MonoBehaviour
     private void Update()
     {
         _statePlayerManager.UpdateState(player);
-        /*foreach (var enemy in enemies)
+        foreach (var enemy in enemies)
         {
             _stateEnemyManager?.UpdateState(enemy);
         }
-        
+        /*
         _timer.UpdateTimer(Time.deltaTime);*/
     }
 
