@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6b9b6415eb4f2b43b0239b23db88d46, type: 3}
-  m_Name: Pistol
+  m_Name: Shotgun
   m_EditorClassIdentifier: 
-  _range: 100
-  _damage: 20
-  _intervalBetweenShots: 0.5
-  _reloadingTime: 2
-  _takingTime: 0.8
+  _range: 20
+  _damage: 15
+  _intervalBetweenShots: 1
+  _reloadingTime: 0
+  _takingTime: 1.2
   _walkingSpread: 0.3
   _crouchingSpread: 0.1
   _runningSpread: 0.5

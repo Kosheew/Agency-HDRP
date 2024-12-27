@@ -7,7 +7,7 @@ public class Pistol : Weapon
 {
     private bool _canReload = true;
 
-    private void Start()
+    protected override void Init()
     {
         _audioSource = GetComponent<AudioSource>();
         _animator = GetComponent<Animator>();
@@ -16,16 +16,13 @@ public class Pistol : Weapon
     private void OnEnable()
     {
         _canShoot = false;
-        Invoke("CanShootick", _params.TakingTime);
+        Invoke("CanShoot", _params.TakingTime);
     }
 
     public void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && _canShoot)
             StartCoroutine(Shoot());
-
-        if (Input.GetMouseButtonUp(0))
-            StopAllCoroutines();
 
         if (Input.GetKeyDown(KeyCode.R) && _canReload &&  _bulletsInMagazine < _params.MaxBulletsInMagazine)
         {
@@ -39,45 +36,43 @@ public class Pistol : Weapon
 
     protected override IEnumerator Shoot()
     {
-        if (_bulletsInMagazine > 0 && _canShoot)
+        if (_bulletsInMagazine > 0)
         {
+            _canShoot = false;
+            float spread = GetSpread();
+
+            Vector3 spreadDirection = new Vector3(Random.Range(-spread, spread),
+            Random.Range(-spread, spread), 0);
+
+            Vector3 shootDirection = (_spawnPoint.forward + _spawnPoint.TransformDirection(spreadDirection)).normalized;
+
             RaycastHit hit;
-            if (Physics.Raycast(_spawnPoint.position, _spawnPoint.forward, out hit, _params.Range))
+            if (Physics.Raycast(_spawnPoint.position, shootDirection, out hit, _params.Range))
             {
                 //Take damage
                 //Play shooting sound
                 //Play shooting effect
-                _bulletsInMagazine--;
-                yield break;
             }
+            _bulletsInMagazine--;
+            Debug.Log("piu");
         }
 
         if (_bulletsInMagazine <= 0)
         {
             //Play no bullets sound
-            yield break;
+            Debug.Log("no piu");
         }
+
+        yield return new WaitForSeconds(_params.IntervalBetweenShots);
+        _canShoot = true;
+        yield break;
     }
 
     private void Reload()
     {
-        int bulletsToAdd = _params.MaxBulletsInMagazine - _bullets;
-
-        _bulletsInMagazine += bulletsToAdd;
-
-        if (_bulletsInMagazine > _params.MaxBulletsInMagazine)
-            _bulletsInMagazine = _params.MaxBulletsInMagazine;
-
+        _bulletsInMagazine = 8;
         _canShoot = true;
         _canReload = true;
-
-        if (_bullets < 0)
-            _bullets = 0;
-    }
-
-    private void CanShootick()
-    {
-        base.CanShoot();
     }
 
     private void OnDisable()

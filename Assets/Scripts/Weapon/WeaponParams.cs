@@ -5,10 +5,14 @@ public class WeaponParams : ScriptableObject
 {
     [SerializeField] private float _range;
     [SerializeField] private float _damage;
+
     [SerializeField] private float _intervalBetweenShots;
     [SerializeField] private float _reloadingTime;
     [SerializeField] private float _takingTime;
-    [SerializeField] private float _spread;
+
+    [SerializeField] private float _walkingSpread;
+    [SerializeField] private float _crouchingSpread;
+    [SerializeField] private float _runningSpread;
 
     [SerializeField] private int _maxBulletsInMagazine;
 
@@ -17,6 +21,8 @@ public class WeaponParams : ScriptableObject
     public float IntervalBetweenShots => _intervalBetweenShots;
     public float ReloadingTime => _reloadingTime;
     public float TakingTime => _takingTime;
-    public float Spread => _spread;
+    public float WalkingSpread => _walkingSpread;
+    public float CrouchingSpread => _crouchingSpread;
+    public float RunningSpread => _runningSpread;
     public int MaxBulletsInMagazine => _maxBulletsInMagazine;
 }

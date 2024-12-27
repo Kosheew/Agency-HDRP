@@ -42,13 +42,23 @@ public abstract class Weapon : MonoBehaviour
     protected AudioSource _audioSource;
     protected Animator _animator;
 
-    protected bool _isWalking = false;
-    protected bool _isCrouching = false;
+    private bool _isWalking = false;
+    private bool _isCrouching = false;
+    private bool _isRunning = false;
+
     protected bool _canShoot = true;
 
+    protected abstract void Init();
     protected abstract IEnumerator Shoot();
-    protected virtual void CanShoot()
+    protected void CanShoot() => _canShoot = true;
+    protected float GetSpread()
     {
-        _canShoot = true;
+        float spread = 0f;
+
+        if(_isWalking) spread = _params.WalkingSpread;
+        if(_isCrouching) spread = _params.CrouchingSpread;
+        if(_isRunning) spread = _params.RunningSpread;
+
+        return spread;
     }
 }
