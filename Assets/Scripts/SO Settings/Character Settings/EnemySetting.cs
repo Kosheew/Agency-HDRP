@@ -14,8 +14,8 @@ namespace CharacterSettings
         [SerializeField] private float fieldOfViewAngle = 120f; 
         [SerializeField] private LayerMask visionMask; 
         [SerializeField] private float loseTargetDelay = 2f; 
-        [SerializeField] private float checkInterval = 0.2f; 
-        
+        [SerializeField] private float checkInterval = 0.2f;
+        [SerializeField] private float stepAngle = 10f;
         public float ChaseDistance => chaseDistance;
         public float AttackDistance => attackDistance;
         public float AttackCooldown => attackCooldown;
@@ -24,5 +24,6 @@ namespace CharacterSettings
         public LayerMask VisionMask => visionMask;
         public float LoseTargetDelay => loseTargetDelay;
         public float CheckInterval => checkInterval;
+        public float StepAngle => stepAngle;
     }
 }

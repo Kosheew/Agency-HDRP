@@ -10,6 +10,9 @@ namespace Enemy.State
     public class PatrollingEnemyState : BaseEnemyState
     {
         private int _currentIndex;
+     
+        private float _checkInterval = 0.2f;
+        private float _timeSinceLastCheck;
         
         public override void EnterState(IEnemy enemy)
         {
@@ -20,10 +23,7 @@ namespace Enemy.State
 
         public override void UpdateState(IEnemy enemy)
         { 
-           // Debug.Log(enemy.TargetPlayer.TransformMain.position);
-           CanSeeTarget(enemy, enemy.TargetPlayer);
-           
-            if (CanSeeTarget(enemy, enemy.TargetPlayer))
+            if (CheckTarget(enemy, enemy.TargetPlayer))
             {
                 enemy.CommandEnemy.CreateChasingCommand(enemy);
                 return;
@@ -31,7 +31,7 @@ namespace Enemy.State
             enemy.CharacterAnimator.Running(enemy.Agent.velocity.magnitude);
        //     enemy.FootstepHandler.PlayFootstepSound();
             
-            if (enemy.Agent.remainingDistance < 0.1f)
+            if (enemy.Agent.remainingDistance < 1f)
             {
                 _currentIndex = (_currentIndex + 1) % enemy.PatrolTargets.Length;
                 enemy.Agent.SetDestination(enemy.PatrolTargets[_currentIndex].position);

@@ -16,11 +16,11 @@ MonoBehaviour:
   turnSpeed: 10
   characterAudioSettings: {fileID: 11400000, guid: f39955d200b77dc449c27dab6d946f8b,
     type: 2}
-  chaseDistance: 15
-  attackDistance: 2
+  chaseDistance: 25
+  attackDistance: 5
   attackCooldown: 1
-  visionDistance: 15
-  fieldOfViewAngle: 80
+  visionDistance: 25
+  fieldOfViewAngle: 138.9
   visionMask:
     serializedVersion: 2
     m_Bits: 6144

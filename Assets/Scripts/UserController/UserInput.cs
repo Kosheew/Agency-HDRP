@@ -46,6 +46,7 @@ namespace InputActions
 		public void ResetInput()
 		{
 			crouch = false;
+			jump = false;
 		}
 		private void OnApplicationFocus(bool hasFocus)
 		{

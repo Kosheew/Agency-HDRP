@@ -1,6 +1,4 @@
-using Characters;
 using Characters.Enemy;
-using Commands;
 using UnityEngine;
 
 namespace Enemy.State
@@ -16,6 +14,12 @@ namespace Enemy.State
 
         public override void UpdateState(IEnemy enemy)
         {
+            if (!CheckTarget(enemy, enemy.TargetPlayer))
+            {
+                enemy.CommandEnemy.CreatePatrolledCommand(enemy);
+                return;
+            }
+            
             if (!IsTargetInRange(enemy, enemy.TargetPlayer, enemy.EnemySetting.AttackDistance))
             {
                 enemy.CommandEnemy.CreateChasingCommand(enemy);
