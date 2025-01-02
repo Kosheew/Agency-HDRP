@@ -36,6 +36,8 @@ namespace Enemy.State
                 _currentIndex = (_currentIndex + 1) % enemy.PatrolTargets.Length;
                 enemy.Agent.SetDestination(enemy.PatrolTargets[_currentIndex].position);
             }
+            
+            enemy.CharacterAnimator.Running(enemy.Agent.velocity.magnitude);
         }
 
         public override void ExitState(IEnemy enemy)

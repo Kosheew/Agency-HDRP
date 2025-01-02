@@ -13,7 +13,5 @@ namespace Characters.Enemy
         public CommandEnemyFactory CommandEnemy { get; }
         public Transform EyesPosition { get; }
         
-        public Coroutine StartTheCoroutine(IEnumerator routine);
-        public void StopTheCoroutine(Coroutine routine);
     }
 }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f37508c5fb6a43579b4c7be627e3ad1a, type: 3}
-  m_Name: Character Settings
+  m_Name: Player Settings
   m_EditorClassIdentifier: 
   moveSpeed: 2
   turnSpeed: 0

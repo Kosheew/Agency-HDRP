@@ -55,7 +55,6 @@ public class PlayerAnimation : MonoBehaviour
             _animator.SetTrigger(_animIDisCrouched);
     }
     
-    
     public void MovementAnim(float speed, float motionSpeed)
     {
         _animator.SetFloat(_animIDSpeed, speed);
@@ -65,21 +64,5 @@ public class PlayerAnimation : MonoBehaviour
     public void SetEquipped(bool equipped)
     {
         _animator.SetBool(_animIDEquipped, equipped);
-    
-     //   _animator.SetLayerWeight(1, equipped ? 1.0f : 0.0f);
-    }
-    
-    private IEnumerator DisableLayerWeightAfterAnimation()
-    {
-        AnimatorStateInfo stateInfo;
-
-        do
-        {
-            stateInfo = _animator.GetCurrentAnimatorStateInfo(1); 
-            yield return null; 
-        } 
-        while (stateInfo.normalizedTime < 1f || !stateInfo.IsName("Rifle Put Away"));
-
-        _animator.SetLayerWeight(1, 0);
     }
 }

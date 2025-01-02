@@ -10,19 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e2ae22bd4074368afbf885b6d646bde, type: 3}
-  m_Name: Character Settings 1
+  m_Name: Enemy Settings
   m_EditorClassIdentifier: 
   moveSpeed: 2
   turnSpeed: 10
+  sprintSpeed: 5.335
+  speedChangeRate: 10
   characterAudioSettings: {fileID: 11400000, guid: f39955d200b77dc449c27dab6d946f8b,
     type: 2}
-  chaseDistance: 25
   attackDistance: 5
   attackCooldown: 1
-  visionDistance: 25
-  fieldOfViewAngle: 138.9
+  visionDistance: 11.2
+  fieldOfViewAngle: 120
   visionMask:
     serializedVersion: 2
-    m_Bits: 6144
+    m_Bits: 3072
   loseTargetDelay: 4
   checkInterval: 0.2
+  stepRayAngle: 10

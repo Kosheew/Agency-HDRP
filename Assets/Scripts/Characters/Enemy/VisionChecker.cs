@@ -44,7 +44,7 @@ public class VisionChecker
     private bool CanSeeTarget(IEnemy enemy, IPlayer targetPlayer)
     {
         var setting = enemy.EnemySetting;
-        float stepAngle = setting.StepAngle; 
+        float stepAngle = setting.StepRayAngle; 
         int additionalRays = Mathf.CeilToInt(setting.FieldOfViewAngle / stepAngle);
 
         Vector3 startDirection = Quaternion.Euler(0, -setting.FieldOfViewAngle / 2, 0) * enemy.EyesPosition.forward;

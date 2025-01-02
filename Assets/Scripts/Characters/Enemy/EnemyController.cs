@@ -53,25 +53,7 @@ namespace Characters.Enemy
             CommandEnemy.CreatePatrolledCommand(this);
         }
 
-        public Coroutine StartTheCoroutine(IEnumerator routine)
-        {
-            return StartCoroutine(routine);
-        }
-
-        public void StopTheCoroutine(Coroutine routine)
-        {
-            StopCoroutine(routine);
-        }
-        
-        public void ActiveWeapon()
-        {
-            weapon?.ActiveCollider();
-        }
-
-        public void DeactiveWeapon()
-        {
-            weapon?.DeactiveCollider();
-        }
+      
         
     }
 }
