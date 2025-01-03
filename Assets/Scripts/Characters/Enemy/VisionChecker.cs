@@ -1,5 +1,5 @@
 using UnityEngine;
-using Characters;
+using Characters.Character_Interfaces;
 using Characters.Enemy;
 
 public class VisionChecker 
@@ -8,47 +8,59 @@ public class VisionChecker
     private float _loseTargetTimer;
     private float _checkTimer;
     
-    private readonly RaycastHit[] _raycastHits = new RaycastHit[10]; 
-       
-    public bool CheckTarget(IEnemy enemy, IPlayer targetPlayer)
-    { 
+    private ITargetHandler _targetHandler;
+    
+    private readonly RaycastHit[] _raycastHits = new RaycastHit[10];
+
+    public VisionChecker(float loseTargetTimer)
+    {
+        _loseTargetTimer = loseTargetTimer;
+    }
+    
+    
+    public ITargetHandler CheckTarget(IEnemy enemy)
+    {
+        if (!enemy.ShouldCheckTarget) return null;
+
         _checkTimer -= Time.deltaTime;
-        if (_checkTimer <= 0)
+        if (_checkTimer <= 0) 
         {
+            CanSeeTarget(enemy);
             _checkTimer = enemy.EnemySetting.CheckInterval;
 
-            if (targetPlayer == null || !targetPlayer.Alive)
+            if (_targetHandler != null)
             {
-                _isTargetVisible = false;
-            }
-
-            if (CanSeeTarget(enemy, targetPlayer))
-            {
-                _isTargetVisible = true;
-                _loseTargetTimer = enemy.EnemySetting.LoseTargetDelay;
-            }
-            else
-            {
-                _loseTargetTimer -= enemy.EnemySetting.CheckInterval;
-                    
-                if (_loseTargetTimer <= 0)
+                if (!_targetHandler.TargetAlive)
                 {
                     _isTargetVisible = false;
-                    targetPlayer = null;
+                    _targetHandler = null;
+                }
+
+                if (_isTargetVisible)
+                {
+                    _loseTargetTimer = enemy.EnemySetting.LoseTargetDelay;
+                }
+                else
+                {
+                    _loseTargetTimer -= enemy.EnemySetting.CheckInterval;
+
+                    if (_loseTargetTimer <= 0) _targetHandler = null;
                 }
             }
         }
-        return _isTargetVisible;
+        return _targetHandler;
     }
 
-    private bool CanSeeTarget(IEnemy enemy, IPlayer targetPlayer)
+    private void CanSeeTarget(IEnemy enemy)
     {
         var setting = enemy.EnemySetting;
         float stepAngle = setting.StepRayAngle; 
         int additionalRays = Mathf.CeilToInt(setting.FieldOfViewAngle / stepAngle);
 
         Vector3 startDirection = Quaternion.Euler(0, -setting.FieldOfViewAngle / 2, 0) * enemy.EyesPosition.forward;
-
+        
+        bool targetIsVisible = false; 
+        
         for (int i = 0; i <= additionalRays; i++)
         {
             Vector3 currentDirection = Quaternion.Euler(0, stepAngle * i, 0) * startDirection;
@@ -56,36 +68,26 @@ public class VisionChecker
             Debug.DrawRay(enemy.EyesPosition.position, currentDirection * setting.VisionDistance, Color.yellow, 0.1f);
 
             int hits = Physics.RaycastNonAlloc(enemy.EyesPosition.position, currentDirection, _raycastHits, setting.VisionDistance, setting.VisionMask);
-
-            if (hits == 0) continue;
-                
+            
             for (int j = 0; j < hits; j++)
             {
                 var hit = _raycastHits[j];
 
-                if (hit.transform == targetPlayer.TransformMain)
+                if (hit.transform.TryGetComponent<ITargetHandler>(out var handler))
                 {
-                    return IsPlayerVisible(hit, enemy.EyesPosition.position);
+                    targetIsVisible = true;
+                    _targetHandler = handler;
+                    Debug.Log(hit.transform.name);
+                    break;
                 }
+                else 
+                {
+                    Debug.Log(hit.transform.name);
+                }
+                
             }
+            if (targetIsVisible) break;
         }
-        return false;
-    }
-    
-    private bool IsPlayerVisible(RaycastHit hit, Vector3 origin)
-    {
-        float playerDistance = (origin - hit.point).sqrMagnitude;
-
-        foreach (var raycastHit in _raycastHits)
-        {
-            if (raycastHit.transform == null) continue; 
-
-            float otherDistance = (origin - raycastHit.point).sqrMagnitude;
-            if (otherDistance < playerDistance && raycastHit.transform != hit.transform)
-            { 
-                return false; 
-            }
-        }
-        return true; 
+        _isTargetVisible = targetIsVisible;
     }
 }

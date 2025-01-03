@@ -1,11 +1,12 @@
 using UnityEngine;
 using CharacterSettings;
 using Audio;
+using Characters.Character_Interfaces;
 using InputActions;
 
 namespace Characters
 {
-    public interface IPlayer
+    public interface IPlayer: ITargetHandler
     {
         public PlayerSetting PlayerSetting { get; }
         public CharacterAudioSettings CharacterAudioSettings { get; }

@@ -132,7 +132,6 @@ namespace Player.State
                 player.Sneaked = !player.Sneaked;
                 _playerAnimation.SetCrouched(player.Sneaked);
             }
-            Debug.Log(player.Sneaked);
         }
         
         private bool IsMoving(Vector3 velocity)

@@ -8,7 +8,7 @@ namespace Player.State
         public override void EnterState(IPlayer player)
         { 
             base.EnterState(player);
-            Debug.Log("Entered CombatState");
+            // Debug.Log("Entered CombatState");
             
         }
 

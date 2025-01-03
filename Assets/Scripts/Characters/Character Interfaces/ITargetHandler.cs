@@ -3,6 +3,7 @@ namespace Characters.Character_Interfaces
 {
     public interface ITargetHandler
     {
-        IPlayer TargetPlayer { get; }
+        public bool TargetAlive { get;}
+        Transform TargetPosition { get; }
     }
 }

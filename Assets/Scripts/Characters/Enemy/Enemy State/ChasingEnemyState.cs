@@ -1,30 +1,34 @@
 using Characters;
 using Characters.Enemy;
 using System.Collections;
+using Characters.Character_Interfaces;
 using UnityEngine;
 
 namespace Enemy.State
 {
     public class ChasingEnemyState : BaseEnemyState
     {
+        private ITargetHandler targetHandler;
         private Transform _currentTarget;
         
         public override void EnterState(IEnemy enemy)
         {
             enemy.Agent.isStopped = false;
-            _currentTarget = enemy.TargetPlayer.TransformMain;
-            
+            enemy.Agent.speed = enemy.EnemySetting.SprintSpeed;
+
+            targetHandler = CheckTarget(enemy);
+            _currentTarget = targetHandler.TargetPosition;
         }
 
         public override void UpdateState(IEnemy enemy)
         {
-            if (!CheckTarget(enemy, enemy.TargetPlayer))
+            if (CheckTarget(enemy) == null)
             {
                 enemy.CommandEnemy.CreatePatrolledCommand(enemy);
                 return;
             }
             
-            if (IsTargetInRange(enemy, enemy.TargetPlayer, enemy.EnemySetting.AttackDistance))
+            if (IsTargetInRange(enemy, targetHandler, enemy.EnemySetting.AttackDistance))
             {
                 enemy.CommandEnemy.CreateAttackCommand(enemy);
                 return;

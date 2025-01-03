@@ -20,11 +20,11 @@ MonoBehaviour:
     type: 2}
   attackDistance: 5
   attackCooldown: 1
-  visionDistance: 11.2
+  visionDistance: 10
   fieldOfViewAngle: 120
   visionMask:
     serializedVersion: 2
-    m_Bits: 3072
+    m_Bits: 1280
   loseTargetDelay: 4
   checkInterval: 0.2
-  stepRayAngle: 10
+  stepRayAngle: 4

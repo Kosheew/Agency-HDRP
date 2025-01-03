@@ -20,6 +20,9 @@ namespace Characters.Player
         public PlayerAnimation PlayerAnimation { get; private set; }
         public IFootstepAudioHandler FootstepHandler { get; private set; }
         public Transform TransformMain => transform;
+        public bool TargetAlive => Alive;
+        public Transform TargetPosition => transform;
+        
         private CommandPlayerFactory _commandFactory;
         public bool Alive { get; set; }
         public bool Sneaked { get; set; }
