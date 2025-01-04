@@ -32,7 +32,7 @@ namespace Enemy.State
                 return;
             }
             
-            RotateTowards(enemy, _targetTransform, new Vector3(0, 30, 0));
+            RotateTowards(enemy, _targetTransform);
 
             if (Time.time >= _nextAttackTime)
             {
@@ -40,6 +40,8 @@ namespace Enemy.State
                 enemy.AttackAudio.PlayAttackSound();
                 _nextAttackTime = Time.time + enemy.EnemySetting.AttackCooldown;
             }
+            
+            enemy.CharacterAnimator.Running(enemy.Agent.velocity.magnitude);
         }
 
         public override void ExitState(IEnemy enemy)

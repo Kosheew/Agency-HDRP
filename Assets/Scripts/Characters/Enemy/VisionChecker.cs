@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using Characters.Character_Interfaces;
 using Characters.Enemy;
@@ -68,25 +69,26 @@ public class VisionChecker
             Debug.DrawRay(enemy.EyesPosition.position, currentDirection * setting.VisionDistance, Color.yellow, 0.1f);
 
             int hits = Physics.RaycastNonAlloc(enemy.EyesPosition.position, currentDirection, _raycastHits, setting.VisionDistance, setting.VisionMask);
-            
-            for (int j = 0; j < hits; j++)
-            {
-                var hit = _raycastHits[j];
 
-                if (hit.transform.TryGetComponent<ITargetHandler>(out var handler))
+            if (hits > 0)
+            {
+                var closestHit = _raycastHits.Take(hits)
+                    .OrderBy(hit => hit.distance)
+                    .First();
+
+                if (closestHit.transform.TryGetComponent<ITargetHandler>(out var handler))
                 {
                     targetIsVisible = true;
                     _targetHandler = handler;
-                    Debug.Log(hit.transform.name);
+                    Debug.Log($"Target detected: {closestHit.transform.name}");
                     break;
                 }
-                else 
+                else
                 {
-                    Debug.Log(hit.transform.name);
+                    Debug.Log($"Obstacle detected: {closestHit.transform.name}");
+                    targetIsVisible = false;
                 }
-                
             }
-            if (targetIsVisible) break;
         }
         _isTargetVisible = targetIsVisible;
     }

@@ -20,7 +20,7 @@ public class CharacterAnimator
     {
          _animator.SetBool(_animIDAttack, isAttacking);
     }
-
+    
     public void Running(float velocity)
     {
         _animator.SetFloat(_animIDSpeed, velocity);

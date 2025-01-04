@@ -18,7 +18,9 @@ namespace Enemy.State
         {
             _currentIndex = 0;
             enemy.Agent.isStopped = false;
+
             enemy.Agent.speed = enemy.EnemySetting.MoveSpeed;
+            
             enemy.Agent.SetDestination(enemy.PatrolTargets[_currentIndex].position);
         }
 

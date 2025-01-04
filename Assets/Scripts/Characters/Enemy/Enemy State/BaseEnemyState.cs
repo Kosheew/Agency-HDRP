@@ -9,12 +9,12 @@ namespace Enemy.State
     public abstract class BaseEnemyState : IEnemyState
     {
         
-        protected virtual void RotateTowards(IEnemy enemy, Transform target, Vector3 angleOffset)
+        protected virtual void RotateTowards(IEnemy enemy, Transform target)
         {
             var direction = (target.position - enemy.MainPosition.position).normalized;
             
-            var offsetRotation = Quaternion.Euler(angleOffset);
-            var modifiedDirection = offsetRotation * direction;
+            //var offsetRotation = Quaternion.Euler(angleOffset);
+            var modifiedDirection = direction;
             
             var lookRotation = Quaternion.LookRotation(new Vector3(modifiedDirection.x, 0, modifiedDirection.z));
             
@@ -44,7 +44,8 @@ namespace Enemy.State
                 enemy.Agent.velocity = Vector3.zero;
             }
         }
-
+        
+        
         
         public abstract void EnterState(IEnemy enemy);
         public abstract void UpdateState(IEnemy enemy);

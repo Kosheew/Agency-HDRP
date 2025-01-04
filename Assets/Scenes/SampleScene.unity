@@ -347,7 +347,7 @@ GameObject:
   - component: {fileID: 163442029}
   - component: {fileID: 163442028}
   - component: {fileID: 163442027}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Batle Zone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1222,7 +1222,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.48317912, y: 0.000000015064554, z: -0.000000008313762, w: 0.87552154}
+  m_LocalRotation: {x: 0.48317912, y: -0.000000015064561, z: 0.0000000083137675, w: 0.87552154}
   m_LocalPosition: {x: -7.68, y: 11.61, z: -2.4899998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3283,7 +3283,7 @@ GameObject:
   - component: {fileID: 992203262}
   - component: {fileID: 992203261}
   - component: {fileID: 992203260}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: Cube (1)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -4838,7 +4838,7 @@ GameObject:
   - component: {fileID: 1504070224}
   - component: {fileID: 1504070223}
   - component: {fileID: 1504070222}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: Cube (2)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -5900,7 +5900,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1872237460}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.48317912, y: 0.000000015064554, z: -0.000000008313762, w: 0.87552154}
+  m_LocalRotation: {x: 0.48317912, y: -0.000000015064561, z: 0.0000000083137675, w: 0.87552154}
   m_LocalPosition: {x: -7.68, y: 11.61, z: -2.4899998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
