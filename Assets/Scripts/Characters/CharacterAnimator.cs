@@ -7,6 +7,7 @@ public class CharacterAnimator
     private readonly Animator _animator;
     private readonly int _animIDSpeed;
     private readonly int _animIDAttack;
+    private readonly int _animIDChase;
     
     public CharacterAnimator(Animator animator)
     {
@@ -14,11 +15,17 @@ public class CharacterAnimator
         
         _animIDSpeed = Animator.StringToHash("Speed");
         _animIDAttack = Animator.StringToHash("Attack");
+        _animIDChase = Animator.StringToHash("Chasing");
     }
 
     public void Attacking(bool isAttacking)
     {
          _animator.SetBool(_animIDAttack, isAttacking);
+    }
+
+    public void Chasing(bool isChasing)
+    {
+        _animator.SetBool(_animIDChase, isChasing);
     }
     
     public void Running(float velocity)

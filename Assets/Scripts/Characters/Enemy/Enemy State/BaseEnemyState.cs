@@ -32,8 +32,14 @@ namespace Enemy.State
         {
             return enemy.VisionChecker.CheckTarget(enemy);
         }
+
+        protected void ChangeSpeed(IEnemy enemy, float targetSpeed, float decelerationRate = 5f)
+        {
+            enemy.Agent.speed = Mathf.Lerp(enemy.Agent.speed, targetSpeed, Time.deltaTime * decelerationRate);
+        }
         
-        protected virtual void SlowDownBeforeStopping(IEnemy enemy)
+        
+        protected void SlowDownBeforeStopping(IEnemy enemy)
         {
             float decelerationRate = 5f; 
             enemy.Agent.velocity = Vector3.Lerp(enemy.Agent.velocity, Vector3.zero, Time.deltaTime * decelerationRate);

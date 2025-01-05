@@ -49,7 +49,7 @@ namespace Player.State
         
         private void Move(IPlayer player)
         {
-            float targetSpeed = !player.Sneaked && _userInput.Sprint   ? _playerSetting.SprintSpeed : _playerSetting.MoveSpeed;
+            float targetSpeed = !player.Sneaked && _userInput.Sprint ? _playerSetting.SprintSpeed : _playerSetting.MoveSpeed;
             
             if (_userInput.Move == Vector2.zero) targetSpeed = 0.0f;
             

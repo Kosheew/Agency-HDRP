@@ -14,12 +14,16 @@ namespace Enemy.State
         {
             _targetHandler = CheckTarget(enemy);
             _targetTransform = _targetHandler.TargetPosition;
-            SlowDownBeforeStopping(enemy);
+            
             enemy.CharacterAnimator.Attacking(true);
         }
 
         public override void UpdateState(IEnemy enemy)
         {
+            //SlowDownBeforeStopping(enemy);
+            
+            ChangeSpeed(enemy, 0, 5);  
+            SlowDownBeforeStopping(enemy);
             if (CheckTarget(enemy) == null)
             {
                 enemy.CommandEnemy.CreatePatrolledCommand(enemy);
@@ -46,6 +50,7 @@ namespace Enemy.State
 
         public override void ExitState(IEnemy enemy)
         {
+            enemy.Agent.isStopped = false;
             enemy.CharacterAnimator.Attacking(false);
         }
     }

@@ -13,14 +13,17 @@ namespace Enemy.State
         
         public override void EnterState(IEnemy enemy)
         {
-            enemy.Agent.isStopped = false;
+           // enemy.Agent.isStopped = false;
             targetHandler = CheckTarget(enemy);
+            
+            enemy.CharacterAnimator.Chasing(true);
             _currentTarget = targetHandler.TargetPosition;
         }
 
         public override void UpdateState(IEnemy enemy)
         {
-            enemy.Agent.speed = Mathf.Lerp(enemy.Agent.speed, enemy.EnemySetting.SprintSpeed, Time.deltaTime * 15);
+            ChangeSpeed(enemy, enemy.EnemySetting.SprintSpeed);  
+            // enemy.Agent.speed = Mathf.Lerp(enemy.Agent.speed, enemy.EnemySetting.SprintSpeed, Time.deltaTime * 15);
             if (CheckTarget(enemy) == null)
             {
                 enemy.CommandEnemy.CreatePatrolledCommand(enemy);
@@ -40,7 +43,7 @@ namespace Enemy.State
 
         public override void ExitState(IEnemy enemy)
         {
-            enemy.Agent.isStopped = true;
+            // enemy.Agent.isStopped = true;
         }
         
     }

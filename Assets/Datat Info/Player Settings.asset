@@ -14,12 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   turnSpeed: 0
+  sprintSpeed: 5.335
+  speedChangeRate: 50
   characterAudioSettings: {fileID: 11400000, guid: f39955d200b77dc449c27dab6d946f8b,
     type: 2}
-  maxClamp: 0
   accelerationRate: 0
-  sprintSpeed: 5.335
   rotationSmoothTime: 0.12
   jumpHeight: 1.2
   gravity: -15
-  speedChangeRate: 200
