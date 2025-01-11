@@ -17,7 +17,13 @@ MonoBehaviour:
   _intervalBetweenShots: 0.065
   _reloadingTime: 0
   _takingTime: 1
+  _noSpreadIncreaseInterval: 1
   _walkingSpread: 0.3
   _crouchingSpread: 0.1
   _runningSpread: 0.5
+  _spreadIncreaseFactor: 1.07
   _maxBulletsInMagazine: 45
+  _isEnemy: 0
+  _shootingSound: {fileID: 0}
+  _noBulletsSound: {fileID: 0}
+  _reloadingSound: {fileID: 0}

@@ -1,11 +1,11 @@
-using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(Animator))]
 public class Shotgun : Weapon
 {
-    protected override void Init()
+    [SerializeField] private int _cartageAmount = 8;
+    public override void Init()
     {
         _audioSource = GetComponent<AudioSource>();
         _animator = GetComponent<Animator>();
@@ -14,21 +14,16 @@ public class Shotgun : Weapon
     private void OnEnable()
     {
         _canShoot = false;
-        Invoke("CanShoot", _params.TakingTime);
+        Invoke(nameof(CanShoot), _params.TakingTime);
     }
 
-    public void Update()
+    public override void Shoot()
     {
-        if (Input.GetMouseButtonDown(0) && _canShoot)
-            StartCoroutine(Shoot());
-    }
-
-    protected override IEnumerator Shoot()
-    {
-        _canShoot = false;
-        if (_bulletsInMagazine > 0)
+        if (_bulletsInMagazine > 0 || _params.IsEnemy)
         {
-            for (int i = 0; i <= 8; i++)
+            _canShoot = false;
+
+            for (int i = 0; i <= _cartageAmount; i++)
             {
                 float spread = GetSpread();
                 float baseSpread = 1f + spread;
@@ -55,9 +50,7 @@ public class Shotgun : Weapon
             //Play no bullets sound
         }
 
-        yield return new WaitForSeconds(_params.IntervalBetweenShots);
-        _canShoot = true;
-        yield break;
+        Invoke(nameof(CanShoot), _params.IntervalBetweenShots);
     }
 
     private void OnDisable()

@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
@@ -26,38 +25,30 @@ public abstract class Weapon : MonoBehaviour
 
     [SerializeField] protected Transform _spawnPoint;
 
-    [SerializeField] protected int _bullets;
     [SerializeField] protected int _bulletsInMagazine;
 
-    [Header("Effect")]
+    [Header("Effects")]
     [SerializeField] protected ParticleSystem _shootingEffect;
     [SerializeField] protected ParticleSystem _bulletEffect;
     [SerializeField] protected ParticleSystem _enemyEffect;
 
-    [Header("Clips")]
-    [SerializeField] protected AudioClip _shootingSound;
-    [SerializeField] protected AudioClip _noBulletsSound;
-    [SerializeField] protected AudioClip _reloadingSound;
-
     protected AudioSource _audioSource;
     protected Animator _animator;
 
-    private bool _isWalking = false;
-    private bool _isCrouching = false;
-    private bool _isRunning = false;
-
     protected bool _canShoot = true;
+    protected float _lastTimeShoot;
 
-    protected abstract void Init();
-    protected abstract IEnumerator Shoot();
+    private float _speed = 1f;
+
+    public abstract void Init();
+    public abstract void Shoot();
     protected void CanShoot() => _canShoot = true;
     protected float GetSpread()
     {
         float spread = 0f;
 
-        if(_isWalking) spread = _params.WalkingSpread;
-        if(_isCrouching) spread = _params.CrouchingSpread;
-        if(_isRunning) spread = _params.RunningSpread;
+        if(_speed < 1.5) spread = _params.WalkingSpread;
+        else spread = _params.RunningSpread;
 
         return spread;
     }

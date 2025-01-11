@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class SubmachineGun : Weapon
 {
-    protected override void Init()
+    public override void Init()
     {
         _audioSource = GetComponent<AudioSource>();
         _animator = GetComponent<Animator>();
@@ -17,23 +17,20 @@ public class SubmachineGun : Weapon
         Invoke("CanShoot", _params.TakingTime);
     }
 
-    public void Update()
+    public override void Shoot()
     {
-        if (Input.GetMouseButtonDown(0) && _canShoot)
-            StartCoroutine(Shoot());
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            StopAllCoroutines();
-            _canShoot = false;
-            Invoke("CanShoot", _params.TakingTime);
-        }
+        
     }
-    protected override IEnumerator Shoot()
+
+    public IEnumerator Shootick()
     {
-        if (_bulletsInMagazine > 0) 
+        if (_bulletsInMagazine > 0 || _params.IsEnemy) 
         {
             float spread = GetSpread();
+
+            if (Time.time - _lastTimeShoot < _params.NoSpreadIncreaseInterval)
+                spread *= _params.SpreadIncreaseFactor;
+
             Vector3 spreadDirection = new Vector3(
                 Random.Range(-spread, spread),
                 Random.Range(-spread, spread),
@@ -51,9 +48,10 @@ public class SubmachineGun : Weapon
 
             _bulletsInMagazine--;
             Debug.Log("piu");
+            _lastTimeShoot = Time.time;
 
             yield return new WaitForSeconds(_params.IntervalBetweenShots);
-            StartCoroutine(Shoot());
+            StartCoroutine(Shootick());
         }
 
         if (_bulletsInMagazine <= 0)

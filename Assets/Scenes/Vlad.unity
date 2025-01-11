@@ -251,14 +251,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _params: {fileID: 11400000, guid: d66cf66fbff25744f9d263cbd68ea5c1, type: 2}
   _spawnPoint: {fileID: 987219390}
-  _bullets: 0
   _bulletsInMagazine: 8
   _shootingEffect: {fileID: 0}
   _bulletEffect: {fileID: 0}
   _enemyEffect: {fileID: 0}
-  _shootingSound: {fileID: 0}
-  _noBulletsSound: {fileID: 0}
-  _reloadingSound: {fileID: 0}
+  _cartageAmount: 8
 --- !u!95 &655073661
 Animator:
   serializedVersion: 5
@@ -679,14 +676,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _params: {fileID: 11400000, guid: 25bb76250e658ab43b67713411bfdfab, type: 2}
   _spawnPoint: {fileID: 757028865}
-  _bullets: 1000
   _bulletsInMagazine: 8
   _shootingEffect: {fileID: 0}
   _bulletEffect: {fileID: 0}
   _enemyEffect: {fileID: 0}
-  _shootingSound: {fileID: 0}
-  _noBulletsSound: {fileID: 0}
-  _reloadingSound: {fileID: 0}
+  _bullets: 1000
+  _reloadingTime: 2.5
 --- !u!65 &957277533
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1162,14 +1157,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _params: {fileID: 11400000, guid: cf5af240319dd354380ba68c6544430a, type: 2}
   _spawnPoint: {fileID: 894567645}
-  _bullets: 0
   _bulletsInMagazine: 45
   _shootingEffect: {fileID: 0}
   _bulletEffect: {fileID: 0}
   _enemyEffect: {fileID: 0}
-  _shootingSound: {fileID: 0}
-  _noBulletsSound: {fileID: 0}
-  _reloadingSound: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

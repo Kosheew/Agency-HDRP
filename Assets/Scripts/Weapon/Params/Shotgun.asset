@@ -15,9 +15,14 @@ MonoBehaviour:
   _range: 20
   _damage: 15
   _intervalBetweenShots: 1
-  _reloadingTime: 0
   _takingTime: 1.2
+  _noSpreadIncreaseInterval: 0
   _walkingSpread: 0.3
   _crouchingSpread: 0.1
   _runningSpread: 0.5
+  _spreadIncreaseFactor: 0
   _maxBulletsInMagazine: 8
+  _isEnemy: 0
+  _shootingSound: {fileID: 0}
+  _noBulletsSound: {fileID: 0}
+  _reloadingSound: {fileID: 0}

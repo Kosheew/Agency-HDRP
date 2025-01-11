@@ -1,13 +1,15 @@
-using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(Animator))]
 public class Pistol : Weapon
 {
+    [SerializeField] protected int _bullets;
+    [SerializeField] private float _reloadingTime;
+
     private bool _canReload = true;
 
-    protected override void Init()
+    public override void Init()
     {
         _audioSource = GetComponent<AudioSource>();
         _animator = GetComponent<Animator>();
@@ -16,34 +18,21 @@ public class Pistol : Weapon
     private void OnEnable()
     {
         _canShoot = false;
-        Invoke("CanShoot", _params.TakingTime);
+        Invoke(nameof(CanShoot), _params.TakingTime);
     }
 
-    public void Update()
+    public override void Shoot()
     {
-        if (Input.GetMouseButtonDown(0) && _canShoot)
-            StartCoroutine(Shoot());
-
-        if (Input.GetKeyDown(KeyCode.R) && _canReload &&  _bulletsInMagazine < _params.MaxBulletsInMagazine)
-        {
-            Invoke("Reload", _params.ReloadingTime);
-            _canShoot = false;
-            _canReload = false;
-            //play reloading animation
-            //play reloading sound
-        }
-    }
-
-    protected override IEnumerator Shoot()
-    {
-        if (_bulletsInMagazine > 0)
+        if ((_bulletsInMagazine > 0 && _canShoot) || _params.IsEnemy)
         {
             _canShoot = false;
+
             float spread = GetSpread();
 
-            Vector3 spreadDirection = new Vector3(Random.Range(-spread, spread),
-            Random.Range(-spread, spread), 0);
+            if (Time.time - _lastTimeShoot < _params.NoSpreadIncreaseInterval)
+                spread *= _params.SpreadIncreaseFactor;
 
+            Vector3 spreadDirection = new Vector3(Random.Range(-spread, spread), Random.Range(-spread, spread), 0);
             Vector3 shootDirection = (_spawnPoint.forward + _spawnPoint.TransformDirection(spreadDirection)).normalized;
 
             RaycastHit hit;
@@ -53,24 +42,30 @@ public class Pistol : Weapon
                 //Play shooting sound
                 //Play shooting effect
             }
+
             _bulletsInMagazine--;
             Debug.Log("piu");
-        }
 
-        if (_bulletsInMagazine <= 0)
+            _lastTimeShoot = Time.time;
+            Invoke(nameof(CanShoot), _params.IntervalBetweenShots);
+        }
+        else if (_bulletsInMagazine <= 0)
         {
-            //Play no bullets sound
             Debug.Log("no piu");
+            //Play no bullets sound
         }
+    }
 
-        yield return new WaitForSeconds(_params.IntervalBetweenShots);
-        _canShoot = true;
-        yield break;
+    public void StartReloading()
+    {
+        _canReload = false;
+        _canShoot = false;
+        Invoke(nameof(Reload), _reloadingTime);
     }
 
     private void Reload()
     {
-        _bulletsInMagazine = 8;
+        _bulletsInMagazine = _params.MaxBulletsInMagazine;
         _canShoot = true;
         _canReload = true;
     }
