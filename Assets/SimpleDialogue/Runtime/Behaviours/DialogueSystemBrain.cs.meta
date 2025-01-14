@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 03f59685896374e44949bd4bfd61b411
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _dialogueSystemStaticOptions: {fileID: 11400000, guid: 4484a13fdd4fd214394a9b31054a10bf, type: 2}
+  - _panel: {instanceID: 0}
+  - _spriteImage: {instanceID: 0}
+  - _withSpriteText: {instanceID: 0}
+  - _withoutSpriteText: {instanceID: 0}
+  - _audioSource: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

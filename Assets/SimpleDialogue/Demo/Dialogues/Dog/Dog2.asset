@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df9202bd2f230c34994c39c95fa003cc, type: 3}
+  m_Name: Dog2
+  m_EditorClassIdentifier: 
+  Messages:
+  - Text: Do'nt look at me like that!
+    SpeakerIcon: {fileID: -474779069, guid: 10b48236bd0564f40ad235b753242645, type: 3}
+    SpeakerSound: {fileID: 8300000, guid: 016a80ada1eda9a45b686e59f0eb471e, type: 3}
+    Overrides:
+      DoTickTime: 0
+      TickTime: 0.15
+      InstantTick: 0
+      DoMessageFont: 0
+      MessageFont: {fileID: 0}
+      DoDefaultTextColor: 0
+      DefaultTextColor: {r: 1, g: 1, b: 1, a: 1}
+      SoundMode: 2
+      PlaySoundlessChars: 0
+      FinishMessage: 0
+      AutomaticalyDelay: 1
+      CantSkip: 0
+      DoDefaultTextSize: 0
+      DefaultTextSize: 50
+    RelativeFormats:
+      RelativeColors: []
+      RelativeSizes: []
+      RelativeFontstyles: []
+    DynamicSources:
+      DynamicSprite: 1
+      SpriteLoop:
+      - {fileID: 933961136, guid: 10b48236bd0564f40ad235b753242645, type: 3}
+      - {fileID: -44907035, guid: 10b48236bd0564f40ad235b753242645, type: 3}
+      LastSpriteInLoop: {fileID: -474779069, guid: 10b48236bd0564f40ad235b753242645, type: 3}
+      SpriteLoopOffset: 2
+      DynamicSound: 0
+      ChangingSounds: []
+      ChangingSoundsMode: 0

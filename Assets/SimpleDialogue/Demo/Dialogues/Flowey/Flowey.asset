@@ -1,0 +1,476 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df9202bd2f230c34994c39c95fa003cc, type: 3}
+  m_Name: Flowey
+  m_EditorClassIdentifier: 
+  Messages:
+  - Text: "Lorem ipsum dolor sit\n amet, consectetur\n adipiscing elit, sed"
+    SpeakerIcon: {fileID: -38666344, guid: 60c9098ea5dc745459f30f5726039ce5, type: 3}
+    SpeakerSound: {fileID: 8300000, guid: 51f316fd568cd47458ecf8594e2c5abd, type: 3}
+    Overrides:
+      DoTickTime: 0
+      TickTime: 0.15
+      InstantTick: 0
+      DoMessageFont: 0
+      MessageFont: {fileID: 0}
+      DoDefaultTextColor: 0
+      DefaultTextColor: {r: 1, g: 1, b: 1, a: 1}
+      SoundMode: 2
+      PlaySoundlessChars: 0
+      FinishMessage: 0
+      AutomaticalyDelay: 1
+      CantSkip: 0
+      DoDefaultTextSize: 0
+      DefaultTextSize: 50
+    RelativeFormats:
+      RelativeColors: []
+      RelativeSizes: []
+      RelativeFontstyles: []
+    DynamicSources:
+      DynamicSprite: 1
+      SpriteLoop:
+      - {fileID: 1519641503, guid: 60c9098ea5dc745459f30f5726039ce5, type: 3}
+      - {fileID: -38666344, guid: 60c9098ea5dc745459f30f5726039ce5, type: 3}
+      LastSpriteInLoop: {fileID: -38666344, guid: 60c9098ea5dc745459f30f5726039ce5,
+        type: 3}
+      SpriteLoopOffset: 2
+      DynamicSound: 0
+      ChangingSounds: []
+      ChangingSoundsMode: 0
+  - Text: "What the hell, \nam I just saying?"
+    SpeakerIcon: {fileID: -1528634447, guid: 60c9098ea5dc745459f30f5726039ce5, type: 3}
+    SpeakerSound: {fileID: 8300000, guid: 51f316fd568cd47458ecf8594e2c5abd, type: 3}
+    Overrides:
+      DoTickTime: 0
+      TickTime: 0.15
+      InstantTick: 0
+      DoMessageFont: 0
+      MessageFont: {fileID: 0}
+      DoDefaultTextColor: 0
+      DefaultTextColor: {r: 1, g: 1, b: 1, a: 1}
+      SoundMode: 2
+      PlaySoundlessChars: 0
+      FinishMessage: 0
+      AutomaticalyDelay: 1
+      CantSkip: 0
+      DoDefaultTextSize: 0
+      DefaultTextSize: 50
+    RelativeFormats:
+      RelativeColors: []
+      RelativeSizes: []
+      RelativeFontstyles: []
+    DynamicSources:
+      DynamicSprite: 1
+      SpriteLoop:
+      - {fileID: -1495106163, guid: 60c9098ea5dc745459f30f5726039ce5, type: 3}
+      - {fileID: -1528634447, guid: 60c9098ea5dc745459f30f5726039ce5, type: 3}
+      LastSpriteInLoop: {fileID: -1528634447, guid: 60c9098ea5dc745459f30f5726039ce5,
+        type: 3}
+      SpriteLoopOffset: 2
+      DynamicSound: 0
+      ChangingSounds: []
+      ChangingSoundsMode: 0
+  - Text: TEST
+    SpeakerIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+    SpeakerSound: {fileID: 8300000, guid: 98ba080592a99e045aa23bb64686cecd, type: 3}
+    Overrides:
+      DoTickTime: 1
+      TickTime: 0.15
+      InstantTick: 0
+      DoMessageFont: 1
+      MessageFont: {fileID: 12800000, guid: 61288fa1eeee3524c900d24089d79247, type: 3}
+      DoDefaultTextColor: 0
+      DefaultTextColor: {r: 1, g: 1, b: 1, a: 1}
+      SoundMode: 2
+      PlaySoundlessChars: 0
+      FinishMessage: 0
+      AutomaticalyDelay: 1
+      CantSkip: 0
+      DoDefaultTextSize: 1
+      DefaultTextSize: 130
+    RelativeFormats:
+      RelativeColors: []
+      RelativeSizes: []
+      RelativeFontstyles: []
+    DynamicSources:
+      DynamicSprite: 0
+      SpriteLoop: []
+      LastSpriteInLoop: {fileID: 0}
+      SpriteLoopOffset: 0
+      DynamicSound: 0
+      ChangingSounds: []
+      ChangingSoundsMode: 0
+  - Text: lol, you just don't have stem! Only head
+    SpeakerIcon: {fileID: -44907035, guid: 10b48236bd0564f40ad235b753242645, type: 3}
+    SpeakerSound: {fileID: 8300000, guid: 016a80ada1eda9a45b686e59f0eb471e, type: 3}
+    Overrides:
+      DoTickTime: 0
+      TickTime: 0.15
+      InstantTick: 0
+      DoMessageFont: 0
+      MessageFont: {fileID: 0}
+      DoDefaultTextColor: 0
+      DefaultTextColor: {r: 1, g: 1, b: 1, a: 1}
+      SoundMode: 2
+      PlaySoundlessChars: 0
+      FinishMessage: 0
+      AutomaticalyDelay: 1
+      CantSkip: 0
+      DoDefaultTextSize: 0
+      DefaultTextSize: 50
+    RelativeFormats:
+      RelativeColors: []
+      RelativeSizes: []
+      RelativeFontstyles: []
+    DynamicSources:
+      DynamicSprite: 1
+      SpriteLoop:
+      - {fileID: 933961136, guid: 10b48236bd0564f40ad235b753242645, type: 3}
+      - {fileID: -44907035, guid: 10b48236bd0564f40ad235b753242645, type: 3}
+      LastSpriteInLoop: {fileID: -44907035, guid: 10b48236bd0564f40ad235b753242645,
+        type: 3}
+      SpriteLoopOffset: 2
+      DynamicSound: 0
+      ChangingSounds: []
+      ChangingSoundsMode: 0
+  - Text: This is not real, it isn't SUPERMEGALANGSUS thing
+    SpeakerIcon: {fileID: -2059768659, guid: 60c9098ea5dc745459f30f5726039ce5, type: 3}
+    SpeakerSound: {fileID: 8300000, guid: 51f316fd568cd47458ecf8594e2c5abd, type: 3}
+    Overrides:
+      DoTickTime: 0
+      TickTime: 0.15
+      InstantTick: 0
+      DoMessageFont: 0
+      MessageFont: {fileID: 0}
+      DoDefaultTextColor: 0
+      DefaultTextColor: {r: 1, g: 1, b: 1, a: 1}
+      SoundMode: 2
+      PlaySoundlessChars: 0
+      FinishMessage: 0
+      AutomaticalyDelay: 1
+      CantSkip: 0
+      DoDefaultTextSize: 0
+      DefaultTextSize: 50
+    RelativeFormats:
+      RelativeColors:
+      - Start: 12
+        End: 15
+        Format: {r: 0.049001455, g: 1, b: 0, a: 1}
+        Gradient: 0
+        GradientFormat:
+          serializedVersion: 2
+          key0: {r: 1, g: 1, b: 1, a: 1}
+          key1: {r: 1, g: 1, b: 1, a: 1}
+          key2: {r: 0, g: 0, b: 0, a: 0}
+          key3: {r: 0, g: 0, b: 0, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 0
+          ctime1: 65535
+          ctime2: 0
+          ctime3: 0
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 65535
+          atime2: 0
+          atime3: 0
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_ColorSpace: -1
+          m_NumColorKeys: 2
+          m_NumAlphaKeys: 2
+      - Start: 27
+        End: 42
+        Format: {r: 1, g: 0.47949448, b: 0, a: 1}
+        Gradient: 1
+        GradientFormat:
+          serializedVersion: 2
+          key0: {r: 1, g: 0.0037735105, b: 0.0037735105, a: 1}
+          key1: {r: 0.9973347, g: 0.96355265, b: 0.0001380553, a: 0.8784314}
+          key2: {r: 0.11502433, g: 1, b: 0, a: 0}
+          key3: {r: 0, g: 0, b: 0, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 0
+          ctime1: 33346
+          ctime2: 65535
+          ctime3: 0
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 65535
+          atime2: 0
+          atime3: 0
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_ColorSpace: 0
+          m_NumColorKeys: 3
+          m_NumAlphaKeys: 2
+      RelativeSizes: []
+      RelativeFontstyles:
+      - Start: 0
+        End: 3
+        Format: 1
+      - Start: 18
+        End: 19
+        Format: 2
+    DynamicSources:
+      DynamicSprite: 0
+      SpriteLoop: []
+      LastSpriteInLoop: {fileID: 0}
+      SpriteLoopOffset: 0
+      DynamicSound: 0
+      ChangingSounds: []
+      ChangingSoundsMode: 0
+  - Text: '     -_-'
+    SpeakerIcon: {fileID: 1818038549, guid: 60c9098ea5dc745459f30f5726039ce5, type: 3}
+    SpeakerSound: {fileID: 0}
+    Overrides:
+      DoTickTime: 0
+      TickTime: 0.15
+      InstantTick: 1
+      DoMessageFont: 0
+      MessageFont: {fileID: 0}
+      DoDefaultTextColor: 0
+      DefaultTextColor: {r: 1, g: 1, b: 1, a: 1}
+      SoundMode: 0
+      PlaySoundlessChars: 0
+      FinishMessage: 1
+      AutomaticalyDelay: 3
+      CantSkip: 0
+      DoDefaultTextSize: 0
+      DefaultTextSize: 50
+    RelativeFormats:
+      RelativeColors: []
+      RelativeSizes: []
+      RelativeFontstyles: []
+    DynamicSources:
+      DynamicSprite: 0
+      SpriteLoop: []
+      LastSpriteInLoop: {fileID: 0}
+      SpriteLoopOffset: 0
+      DynamicSound: 0
+      ChangingSounds: []
+      ChangingSoundsMode: 0
+  - Text: Did you have an air?
+    SpeakerIcon: {fileID: -1827570760, guid: 10b48236bd0564f40ad235b753242645, type: 3}
+    SpeakerSound: {fileID: 8300000, guid: 016a80ada1eda9a45b686e59f0eb471e, type: 3}
+    Overrides:
+      DoTickTime: 0
+      TickTime: 0.15
+      InstantTick: 0
+      DoMessageFont: 0
+      MessageFont: {fileID: 0}
+      DoDefaultTextColor: 0
+      DefaultTextColor: {r: 1, g: 1, b: 1, a: 1}
+      SoundMode: 2
+      PlaySoundlessChars: 0
+      FinishMessage: 0
+      AutomaticalyDelay: 1
+      CantSkip: 0
+      DoDefaultTextSize: 0
+      DefaultTextSize: 50
+    RelativeFormats:
+      RelativeColors: []
+      RelativeSizes: []
+      RelativeFontstyles: []
+    DynamicSources:
+      DynamicSprite: 1
+      SpriteLoop:
+      - {fileID: -955691068, guid: 10b48236bd0564f40ad235b753242645, type: 3}
+      - {fileID: -1827570760, guid: 10b48236bd0564f40ad235b753242645, type: 3}
+      LastSpriteInLoop: {fileID: -1827570760, guid: 10b48236bd0564f40ad235b753242645,
+        type: 3}
+      SpriteLoopOffset: 2
+      DynamicSound: 0
+      ChangingSounds: []
+      ChangingSoundsMode: 0
+  - Text: ........................................
+    SpeakerIcon: {fileID: -162830521, guid: 60c9098ea5dc745459f30f5726039ce5, type: 3}
+    SpeakerSound: {fileID: 0}
+    Overrides:
+      DoTickTime: 1
+      TickTime: 0.002
+      InstantTick: 0
+      DoMessageFont: 0
+      MessageFont: {fileID: 0}
+      DoDefaultTextColor: 0
+      DefaultTextColor: {r: 1, g: 1, b: 1, a: 1}
+      SoundMode: 0
+      PlaySoundlessChars: 0
+      FinishMessage: 1
+      AutomaticalyDelay: 3
+      CantSkip: 0
+      DoDefaultTextSize: 0
+      DefaultTextSize: 50
+    RelativeFormats:
+      RelativeColors: []
+      RelativeSizes: []
+      RelativeFontstyles: []
+    DynamicSources:
+      DynamicSprite: 0
+      SpriteLoop: []
+      LastSpriteInLoop: {fileID: 0}
+      SpriteLoopOffset: 0
+      DynamicSound: 0
+      ChangingSounds: []
+      ChangingSoundsMode: 0
+  - Text: I knew you didn't have it
+    SpeakerIcon: {fileID: 1040703052, guid: 10b48236bd0564f40ad235b753242645, type: 3}
+    SpeakerSound: {fileID: 8300000, guid: 016a80ada1eda9a45b686e59f0eb471e, type: 3}
+    Overrides:
+      DoTickTime: 0
+      TickTime: 0.15
+      InstantTick: 0
+      DoMessageFont: 0
+      MessageFont: {fileID: 0}
+      DoDefaultTextColor: 0
+      DefaultTextColor: {r: 1, g: 1, b: 1, a: 1}
+      SoundMode: 2
+      PlaySoundlessChars: 0
+      FinishMessage: 0
+      AutomaticalyDelay: 1
+      CantSkip: 0
+      DoDefaultTextSize: 0
+      DefaultTextSize: 50
+    RelativeFormats:
+      RelativeColors: []
+      RelativeSizes: []
+      RelativeFontstyles: []
+    DynamicSources:
+      DynamicSprite: 1
+      SpriteLoop:
+      - {fileID: 254564198, guid: 10b48236bd0564f40ad235b753242645, type: 3}
+      - {fileID: 1040703052, guid: 10b48236bd0564f40ad235b753242645, type: 3}
+      LastSpriteInLoop: {fileID: 1040703052, guid: 10b48236bd0564f40ad235b753242645,
+        type: 3}
+      SpriteLoopOffset: 2
+      DynamicSound: 0
+      ChangingSounds: []
+      ChangingSoundsMode: 0
+  - Text: Just don't exist!
+    SpeakerIcon: {fileID: -474779069, guid: 10b48236bd0564f40ad235b753242645, type: 3}
+    SpeakerSound: {fileID: 8300000, guid: 016a80ada1eda9a45b686e59f0eb471e, type: 3}
+    Overrides:
+      DoTickTime: 0
+      TickTime: 0.15
+      InstantTick: 0
+      DoMessageFont: 0
+      MessageFont: {fileID: 0}
+      DoDefaultTextColor: 0
+      DefaultTextColor: {r: 1, g: 1, b: 1, a: 1}
+      SoundMode: 2
+      PlaySoundlessChars: 0
+      FinishMessage: 0
+      AutomaticalyDelay: 1
+      CantSkip: 0
+      DoDefaultTextSize: 0
+      DefaultTextSize: 50
+    RelativeFormats:
+      RelativeColors: []
+      RelativeSizes: []
+      RelativeFontstyles: []
+    DynamicSources:
+      DynamicSprite: 1
+      SpriteLoop:
+      - {fileID: 933961136, guid: 10b48236bd0564f40ad235b753242645, type: 3}
+      - {fileID: -44907035, guid: 10b48236bd0564f40ad235b753242645, type: 3}
+      LastSpriteInLoop: {fileID: -1827570760, guid: 10b48236bd0564f40ad235b753242645,
+        type: 3}
+      SpriteLoopOffset: 2
+      DynamicSound: 0
+      ChangingSounds: []
+      ChangingSoundsMode: 0
+  - Text: Wait, Wha
+    SpeakerIcon: {fileID: -216593358, guid: 60c9098ea5dc745459f30f5726039ce5, type: 3}
+    SpeakerSound: {fileID: 8300000, guid: 51f316fd568cd47458ecf8594e2c5abd, type: 3}
+    Overrides:
+      DoTickTime: 0
+      TickTime: 0.15
+      InstantTick: 0
+      DoMessageFont: 0
+      MessageFont: {fileID: 0}
+      DoDefaultTextColor: 0
+      DefaultTextColor: {r: 1, g: 1, b: 1, a: 1}
+      SoundMode: 2
+      PlaySoundlessChars: 0
+      FinishMessage: 2
+      AutomaticalyDelay: 0.05
+      CantSkip: 0
+      DoDefaultTextSize: 0
+      DefaultTextSize: 50
+    RelativeFormats:
+      RelativeColors: []
+      RelativeSizes: []
+      RelativeFontstyles: []
+    DynamicSources:
+      DynamicSprite: 0
+      SpriteLoop: []
+      LastSpriteInLoop: {fileID: 0}
+      SpriteLoopOffset: 0
+      DynamicSound: 0
+      ChangingSounds: []
+      ChangingSoundsMode: 0
+  - Text: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    SpeakerIcon: {fileID: 0}
+    SpeakerSound: {fileID: 8300000, guid: 82194d01693d3f042acd92153f2933cf, type: 3}
+    Overrides:
+      DoTickTime: 0
+      TickTime: 0.15
+      InstantTick: 0
+      DoMessageFont: 0
+      MessageFont: {fileID: 0}
+      DoDefaultTextColor: 0
+      DefaultTextColor: {r: 1, g: 1, b: 1, a: 1}
+      SoundMode: 1
+      PlaySoundlessChars: 0
+      FinishMessage: 0
+      AutomaticalyDelay: 1
+      CantSkip: 0
+      DoDefaultTextSize: 0
+      DefaultTextSize: 50
+    RelativeFormats:
+      RelativeColors: []
+      RelativeSizes:
+      - Start: 0
+        End: 34
+        Format: 55
+        Lerp: 1
+        FormatOnStart: 130
+        FormatOnEnd: 5
+      RelativeFontstyles:
+      - Start: 0
+        End: 34
+        Format: 1
+    DynamicSources:
+      DynamicSprite: 0
+      SpriteLoop: []
+      LastSpriteInLoop: {fileID: 0}
+      SpriteLoopOffset: 0
+      DynamicSound: 0
+      ChangingSounds: []
+      ChangingSoundsMode: 0

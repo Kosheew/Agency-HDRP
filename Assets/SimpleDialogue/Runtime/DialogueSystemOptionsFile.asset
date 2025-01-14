@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e74f0c36d00a25a47a55cd7574e78575, type: 3}
+  m_Name: DialogueSystemOptionsFile
+  m_EditorClassIdentifier: 
+  ActiveSubmitKey: 13
+  AltSubmitKey: 122
+  ActiveSkipKey: 303
+  AltSkipKey: 120
+  ActiveSkipToAllKey: 305
+  AltSkipToAllKey: 99
+  DefaultTickTime: 0.0432
+  DefaultFont: {fileID: 12800000, guid: f8424fd662e0a9440ae34e40a55849c4, type: 3}
+  DefaultColor: {r: 1, g: 1, b: 1, a: 1}
+  SoundlessChars: 20002e002c003f00
+  IntervalChars:
+  - Char: 44
+    IntervalScale: 5
+  - Char: 46
+    IntervalScale: 8
+  - Char: 33
+    IntervalScale: 8

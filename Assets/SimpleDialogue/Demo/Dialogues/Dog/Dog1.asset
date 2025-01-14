@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df9202bd2f230c34994c39c95fa003cc, type: 3}
+  m_Name: Dog1
+  m_EditorClassIdentifier: 
+  Messages:
+  - Text: 'don''t worry about it!
+
+      (about Nothing)'
+    SpeakerIcon: {fileID: -474779069, guid: 10b48236bd0564f40ad235b753242645, type: 3}
+    SpeakerSound: {fileID: 8300000, guid: 016a80ada1eda9a45b686e59f0eb471e, type: 3}
+    Overrides:
+      DoTickTime: 0
+      TickTime: 0.15
+      InstantTick: 0
+      DoMessageFont: 0
+      MessageFont: {fileID: 0}
+      DoDefaultTextColor: 0
+      DefaultTextColor: {r: 1, g: 1, b: 1, a: 1}
+      SoundMode: 2
+      PlaySoundlessChars: 0
+      FinishMessage: 0
+      AutomaticalyDelay: 1
+      CantSkip: 0
+      DoDefaultTextSize: 0
+      DefaultTextSize: 50
+    RelativeFormats:
+      RelativeColors:
+      - Start: 29
+        End: 35
+        Format: {r: 1, g: 0, b: 0, a: 1}
+        Gradient: 0
+        GradientFormat:
+          serializedVersion: 2
+          key0: {r: 1, g: 1, b: 1, a: 1}
+          key1: {r: 1, g: 1, b: 1, a: 1}
+          key2: {r: 0, g: 0, b: 0, a: 0}
+          key3: {r: 0, g: 0, b: 0, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 0
+          ctime1: 65535
+          ctime2: 0
+          ctime3: 0
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 65535
+          atime2: 0
+          atime3: 0
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_ColorSpace: -1
+          m_NumColorKeys: 2
+          m_NumAlphaKeys: 2
+      RelativeSizes:
+      - Start: 22
+        End: 36
+        Format: 55
+        Lerp: 0
+        FormatOnStart: 0
+        FormatOnEnd: 0
+      RelativeFontstyles: []
+    DynamicSources:
+      DynamicSprite: 1
+      SpriteLoop:
+      - {fileID: 933961136, guid: 10b48236bd0564f40ad235b753242645, type: 3}
+      - {fileID: -44907035, guid: 10b48236bd0564f40ad235b753242645, type: 3}
+      LastSpriteInLoop: {fileID: -474779069, guid: 10b48236bd0564f40ad235b753242645, type: 3}
+      SpriteLoopOffset: 2
+      DynamicSound: 0
+      ChangingSounds: []
+      ChangingSoundsMode: 0

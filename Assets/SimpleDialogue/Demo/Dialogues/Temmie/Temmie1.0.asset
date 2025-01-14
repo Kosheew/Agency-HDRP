@@ -1,0 +1,197 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df9202bd2f230c34994c39c95fa003cc, type: 3}
+  m_Name: Temmie1.0
+  m_EditorClassIdentifier: 
+  Messages:
+  - Text: Hoi!  Im temmie
+    SpeakerIcon: {fileID: 1146301808, guid: f5bbbe3dd34553f468099d12f631cbb2, type: 3}
+    SpeakerSound: {fileID: 8300000, guid: 0aae57971acb2f44e8bc1c3fbe57caa9, type: 3}
+    Overrides:
+      DoTickTime: 0
+      TickTime: 0.15
+      InstantTick: 0
+      DoMessageFont: 0
+      MessageFont: {fileID: 0}
+      DoDefaultTextColor: 0
+      DefaultTextColor: {r: 1, g: 1, b: 1, a: 1}
+      SoundMode: 2
+      PlaySoundlessChars: 0
+      FinishMessage: 0
+      AutomaticalyDelay: 1
+      CantSkip: 0
+      DoDefaultTextSize: 0
+      DefaultTextSize: 50
+    RelativeFormats:
+      RelativeColors:
+      - Start: 9
+        End: 14
+        Format: {r: 0.5, g: 1, b: 0.9902959, a: 1}
+        Gradient: 0
+        GradientFormat:
+          serializedVersion: 2
+          key0: {r: 1, g: 1, b: 1, a: 1}
+          key1: {r: 1, g: 1, b: 1, a: 1}
+          key2: {r: 0, g: 0, b: 0, a: 0}
+          key3: {r: 0, g: 0, b: 0, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 0
+          ctime1: 65535
+          ctime2: 0
+          ctime3: 0
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 65535
+          atime2: 0
+          atime3: 0
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_ColorSpace: -1
+          m_NumColorKeys: 2
+          m_NumAlphaKeys: 2
+      RelativeSizes: []
+      RelativeFontstyles: []
+    DynamicSources:
+      DynamicSprite: 1
+      SpriteLoop:
+      - {fileID: -1192350399, guid: f5bbbe3dd34553f468099d12f631cbb2, type: 3}
+      - {fileID: 1146301808, guid: f5bbbe3dd34553f468099d12f631cbb2, type: 3}
+      LastSpriteInLoop: {fileID: 864615955, guid: f5bbbe3dd34553f468099d12f631cbb2, type: 3}
+      SpriteLoopOffset: 1
+      DynamicSound: 1
+      ChangingSounds:
+      - {fileID: 8300000, guid: 0aae57971acb2f44e8bc1c3fbe57caa9, type: 3}
+      - {fileID: 8300000, guid: bdf971fc2165b9046ab3fb072bb7c8bf, type: 3}
+      - {fileID: 8300000, guid: 1e0cfba53cacee04aba224e3d4df5fc2, type: 3}
+      - {fileID: 8300000, guid: 2fa62ff5c19cf6a4594212189a27dcc1, type: 3}
+      - {fileID: 8300000, guid: e6f8c4648246ed34ba828fd80a7fae3b, type: 3}
+      - {fileID: 8300000, guid: 0d23768a3d5424543a817f04fe43bb69, type: 3}
+      ChangingSoundsMode: 1
+  - Text: And this is ma frend temmie!
+    SpeakerIcon: {fileID: 1146301808, guid: f5bbbe3dd34553f468099d12f631cbb2, type: 3}
+    SpeakerSound: {fileID: 8300000, guid: 0aae57971acb2f44e8bc1c3fbe57caa9, type: 3}
+    Overrides:
+      DoTickTime: 0
+      TickTime: 0.15
+      InstantTick: 0
+      DoMessageFont: 0
+      MessageFont: {fileID: 0}
+      DoDefaultTextColor: 0
+      DefaultTextColor: {r: 1, g: 1, b: 1, a: 1}
+      SoundMode: 2
+      PlaySoundlessChars: 0
+      FinishMessage: 0
+      AutomaticalyDelay: 1
+      CantSkip: 0
+      DoDefaultTextSize: 0
+      DefaultTextSize: 50
+    RelativeFormats:
+      RelativeColors:
+      - Start: 21
+        End: 26
+        Format: {r: 0.5, g: 1, b: 0.9852989, a: 1}
+        Gradient: 0
+        GradientFormat:
+          serializedVersion: 2
+          key0: {r: 1, g: 1, b: 1, a: 1}
+          key1: {r: 1, g: 1, b: 1, a: 1}
+          key2: {r: 0, g: 0, b: 0, a: 0}
+          key3: {r: 0, g: 0, b: 0, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 0
+          ctime1: 65535
+          ctime2: 0
+          ctime3: 0
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 65535
+          atime2: 0
+          atime3: 0
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_ColorSpace: -1
+          m_NumColorKeys: 2
+          m_NumAlphaKeys: 2
+      RelativeSizes: []
+      RelativeFontstyles: []
+    DynamicSources:
+      DynamicSprite: 1
+      SpriteLoop:
+      - {fileID: -1192350399, guid: f5bbbe3dd34553f468099d12f631cbb2, type: 3}
+      - {fileID: 1146301808, guid: f5bbbe3dd34553f468099d12f631cbb2, type: 3}
+      LastSpriteInLoop: {fileID: 864615955, guid: f5bbbe3dd34553f468099d12f631cbb2, type: 3}
+      SpriteLoopOffset: 1
+      DynamicSound: 1
+      ChangingSounds:
+      - {fileID: 8300000, guid: 0aae57971acb2f44e8bc1c3fbe57caa9, type: 3}
+      - {fileID: 8300000, guid: bdf971fc2165b9046ab3fb072bb7c8bf, type: 3}
+      - {fileID: 8300000, guid: 1e0cfba53cacee04aba224e3d4df5fc2, type: 3}
+      - {fileID: 8300000, guid: 2fa62ff5c19cf6a4594212189a27dcc1, type: 3}
+      - {fileID: 8300000, guid: e6f8c4648246ed34ba828fd80a7fae3b, type: 3}
+      - {fileID: 8300000, guid: 0d23768a3d5424543a817f04fe43bb69, type: 3}
+      ChangingSoundsMode: 2
+  - Text: C0000L C0000L C0000L
+    SpeakerIcon: {fileID: 1146301808, guid: f5bbbe3dd34553f468099d12f631cbb2, type: 3}
+    SpeakerSound: {fileID: 8300000, guid: 0aae57971acb2f44e8bc1c3fbe57caa9, type: 3}
+    Overrides:
+      DoTickTime: 0
+      TickTime: 0.15
+      InstantTick: 0
+      DoMessageFont: 0
+      MessageFont: {fileID: 0}
+      DoDefaultTextColor: 0
+      DefaultTextColor: {r: 1, g: 1, b: 1, a: 1}
+      SoundMode: 2
+      PlaySoundlessChars: 0
+      FinishMessage: 0
+      AutomaticalyDelay: 1
+      CantSkip: 0
+      DoDefaultTextSize: 0
+      DefaultTextSize: 50
+    RelativeFormats:
+      RelativeColors: []
+      RelativeSizes: []
+      RelativeFontstyles: []
+    DynamicSources:
+      DynamicSprite: 1
+      SpriteLoop:
+      - {fileID: -1192350399, guid: f5bbbe3dd34553f468099d12f631cbb2, type: 3}
+      - {fileID: 1146301808, guid: f5bbbe3dd34553f468099d12f631cbb2, type: 3}
+      LastSpriteInLoop: {fileID: 864615955, guid: f5bbbe3dd34553f468099d12f631cbb2, type: 3}
+      SpriteLoopOffset: 1
+      DynamicSound: 1
+      ChangingSounds:
+      - {fileID: 8300000, guid: 0aae57971acb2f44e8bc1c3fbe57caa9, type: 3}
+      - {fileID: 8300000, guid: bdf971fc2165b9046ab3fb072bb7c8bf, type: 3}
+      - {fileID: 8300000, guid: 1e0cfba53cacee04aba224e3d4df5fc2, type: 3}
+      - {fileID: 8300000, guid: 2fa62ff5c19cf6a4594212189a27dcc1, type: 3}
+      - {fileID: 8300000, guid: e6f8c4648246ed34ba828fd80a7fae3b, type: 3}
+      - {fileID: 8300000, guid: 0d23768a3d5424543a817f04fe43bb69, type: 3}
+      ChangingSoundsMode: 0
