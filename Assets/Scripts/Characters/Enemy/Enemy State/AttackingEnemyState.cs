@@ -40,9 +40,16 @@ namespace Enemy.State
 
             if (Time.time >= _nextAttackTime)
             {
-                
                 enemy.AttackAudio.PlayAttackSound();
                 _nextAttackTime = Time.time + enemy.EnemySetting.AttackCooldown;
+                
+                enemy.Weapon.SetSpread(enemy.Agent.velocity.magnitude);
+                enemy.Weapon.IncreaseSpread();
+                enemy.Weapon.Shoot();
+            }
+            else
+            {
+                enemy.Weapon.ResetSpread();
             }
             
             enemy.CharacterAnimator.Running(enemy.Agent.velocity.magnitude);

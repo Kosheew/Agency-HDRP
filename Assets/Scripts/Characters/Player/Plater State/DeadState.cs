@@ -10,6 +10,7 @@ namespace Player.State
         public void EnterState(IPlayer player)
         {
             player.Alive = false;
+            player.PlayerAnimation.Death();
         }
 
         public void UpdateState(IPlayer player)

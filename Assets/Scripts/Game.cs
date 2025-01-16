@@ -9,6 +9,7 @@ using Timer;
 using Paused;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Weapons;
 
 public class Game : MonoBehaviour
 {

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace InputActions
 {
@@ -8,11 +9,13 @@ namespace InputActions
 		[Header("Character Input Values")]
 		private Vector2 _move;
 		private Vector2 _look;
+		private Vector2 _mousePosition;
 		
 		[SerializeField] private bool jump;
 		[SerializeField] private bool sprint;
 		[SerializeField] private bool crouch;
-		[SerializeField] private bool equip;
+		[SerializeField] private bool fire;
+		[SerializeField] private bool reload;
 		
 		[Header("Movement Settings")]
 		[SerializeField] private bool analogMovement;
@@ -21,13 +24,17 @@ namespace InputActions
 		[SerializeField] private bool cursorLocked = true;
 		[SerializeField] private bool cursorInputForLook = true;
 
+		
 		public Vector2 Move => _move;
 		public Vector2 Look => _look;
+		public Vector2 MousePosition => _mousePosition;
 		public bool Jump => jump;
 		public bool Sprint => sprint;
 		public bool Crouch => crouch;
 		public bool AnalogMovement => analogMovement;
-		public bool Equip => equip;
+		public bool Fire => fire;
+		public bool Reload => reload;
+		
 		
 		public void OnMove(InputValue value) => _move = value.Get<Vector2>();
 		public void OnLook(InputValue value)
@@ -41,7 +48,9 @@ namespace InputActions
 		public void OnJump(InputValue value) => jump = value.isPressed;
 		public void OnSprint(InputValue value) => sprint = value.isPressed;
 		public void OnCrouched(InputValue value) => crouch = value.isPressed;
-		public void OnEquipped(InputValue value) => equip = value.isPressed;
+		public void OnFire(InputValue value) => fire = value.isPressed;
+		public void OnReload(InputValue value) => reload = value.isPressed;
+		public void OnMousePosition(InputValue value) => _mousePosition = value.Get<Vector2>();
 
 		public void ResetInput()
 		{

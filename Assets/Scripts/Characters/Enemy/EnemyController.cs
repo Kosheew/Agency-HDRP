@@ -7,6 +7,8 @@ using UnityEngine.AI;
 using System.Collections;
 using Audio;
 using Characters.Character_Interfaces;
+using Characters.Health;
+using Weapons;
 
 namespace Characters.Enemy
 {
@@ -29,6 +31,7 @@ namespace Characters.Enemy
         public EnemySetting EnemySetting => enemySetting;
         public Transform[] PatrolTargets => patrolTargets;
 
+        public CharacterHealth CharacterHealth { get; private set; }
         public CharacterAnimator CharacterAnimator { get; private set; }
         public IFootstepAudioHandler FootstepHandler { get; private set; }
         public AttackAudioHandler AttackAudio { get; private set; }
@@ -37,7 +40,10 @@ namespace Characters.Enemy
         private CharacterAudioSettings _characterAudioSettings;
         public CommandEnemyFactory CommandEnemy { get; private set; }
         public VisionChecker VisionChecker { get; private set; }
+        public Weapon Weapon => weapon;
         public Transform EyesPosition => eyesPosition;
+        
+        private Collider _collider;
         
         public bool ShouldCheckTarget
         {
@@ -61,8 +67,19 @@ namespace Characters.Enemy
             AttackAudio = new AttackAudioHandler(AudioSource, _characterAudioSettings);
             CharacterAnimator = new CharacterAnimator(Animator);
             VisionChecker = new VisionChecker(enemySetting.LoseTargetDelay);
-            
+            CharacterHealth = new CharacterHealth(100);
+            _collider = GetComponent<Collider>();
+            weapon.Init();
             CommandEnemy.CreatePatrolledCommand(this);
-        } 
+            
+            CharacterHealth.OnDeath += OnDeath;
+        }
+
+        private void OnDeath()
+        {
+            CommandEnemy.CreateDeathCommand(this);
+            _collider.enabled = false;
+        }
+        
     }
 }

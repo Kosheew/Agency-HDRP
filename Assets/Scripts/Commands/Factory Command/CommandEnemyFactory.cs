@@ -41,5 +41,12 @@ namespace Commands
             _invoker.SetCommand(idleCommand);
             _invoker.ExecuteCommands();
         }
+
+        public void CreateDeathCommand(IEnemy enemy)
+        {
+            ICommand deathCommand = new DeathCommand(_container, enemy);
+            _invoker.SetCommand(deathCommand);
+            _invoker.ExecuteCommands();
+        }
     }
 }

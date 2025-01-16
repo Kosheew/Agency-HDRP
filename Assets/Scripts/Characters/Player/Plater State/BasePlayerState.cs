@@ -12,7 +12,7 @@ namespace Player.State
         private UserInput _userInput;
         protected PlayerAnimation _playerAnimation;
         
-        private float _speed;
+        protected float _speed;
         private float _animationBlend;
         private float _targetRotation = 0.0f;
         private float _rotationVelocity;

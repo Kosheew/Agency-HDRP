@@ -8,6 +8,7 @@ public class CharacterAnimator
     private readonly int _animIDSpeed;
     private readonly int _animIDAttack;
     private readonly int _animIDChase;
+    private readonly int _animIDDeath;
     
     public CharacterAnimator(Animator animator)
     {
@@ -16,6 +17,7 @@ public class CharacterAnimator
         _animIDSpeed = Animator.StringToHash("Speed");
         _animIDAttack = Animator.StringToHash("Attack");
         _animIDChase = Animator.StringToHash("Chasing");
+        _animIDDeath = Animator.StringToHash("Death");
     }
 
     public void Attacking(bool isAttacking)
@@ -31,5 +33,10 @@ public class CharacterAnimator
     public void Running(float velocity)
     {
         _animator.SetFloat(_animIDSpeed, velocity);
+    }
+
+    public void Death()
+    {
+        _animator.SetTrigger(_animIDDeath);
     }
 }

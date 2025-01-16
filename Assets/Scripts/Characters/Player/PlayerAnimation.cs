@@ -12,7 +12,8 @@ public class PlayerAnimation : MonoBehaviour
     private int _animIDCrouched;
     private int _animIDEquipped;
     private int _animIDisCrouched;
-
+    private int _animIDDeath;
+    
     private bool _equipped;
     
     public void Init()
@@ -31,6 +32,7 @@ public class PlayerAnimation : MonoBehaviour
         _animIDCrouched = Animator.StringToHash("Crouched");
         _animIDEquipped = Animator.StringToHash("Equipped");
         _animIDisCrouched = Animator.StringToHash("isCrouched");
+        _animIDDeath = Animator.StringToHash("Death");
     }
 
     public void SetGrounded(bool isGrounded)
@@ -64,5 +66,10 @@ public class PlayerAnimation : MonoBehaviour
     public void SetEquipped(bool equipped)
     {
         _animator.SetBool(_animIDEquipped, equipped);
+    }
+
+    public void Death()
+    {
+        _animator.SetTrigger(_animIDDeath);
     }
 }

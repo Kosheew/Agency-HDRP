@@ -12,6 +12,7 @@ public class StateEnemyFactory
             TypeCharacterStates.Chased => new ChasingEnemyState(),
             TypeCharacterStates.Patrolled => new PatrollingEnemyState(),
             TypeCharacterStates.Idle => new IdleEnemyState(),
+            TypeCharacterStates.Dead => new DeathEnemyState(),
             _ => throw new ArgumentException($"Unknown state: {stateName}")
         };
     }
