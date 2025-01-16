@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e2ae22bd4074368afbf885b6d646bde, type: 3}
+  m_Name: Enemy Settings
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  turnSpeed: 10
+  sprintSpeed: 5.335
+  speedChangeRate: 10
+  characterAudioSettings: {fileID: 11400000, guid: f39955d200b77dc449c27dab6d946f8b,
+    type: 2}
+  attackDistance: 5
+  attackCooldown: 1
+  visionDistance: 8
+  fieldOfViewAngle: 100
+  visionMask:
+    serializedVersion: 2
+    m_Bits: 768
+  loseTargetDelay: 4
+  checkInterval: 0.2
+  stepRayAngle: 10

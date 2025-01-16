@@ -1,4 +1,5 @@
 using Characters;
+using Characters.Character_Interfaces;
 using Characters.Enemy;
 using UnityEngine;
 
@@ -7,38 +8,51 @@ namespace Enemy.State
 {
     public abstract class BaseEnemyState : IEnemyState
     {
+        
         protected virtual void RotateTowards(IEnemy enemy, Transform target)
         {
             var direction = (target.position - enemy.MainPosition.position).normalized;
-            var lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+            
+            //var offsetRotation = Quaternion.Euler(angleOffset);
+            var modifiedDirection = direction;
+            
+            var lookRotation = Quaternion.LookRotation(new Vector3(modifiedDirection.x, 0, modifiedDirection.z));
+            
             enemy.MainPosition.rotation = Quaternion.Slerp(enemy.MainPosition.rotation, lookRotation, Time.deltaTime * 5);
         }
 
-        protected virtual bool IsTargetInRange(IEnemy enemy, IPlayer player, float range)
+
+        protected virtual bool IsTargetInRange(IEnemy enemy, ITargetHandler target, float range)
         {
-            if (!player.Alive) return false;
-            return Vector3.Distance(enemy.MainPosition.position, player.TransformMain.position) <= range;
+            if (!target.TargetAlive) return false;
+            return Vector3.Distance(enemy.MainPosition.position, target.TargetPosition.position) <= range;
+        }
+        
+        protected virtual ITargetHandler CheckTarget(IEnemy enemy)
+        {
+            return enemy.VisionChecker.CheckTarget(enemy);
         }
 
-        protected virtual bool CanSeeTarget(IEnemy enemy, IPlayer player)
+        protected void ChangeSpeed(IEnemy enemy, float targetSpeed, float decelerationRate = 5f)
         {
-            if (!player.Alive) return false;
-            
-            var setting = enemy.EnemySetting;
-            var directionToTarget = (player.TransformMain.position - enemy.EyesPosition.position).normalized;
-            var angleToTarget = Vector3.Angle(enemy.EyesPosition.forward, directionToTarget);
+            enemy.Agent.speed = Mathf.Lerp(enemy.Agent.speed, targetSpeed, Time.deltaTime * decelerationRate);
+        }
+        
+        
+        protected void SlowDownBeforeStopping(IEnemy enemy)
+        {
+            float decelerationRate = 5f; 
+            enemy.Agent.velocity = Vector3.Lerp(enemy.Agent.velocity, Vector3.zero, Time.deltaTime * decelerationRate);
 
-            if (angleToTarget > setting.FieldOfViewAngle / 2f)
-                return false;
-
-            if (Physics.Raycast(enemy.EyesPosition.position, directionToTarget, out var hit, setting.VisionDistance, setting.VisionMask))
+            if (enemy.Agent.velocity.magnitude <= 0.1f)
             {
-                return hit.transform == player.TransformMain; 
+                enemy.Agent.isStopped = true;
+                enemy.Agent.velocity = Vector3.zero;
             }
-
-            return false;
         }
-
+        
+        
+        
         public abstract void EnterState(IEnemy enemy);
         public abstract void UpdateState(IEnemy enemy);
         public abstract void ExitState(IEnemy enemy);

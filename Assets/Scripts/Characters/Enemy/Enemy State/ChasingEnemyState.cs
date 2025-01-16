@@ -1,78 +1,51 @@
 using Characters;
 using Characters.Enemy;
 using System.Collections;
+using Characters.Character_Interfaces;
 using UnityEngine;
 
 namespace Enemy.State
 {
     public class ChasingEnemyState : BaseEnemyState
     {
-        private bool _isTargetVisible;
-        private float _loseTargetTimer;
+        private ITargetHandler targetHandler;
         private Transform _currentTarget;
-        private Coroutine _visionCheckCoroutine;
         
         public override void EnterState(IEnemy enemy)
         {
-            enemy.Agent.isStopped = false;
-            _currentTarget = enemy.TargetPlayer.TransformMain;
-            _isTargetVisible = true;
-            _loseTargetTimer = enemy.EnemySetting.LoseTargetDelay;
+           // enemy.Agent.isStopped = false;
+            targetHandler = CheckTarget(enemy);
             
-            _visionCheckCoroutine = enemy.StartTheCoroutine(CheckVisionRoutine(enemy));
+            enemy.CharacterAnimator.Chasing(true);
+            _currentTarget = targetHandler.TargetPosition;
         }
 
         public override void UpdateState(IEnemy enemy)
         {
-            if (!_isTargetVisible)
+            ChangeSpeed(enemy, enemy.EnemySetting.SprintSpeed);  
+            // enemy.Agent.speed = Mathf.Lerp(enemy.Agent.speed, enemy.EnemySetting.SprintSpeed, Time.deltaTime * 15);
+            if (CheckTarget(enemy) == null)
             {
                 enemy.CommandEnemy.CreatePatrolledCommand(enemy);
                 return;
             }
             
-            if (IsTargetInRange(enemy, enemy.TargetPlayer, enemy.EnemySetting.AttackDistance))
+            if (IsTargetInRange(enemy, targetHandler, enemy.EnemySetting.AttackDistance))
             {
                 enemy.CommandEnemy.CreateAttackCommand(enemy);
                 return;
             }
             
             enemy.CharacterAnimator.Running(enemy.Agent.velocity.magnitude);
-            enemy.FootstepHandler.PlayFootstepSound();
+          //  enemy.FootstepHandler.PlayFootstepSound();
             enemy.Agent.SetDestination(_currentTarget.position);
-
-
         }
 
         public override void ExitState(IEnemy enemy)
         {
-            enemy.Agent.isStopped = true;
-            enemy.CharacterAnimator.Running(0);
-            enemy.StopTheCoroutine(_visionCheckCoroutine);
+            // enemy.Agent.isStopped = true;
         }
         
-        private IEnumerator CheckVisionRoutine(IEnemy enemy)
-        {
-            while (_currentTarget != null)
-            {
-                if (CanSeeTarget(enemy, enemy.TargetPlayer))
-                {
-                    _isTargetVisible = true;
-                    _loseTargetTimer = enemy.EnemySetting.LoseTargetDelay;
-                }
-                else
-                {
-                    _loseTargetTimer -= enemy.EnemySetting.CheckInterval;
-                    if (_loseTargetTimer <= 0)
-                    {
-                        _isTargetVisible = false; 
-                        _currentTarget = null;
-                        yield break;
-                    }
-                }
-
-                yield return new WaitForSeconds(enemy.EnemySetting.CheckInterval);
-            }
-        }
     }
 }
 

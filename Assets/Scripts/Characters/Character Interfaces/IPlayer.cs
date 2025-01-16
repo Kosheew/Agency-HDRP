@@ -1,19 +1,23 @@
 using UnityEngine;
-using UserController;
 using CharacterSettings;
-using Characters;
 using Audio;
+using Characters.Character_Interfaces;
+using InputActions;
+
 namespace Characters
 {
-    public interface IPlayer
+    public interface IPlayer: ITargetHandler
     {
         public PlayerSetting PlayerSetting { get; }
         public CharacterAudioSettings CharacterAudioSettings { get; }
         public CharacterController Controller { get;  }
-        public Camera CameraMain { get; }
-        public IUserInputs UserInputs { get; }
+        public UserInput UserInput { get; }
         public IFootstepAudioHandler FootstepHandler { get; }
         public Transform TransformMain { get; }
+        public PlayerAnimation PlayerAnimation { get;  }
         public bool Alive { get; set; }
+        public bool Sneaked { get; set; }
+        public bool Grounded { get; set; }
+        
     }
 }

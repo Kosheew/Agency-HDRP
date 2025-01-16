@@ -1,6 +1,5 @@
-using Characters;
+using Characters.Character_Interfaces;
 using Characters.Enemy;
-using Commands;
 using UnityEngine;
 
 namespace Enemy.State
@@ -9,32 +8,50 @@ namespace Enemy.State
     {
         private float _nextAttackTime;
 
+        private ITargetHandler _targetHandler;
+        private Transform _targetTransform;
         public override void EnterState(IEnemy enemy)
         {
-            enemy.Agent.isStopped = true;
+            _targetHandler = CheckTarget(enemy);
+            _targetTransform = _targetHandler.TargetPosition;
+            
+            enemy.CharacterAnimator.Attacking(true);
         }
 
         public override void UpdateState(IEnemy enemy)
         {
-            if (!IsTargetInRange(enemy, enemy.TargetPlayer, enemy.EnemySetting.AttackDistance))
+            //SlowDownBeforeStopping(enemy);
+            
+            ChangeSpeed(enemy, 0, 5);  
+            SlowDownBeforeStopping(enemy);
+            if (CheckTarget(enemy) == null)
+            {
+                enemy.CommandEnemy.CreatePatrolledCommand(enemy);
+                return;
+            }
+            
+            if (!IsTargetInRange(enemy, _targetHandler, enemy.EnemySetting.AttackDistance))
             {
                 enemy.CommandEnemy.CreateChasingCommand(enemy);
                 return;
             }
-
-            RotateTowards(enemy, enemy.TargetPlayer.TransformMain);
+            
+            RotateTowards(enemy, _targetTransform);
 
             if (Time.time >= _nextAttackTime)
             {
-                enemy.CharacterAnimator.Attacking();
+                
                 enemy.AttackAudio.PlayAttackSound();
                 _nextAttackTime = Time.time + enemy.EnemySetting.AttackCooldown;
             }
+            
+            enemy.CharacterAnimator.Running(enemy.Agent.velocity.magnitude);
         }
 
         public override void ExitState(IEnemy enemy)
         {
-            // Залишити пустим, якщо немає специфічної логіки
+            enemy.Agent.isStopped = false;
+            enemy.CharacterAnimator.Attacking(false);
         }
     }
 }

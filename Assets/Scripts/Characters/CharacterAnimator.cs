@@ -5,23 +5,31 @@ using UnityEngine;
 public class CharacterAnimator 
 {
     private readonly Animator _animator;
-    private readonly int _attackHash;
-    private readonly int _runHash;
+    private readonly int _animIDSpeed;
+    private readonly int _animIDAttack;
+    private readonly int _animIDChase;
     
     public CharacterAnimator(Animator animator)
     {
         _animator = animator;
-        _attackHash = Animator.StringToHash("Attack");
-        _runHash = Animator.StringToHash("Run");
+        
+        _animIDSpeed = Animator.StringToHash("Speed");
+        _animIDAttack = Animator.StringToHash("Attack");
+        _animIDChase = Animator.StringToHash("Chasing");
     }
 
-    public void Attacking()
+    public void Attacking(bool isAttacking)
     {
-        _animator.SetTrigger(_attackHash);   
+         _animator.SetBool(_animIDAttack, isAttacking);
     }
 
+    public void Chasing(bool isChasing)
+    {
+        _animator.SetBool(_animIDChase, isChasing);
+    }
+    
     public void Running(float velocity)
     {
-        _animator.SetFloat(_runHash, velocity);
+        _animator.SetFloat(_animIDSpeed, velocity);
     }
 }

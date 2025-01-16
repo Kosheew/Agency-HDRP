@@ -10,34 +10,45 @@ namespace Enemy.State
     public class PatrollingEnemyState : BaseEnemyState
     {
         private int _currentIndex;
+     
+        private float _checkInterval = 0.2f;
+        private float _timeSinceLastCheck;
         
         public override void EnterState(IEnemy enemy)
         {
             _currentIndex = 0;
-            enemy.Agent.isStopped = false;
+            //enemy.Agent.isStopped = false;
+
+           // enemy.Agent.speed = enemy.EnemySetting.MoveSpeed;
+
+            enemy.CharacterAnimator.Chasing(false);
+            
             enemy.Agent.SetDestination(enemy.PatrolTargets[_currentIndex].position);
         }
 
         public override void UpdateState(IEnemy enemy)
         { 
-            if (CanSeeTarget(enemy, enemy.TargetPlayer))
+            ChangeSpeed(enemy, enemy.EnemySetting.MoveSpeed);  
+            
+            if (CheckTarget(enemy) != null)
             {
                 enemy.CommandEnemy.CreateChasingCommand(enemy);
                 return;
             }
-            enemy.CharacterAnimator.Running(enemy.Agent.velocity.magnitude);
-            enemy.FootstepHandler.PlayFootstepSound();
             
-            if (enemy.Agent.remainingDistance < 0.1f)
+            if (enemy.Agent.remainingDistance < 1f)
             {
                 _currentIndex = (_currentIndex + 1) % enemy.PatrolTargets.Length;
                 enemy.Agent.SetDestination(enemy.PatrolTargets[_currentIndex].position);
             }
+            
+            enemy.CharacterAnimator.Running(enemy.Agent.velocity.magnitude);
         }
 
         public override void ExitState(IEnemy enemy)
         {
-            enemy.Agent.isStopped = true;
+           // SlowDownBeforeStopping(enemy);
+          //  enemy.Agent.isStopped = true;
         }
     }
 }
