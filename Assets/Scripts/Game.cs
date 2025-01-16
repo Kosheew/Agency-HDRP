@@ -84,7 +84,7 @@ public class Game : MonoBehaviour
             
         Injection();
             
-        Init();
+        //Init();
         
         InitView();
     }
@@ -130,7 +130,7 @@ public class Game : MonoBehaviour
         pauseView.Inject(_container);
         loaderView.Inject(_container);*/
     }
-        
+
     private void Init()
     {
       //  audioManager.Init();

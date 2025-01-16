@@ -63,9 +63,6 @@ namespace Characters.Enemy
             VisionChecker = new VisionChecker(enemySetting.LoseTargetDelay);
             
             CommandEnemy.CreatePatrolledCommand(this);
-        }
-
-      
-        
+        } 
     }
 }
