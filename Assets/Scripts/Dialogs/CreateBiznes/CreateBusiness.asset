@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42d6d48f24e13ad4abc707a0272e2ec8, type: 3}
-  m_Name: CreateBiznes
+  m_Name: CreateBusiness
   m_EditorClassIdentifier: 
   _personPhoto: {fileID: 192618279, guid: 3c7bf610846c4b64abadc409f21e360a, type: 3}
   _personName: MrBiznes
-  _text: "\u0422\u0438 \u043C\u0430\u0454\u0448 \u0432\u0456\u0434\u0435\u0440\u0438\u0442\u0438
+  _text: "\u0422\u0438 \u043C\u0430\u0454\u0448 \u0432\u0456\u0434\u043A\u0438\u0442\u0438
     \u0431\u0456\u0437\u043D\u0435\u0441"
   _optionsName:
   - "\u0422\u043E\u0447\u043A\u0430 \u043D\u0430 \u0431\u0430\u0437\u0430\u0440\u0456"
