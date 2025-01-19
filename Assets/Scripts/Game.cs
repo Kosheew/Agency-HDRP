@@ -60,7 +60,8 @@ public class Game : MonoBehaviour
         
     private void Awake()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+       // Cursor.lockState = CursorLockMode.Locked;
+       
         Time.timeScale = 1f;
         
         _container = new DependencyContainer();
