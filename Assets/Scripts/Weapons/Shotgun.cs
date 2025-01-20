@@ -4,52 +4,39 @@ namespace Weapons
 {
     public class Shotgun : Weapon
     {
-        [SerializeField] private int _cartageAmount = 8;
-
         public override void Shoot()
         {
-            if (_maxAmmo > 0)
+            if (CheckShoot())
             {
-                _canShoot = false;
-
-                for (int i = 0; i <= _cartageAmount; i++)
+                for (int i = 0; i < weaponSetting.CartageAmount; i++)
                 {
-                    float spread = 0; //GetSpread();
-                    float baseSpread = 1f + spread;
-
-                    Vector3 spreadDirection = new Vector3(
-                        Random.Range(-baseSpread, baseSpread),
-                        Random.Range(-baseSpread, baseSpread),
-                        0
-                    );
-
-                    Vector3 shootDirection = (_spawnPoint.forward + _spawnPoint.TransformDirection(spreadDirection))
-                        .normalized;
-
-                    RaycastHit hit;
-                    if (Physics.Raycast(_spawnPoint.position, shootDirection, out hit, weaponSetting.Range))
-                    {
-                        //Take damage
-                        //Play shooting sound
-                        //Play shooting effect
-                    }
+                    GetShoot();
                 }
-
-                _maxAmmo--;
-                Debug.Log("Piu");
             }
-
-            if (_maxAmmo <= 0)
-            {
-                //Play no bullets sound
-            }
-
-
         }
 
-        private void OnDisable()
+        public override void IncreaseSpread()
         {
-            CancelInvoke();
+            SpreadMultiplier = Mathf.Min(
+                SpreadMultiplier + weaponSetting.SpreadIncreaseRate * weaponSetting.AmountSpreadIncreaseRate * Time.deltaTime,
+                weaponSetting.SpreadIncreaseMultiplier
+                );
+        }
+        
+        protected override Vector3 GetShootDirection()
+        {
+            float range = weaponSetting.Range;
+
+            float maxSpreadAngle = Mathf.Atan(weaponSetting.AmountSpreadIncreaseRate / range);
+            Vector2 randomPointInCircle = Random.insideUnitCircle * Mathf.Tan(maxSpreadAngle) * range;
+
+            Vector3 spreadDirection = new Vector3(
+                randomPointInCircle.x,
+                randomPointInCircle.y,
+                range
+            );
+
+            return (_spawnPoint.forward + _spawnPoint.TransformDirection(spreadDirection)).normalized;
         }
     }
 }

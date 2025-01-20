@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6b9b6415eb4f2b43b0239b23db88d46, type: 3}
+  m_Name: Avenger .45
+  m_EditorClassIdentifier: 
+  range: 10
+  damage: 10
+  timeReload: 0
+  typeWeapon: 0
+  cartageAmount: 0
+  amountSpreadIncreaseRate: 0
+  intervalBetweenShoots: 0.2
+  takingTime: 1
+  spreadIncreaseInterval: 5
+  idleRadiusSpread: 0.4
+  walkingRadiusSpread: 1
+  runningRadiusRadiusSpread: 1.5
+  spreadIncreaseMultiplier: 2
+  spreadIncreaseRate: 2
+  maxAmmoStore: 8
+  shootingSound: {fileID: 0}
+  noBulletsSound: {fileID: 0}
+  reloadingSound: {fileID: 0}

@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.Serialization;
+using Weapons;
+using Sirenix.OdinInspector;
 
 namespace WeaponSettings
 {
@@ -10,6 +12,15 @@ namespace WeaponSettings
         [SerializeField] private float range;
         [SerializeField] private float damage;
         [SerializeField] private float timeReload;
+        
+        [Header("Weapon Type")]
+        [SerializeField] private TypeWeapon typeWeapon;
+        
+        [ShowIf("@typeWeapon == TypeWeapon.Shotgun")]
+        [SerializeField] private int cartageAmount = 0;
+
+        [ShowIf("@typeWeapon == TypeWeapon.Shotgun")] 
+        [Range(1f, 10f)] [SerializeField] private float amountSpreadIncreaseRate;
         
         [Header("Interval Settings")] 
         [SerializeField] float intervalBetweenShoots;
@@ -27,8 +38,9 @@ namespace WeaponSettings
         [Range(1f, 2f)][SerializeField] private float spreadIncreaseMultiplier;
         [Range(1f, 2f)][SerializeField] private float spreadIncreaseRate;
         
+        [FormerlySerializedAs("maxAmmo")]
         [Header("Ammo Settings")] 
-        [SerializeField] private int maxAmmo;
+        [SerializeField] private int maxAmmoStore;
         
         [Header("Clips")] 
         [SerializeField] protected AudioClip shootingSound;
@@ -45,11 +57,15 @@ namespace WeaponSettings
         public float SpreadIncreaseMultiplier => spreadIncreaseMultiplier;
         public float SpreadIncreaseRate => spreadIncreaseRate;
         public float IdleRadiusSpread => idleRadiusSpread;
-        public int MaxAmmo => maxAmmo;
+        public int MaxAmmoStore => maxAmmoStore;
         public float TimeReload => timeReload;
+        public int CartageAmount => cartageAmount;
+        public float AmountSpreadIncreaseRate => amountSpreadIncreaseRate;
         
         public AudioClip ShootingSound => shootingSound;
         public AudioClip NoBulletsSound => noBulletsSound;
         public AudioClip ReloadingSound => reloadingSound;
+        
+        public TypeWeapon TypeWeaponWeapon => typeWeapon;
     }
 }

@@ -11,27 +11,35 @@ namespace Weapons
         [SerializeField] protected WeaponSetting weaponSetting;
         [SerializeField] protected Transform _spawnPoint;
         [SerializeField] protected LayerMask _targetLayer;
+        [SerializeField] protected AmmoView ammoView;
         
         [Header("Effects")] 
         [SerializeField] protected ParticleSystem _shootingEffect;
         [SerializeField] protected ParticleSystem _bulletEffect;
 
+        [SerializeField] protected int ammoInventory;
+        [SerializeField] protected int currentAmmo;
+        protected int _maxAmmoStore;
+
+        
         protected AudioSource _audioSource;
         protected Animator _animator;
 
-        private float _maxRadiusSpread;
+        protected float _maxRadiusSpread;
         protected float _lastTimeShoot;
-        protected int _maxAmmo;
+        protected float _lastTimeReload;
         protected bool _canShoot = true;
+        protected bool _reloading;
+
         public float DamageValue { get; private set; }
-        public float SpreadMultiplier { get; private set; }
+        public float SpreadMultiplier { get; protected set; }
         
         public virtual void Init()
         {
             _audioSource = GetComponent<AudioSource>();
             _animator = GetComponent<Animator>();
             
-            _maxAmmo = weaponSetting.MaxAmmo;
+            _maxAmmoStore = weaponSetting.MaxAmmoStore;
 
             DamageValue = weaponSetting.Damage;
 
@@ -40,29 +48,28 @@ namespace Weapons
 
         public virtual void Shoot()
         {
-            if (_maxAmmo <= 0)
+            if (CheckShoot())
+            {
+                GetShoot();
+            }
+        }
+        
+        protected virtual bool CheckShoot()
+        {
+            if (Time.time - _lastTimeShoot < weaponSetting.IntervalBetweenShoots) return false;
+            
+            _lastTimeShoot = Time.time;
+            
+            if (currentAmmo <= 0)
             {
                 if (weaponSetting.NoBulletsSound != null)
                 {
                     _audioSource.PlayOneShot(weaponSetting.NoBulletsSound);
                 }
-
-                return;
+                Reload();
+                return false;
             }
-
-            if (Time.time - _lastTimeShoot < weaponSetting.IntervalBetweenShoots) return;
-
-            _lastTimeShoot = Time.time;
-
-            Vector3 shootDirection = GetShootDirection();
-
-            var ray = new Ray(_spawnPoint.position, shootDirection);
-
-            if (Physics.Raycast(ray, out var hit, weaponSetting.Range, _targetLayer))
-            {
-                HandleHit(hit);
-            }
-
+            
             if (_shootingEffect != null)
             {
                 _shootingEffect.Play();
@@ -77,13 +84,27 @@ namespace Weapons
             {
                 _audioSource.PlayOneShot(weaponSetting.ShootingSound);
             }
+            
+            currentAmmo--;
+            return true;
+        }
 
-            _maxAmmo--;
+        protected virtual void GetShoot()
+        {
+            Vector3 shootDirection = GetShootDirection();
 
+            var ray = new Ray(_spawnPoint.position, shootDirection);
+
+            if (Physics.Raycast(ray, out var hit, weaponSetting.Range, _targetLayer))
+            {
+                Debug.Log(hit.collider.gameObject.name);
+                HandleHit(hit);
+            }
+            
             Debug.DrawRay(_spawnPoint.position, shootDirection * weaponSetting.Range, Color.red);
         }
 
-        private Vector3 GetShootDirection()
+        protected virtual Vector3 GetShootDirection()
         {
             float range = weaponSetting.Range;
 
@@ -96,12 +117,12 @@ namespace Weapons
             Vector3 spreadDirection = new Vector3(randomPointInCircle.x, randomPointInCircle.y, range);
 
             // Debug.Log("SpreadMultiplier: " + SpreadMultiplier.ToString());
-            Debug.Log("Max Radius Spread: " + _maxRadiusSpread.ToString());
+//            Debug.Log("Max Radius Spread: " + _maxRadiusSpread.ToString());
             
             return (_spawnPoint.forward + _spawnPoint.TransformDirection(spreadDirection)).normalized;
         }
         
-        private void HandleHit(RaycastHit hit)
+        protected virtual void HandleHit(RaycastHit hit)
         {
             if (hit.collider.TryGetComponent(out IHealthCharacter healthCharacter))
             {
@@ -111,7 +132,7 @@ namespace Weapons
             }
         }
 
-        public void SetSpread(float targetSpeed)
+        public virtual void SetSpread(float targetSpeed)
         {
             if (targetSpeed >= 2.5f)
             {
@@ -127,15 +148,48 @@ namespace Weapons
             }
         }
 
-        public void IncreaseSpread()
+        public virtual void IncreaseSpread()
         {
             SpreadMultiplier = Mathf.Min(SpreadMultiplier + weaponSetting.SpreadIncreaseRate * Time.deltaTime,
                 weaponSetting.SpreadIncreaseMultiplier);
         }
 
-        public void ResetSpread()
+        public virtual void ResetSpread()
         {
             SpreadMultiplier = 0f;
+        }
+        
+        public virtual void Reload()
+        {
+            if(_reloading || currentAmmo == _maxAmmoStore || ammoInventory <= 0) return;
+            
+            _reloading = true;
+            
+            _animator?.SetTrigger("Reload");
+            _audioSource?.PlayOneShot(weaponSetting?.ReloadingSound);
+
+            Invoke(nameof(CompleteReload), weaponSetting.TimeReload);
+        }
+
+        private void CompleteReload()
+        {
+            int ammoNeeded = _maxAmmoStore - currentAmmo;
+            int ammoToReload = Mathf.Min(ammoInventory, ammoNeeded);
+
+            currentAmmo += ammoToReload;
+            ammoInventory -= ammoToReload;
+
+          //  ammoView.UpdateAmmo(currentAmmo, ammoInventory);
+            Debug.Log("Reload Complete");
+            _reloading = false;
+        }
+
+        public void AddAmmo(int ammoToAdd, TypeWeapon typeAmmo)
+        {
+            if (weaponSetting.TypeWeaponWeapon.Equals(typeAmmo))
+            {
+                ammoInventory += ammoToAdd;
+            }
         }
     }
 }

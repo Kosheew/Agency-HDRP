@@ -36,12 +36,7 @@ namespace Weapons
             Invoke(nameof(Reload), _reloadingTime);
         }
 
-        private void Reload()
-        {
-            _maxAmmo = weaponSetting.MaxAmmo;
-            _canShoot = true;
-            _canReload = true;
-        }
+      
 
     }
 }

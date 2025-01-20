@@ -36,7 +36,6 @@ namespace Player.State
                 player.Weapon.SetSpread(_speed);
                 player.Weapon.IncreaseSpread();
                 player.Weapon.Shoot();
-                Debug.Log("Fire");
             }
             else
             {

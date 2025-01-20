@@ -80,12 +80,12 @@ public class VisionChecker
                 {
                     targetIsVisible = true;
                     _targetHandler = handler;
-                    Debug.Log($"Target detected: {closestHit.transform.name}");
+                  //  Debug.Log($"Target detected: {closestHit.transform.name}");
                     break;
                 }
                 else
                 {
-                    Debug.Log($"Obstacle detected: {closestHit.transform.name}");
+                  //  Debug.Log($"Obstacle detected: {closestHit.transform.name}");
                     targetIsVisible = false;
                 }
             }
