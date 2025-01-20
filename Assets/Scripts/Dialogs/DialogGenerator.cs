@@ -1,40 +1,42 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(AudioSource))]
 public class DialogGenerator : MonoBehaviour
 {
     [SerializeField] private GameObject _dialogPanel;
     [SerializeField] private RectTransform _parentObject;
-    [SerializeField] private Transform _noParentObject;
+    
     [SerializeField] private float _spaceBetween = 10f;
-    [SerializeField] private float _stretchAmount = 400f;
+    [SerializeField] private float _panelHeight = 500f;
+    
+    [SerializeField] private Color _pressedColor;
+    
+    private AudioSource _audioSource;
 
     private Image _personPhoto;
     private Text _personName;
     private TextMeshProUGUI _text;
     private List<Button> _answers;
 
+    private void Start()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
+    
     public void GenerateDialog(DialogParams dialog)
     {
-        //Transform[] children = new Transform[_parentObject.childCount];
-        //Vector3[] localPositions = new Vector3[_parentObject.childCount];
-
-        //for (int i = 0; i < _parentObject.childCount; i++)
-        //{
-        //    children[i] = _parentObject.GetChild(i);
-        //    localPositions[i] = children[i].localPosition;
-        //}
-
-        //_parentObject.offsetMin = new Vector2(_parentObject.offsetMin.x, _parentObject.offsetMin.y - _stretchAmount);
-
-        //for (int i = 0; i < children.Length; i++)
-        //    children[i].localPosition = localPositions[i];
-
-        GameObject panel = Instantiate(_dialogPanel);
-        panel.transform.SetParent(_parentObject, false);
+        if (dialog.OptionsName.Length != dialog.Options.Length)
+            throw new InvalidOperationException();
+        
+        if(dialog.Audio != null)
+            _audioSource.PlayOneShot(dialog.Audio);
+        
+        GameObject panel = Instantiate(_dialogPanel, _parentObject);
 
         float panelHeight = panel.GetComponent<RectTransform>().rect.height;
         int panelCount = _parentObject.childCount;
@@ -42,6 +44,10 @@ public class DialogGenerator : MonoBehaviour
         panel.GetComponent<RectTransform>().anchoredPosition = newPosition;
 
         panel.transform.localScale = Vector3.one;
+
+        //float newHeight = (_parentObject.childCount * _panelHeight) +
+        //                  ((_parentObject.childCount - 1) * _spaceBetween);
+        //_parentObject.sizeDelta = new Vector2(_parentObject.sizeDelta.x, newHeight);
 
         _personPhoto = panel.transform.Find("PersonPhoto").GetComponent<Image>();
         _personName = panel.GetComponentInChildren<Text>();
@@ -66,6 +72,7 @@ public class DialogGenerator : MonoBehaviour
 
             _answers[index].onClick.AddListener(() =>
             {
+                ChangeTextColor(_answers[index]);
                 DisableButtons(_answers);
                 GenerateDialog(dialog.Options[index]);
             });
@@ -76,5 +83,14 @@ public class DialogGenerator : MonoBehaviour
     {
         foreach (Button button in buttons)
             button.interactable = false;
+    }
+
+    private void ChangeTextColor(Button button) =>
+        button.GetComponentInChildren<Text>().color = _pressedColor;
+
+    private void PlayAudio(AudioClip audioClip)
+    {
+        _audioSource.Stop();
+        _audioSource.PlayOneShot(audioClip);
     }
 }

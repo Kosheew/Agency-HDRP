@@ -15,11 +15,6 @@ MonoBehaviour:
   _personPhoto: {fileID: 192618279, guid: 3c7bf610846c4b64abadc409f21e360a, type: 3}
   _personName: MrBiznes
   _text: "\u0412\u0438 \u043A\u0440\u0456\u043F\u0442\u043E\u043C\u0430\u043D!"
-  _optionsName:
-  - 
-  - 
-  - 
-  _options:
-  - {fileID: 11400000}
-  - {fileID: 11400000, guid: e3b4147d37be296438d46e42aeda539f, type: 2}
-  - {fileID: 11400000, guid: efdbf98ceeba52840be949d99ae3515c, type: 2}
+  _optionsName: []
+  _options: []
+  _audio: {fileID: 8300000, guid: 4a4c3382574023f43a920a73ee69444b, type: 3}
