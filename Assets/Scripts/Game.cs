@@ -38,6 +38,8 @@ public class Game : MonoBehaviour
     
     [SerializeField] private CharacterAudioSettings characterAudioSettings;
     
+    
+    
     private CommandInvoker _commandInvoker;
     
     private WalletModel _wallet;

@@ -18,7 +18,8 @@ namespace Player.State
         private float _rotationVelocity;
         private float _verticalVelocity;
         private float _terminalVelocity = 53.0f;
-        
+
+        private bool _isFreeFall;
         
         public virtual void EnterState(IPlayer player)
         { 
@@ -94,7 +95,19 @@ namespace Player.State
             
             _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
                              new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
-            
+
+            if (!_isFreeFall)
+            {
+                if (_speed > 0.1f && _speed <= _playerSetting.MoveSpeed)
+                {
+                    player.FootstepHandler.PlayFootstepWalkSound();
+                }
+                else if (_speed > _playerSetting.MoveSpeed)
+                {
+                    player.FootstepHandler.PlayFootstepRunSound();
+                }
+            }
+
             _playerAnimation.MovementAnim(_animationBlend, inputMagnitude);
         }
         
@@ -102,7 +115,13 @@ namespace Player.State
         {
             if (player.Grounded)
             {
-                _playerAnimation.SetFreeFall(false);
+                if (_isFreeFall) 
+                {
+                    player.FootstepHandler.PlayFootstepLandSound(); 
+                }
+                
+                _isFreeFall = false;
+                _playerAnimation.SetFreeFall(_isFreeFall);
 
                 if (_verticalVelocity < 0)
                 {
@@ -112,11 +131,13 @@ namespace Player.State
                 if (_userInput.Jump && !player.Sneaked)
                 {
                     _verticalVelocity = Mathf.Sqrt(_playerSetting.JumpHeight * -2f * _playerSetting.Gravity);
+                    player.FootstepHandler.PlayFootstepJumpSound();
                 }
             }
             else
             {
-                _playerAnimation.SetFreeFall(true);
+                _isFreeFall = true;
+                _playerAnimation.SetFreeFall(_isFreeFall);
             }
             
             if (_verticalVelocity < _terminalVelocity)

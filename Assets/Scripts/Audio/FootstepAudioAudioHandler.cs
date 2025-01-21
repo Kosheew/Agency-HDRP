@@ -12,12 +12,36 @@ namespace Audio
         }
         
 
-        public void PlayFootstepSound()
+        public void PlayFootstepWalkSound()
         {
             if (!(Time.time >= _nextStep)) return;
-            var clip = CharacterAudioSettings.GetRandomFootstepClip();
+            var clip = CharacterAudioSettings.GetRandomFootstepWalkClip();
             AudioSource.PlayOneShot(clip);        
-            _nextStep = Time.time + CharacterAudioSettings.StepInterval;   
+            _nextStep = Time.time + CharacterAudioSettings.StepIntervalWalk;   
+        }
+
+        public void PlayFootstepRunSound()
+        {
+            if (!(Time.time >= _nextStep)) return;
+            var clip = CharacterAudioSettings.GetRandomFootstepRunClip();
+            AudioSource.PlayOneShot(clip);        
+            _nextStep = Time.time + CharacterAudioSettings.StepIntervalRun;   
+        }
+
+        public void PlayFootstepJumpSound()
+        {
+            if (!(Time.time >= _nextStep)) return;
+            var clip = CharacterAudioSettings.GetRandomFootstepJumpClip();
+            AudioSource.PlayOneShot(clip);        
+            _nextStep = Time.time + CharacterAudioSettings.StepIntervalWalk;   
+        }
+
+        public void PlayFootstepLandSound()
+        {
+            if (!(Time.time >= _nextStep)) return;
+            var clip = CharacterAudioSettings.GetRandomFootstepLandClip();
+            AudioSource.PlayOneShot(clip);        
+            _nextStep = Time.time + CharacterAudioSettings.StepIntervalWalk;   
         }
     }
 }
