@@ -261,8 +261,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2be626426bbd84583950ba7ae8d4ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hoverTextColor: {r: 0.9456402, g: 1, b: 0, a: 1}
-  _hoverSound: {fileID: 0}
+  _hoverColor: {r: 0.8845068, g: 1, b: 0, a: 1}
+  _hoverSound: {fileID: 8300000, guid: 287b1c23d46038e49addb55a4aa4790a, type: 3}
 --- !u!1 &4937652442828259792
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,8 +366,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2be626426bbd84583950ba7ae8d4ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hoverTextColor: {r: 0.9456402, g: 1, b: 0, a: 1}
-  _hoverSound: {fileID: 0}
+  _hoverColor: {r: 0.8845068, g: 1, b: 0, a: 1}
+  _hoverSound: {fileID: 8300000, guid: 287b1c23d46038e49addb55a4aa4790a, type: 3}
 --- !u!1 &6039776061903181690
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,6 +593,7 @@ GameObject:
   - component: {fileID: 6807735090019149935}
   - component: {fileID: 1139871367670771133}
   - component: {fileID: 621534041345720301}
+  - component: {fileID: 6508628283854865516}
   m_Layer: 5
   m_Name: Option2
   m_TagString: Untagged
@@ -684,8 +685,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2be626426bbd84583950ba7ae8d4ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hoverTextColor: {r: 0.9456402, g: 1, b: 0, a: 1}
-  _hoverSound: {fileID: 0}
+  _hoverColor: {r: 0.8845068, g: 1, b: 0, a: 1}
+  _hoverSound: {fileID: 8300000, guid: 287b1c23d46038e49addb55a4aa4790a, type: 3}
+--- !u!114 &6508628283854865516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6475448039198446188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &8497744497450551461
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,6 +711,7 @@ GameObject:
   - component: {fileID: 4474579450641854429}
   - component: {fileID: 1712057048003741613}
   - component: {fileID: 910903328226164814}
+  - component: {fileID: -3018459559300252214}
   m_Layer: 5
   m_Name: DialogPanel
   m_TagString: Untagged
@@ -767,6 +782,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &-3018459559300252214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8497744497450551461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &8521803826384925481
 GameObject:
   m_ObjectHideFlags: 0

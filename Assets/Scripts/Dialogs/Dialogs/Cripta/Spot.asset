@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42d6d48f24e13ad4abc707a0272e2ec8, type: 3}
-  m_Name: Cripta
+  m_Name: Spot
   m_EditorClassIdentifier: 
   _personPhoto: {fileID: 192618279, guid: 3c7bf610846c4b64abadc409f21e360a, type: 3}
   _personName: MrBiznes
-  _text: "\u0412\u0438 \u043A\u0440\u0456\u043F\u0442\u043E\u043C\u0430\u043D!"
+  _text: "\u0410\u0439 \u0442\u0438\u0433\u0440"
   _optionsName: []
   _options: []
-  _audio: {fileID: 8300000, guid: 4a4c3382574023f43a920a73ee69444b, type: 3}
+  _audio: {fileID: 0}

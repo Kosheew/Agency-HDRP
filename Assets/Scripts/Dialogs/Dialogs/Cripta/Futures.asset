@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d6d48f24e13ad4abc707a0272e2ec8, type: 3}
+  m_Name: Futures
+  m_EditorClassIdentifier: 
+  _personPhoto: {fileID: 192618279, guid: 3c7bf610846c4b64abadc409f21e360a, type: 3}
+  _personName: MrBiznes
+  _text: "\u0410\u0439 \u043B\u0435\u0432"
+  _optionsName: []
+  _options: []
+  _audio: {fileID: 0}

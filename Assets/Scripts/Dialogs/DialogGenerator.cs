@@ -4,29 +4,24 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
-[RequireComponent(typeof(AudioSource))]
 public class DialogGenerator : MonoBehaviour
 {
     [SerializeField] private GameObject _dialogPanel;
-    [SerializeField] private RectTransform _parentObject;
+    [SerializeField] private RectTransform _content;
+    [SerializeField] private RectTransform _scroll;   
     
-    [SerializeField] private float _spaceBetween = 10f;
-    [SerializeField] private float _panelHeight = 500f;
+    [SerializeField] private float _panelHeight = 550f;
+    [SerializeField] private float _panelWidth = 500f;
     
     [SerializeField] private Color _pressedColor;
     
-    private AudioSource _audioSource;
+    [SerializeField] private AudioSource _dialogsAudioSource;
+    [SerializeField] private AudioSource _buttonAudioSource;
 
     private Image _personPhoto;
     private Text _personName;
     private TextMeshProUGUI _text;
     private List<Button> _answers;
-
-    private void Start()
-    {
-        _audioSource = GetComponent<AudioSource>();
-    }
     
     public void GenerateDialog(DialogParams dialog)
     {
@@ -34,20 +29,10 @@ public class DialogGenerator : MonoBehaviour
             throw new InvalidOperationException();
         
         if(dialog.Audio != null)
-            _audioSource.PlayOneShot(dialog.Audio);
+            PlayAudio(dialog.Audio);
         
-        GameObject panel = Instantiate(_dialogPanel, _parentObject);
-
-        float panelHeight = panel.GetComponent<RectTransform>().rect.height;
-        int panelCount = _parentObject.childCount;
-        Vector3 newPosition = new Vector3(0, (-panelHeight + -_spaceBetween) * (panelCount - 1), 0);
-        panel.GetComponent<RectTransform>().anchoredPosition = newPosition;
-
-        panel.transform.localScale = Vector3.one;
-
-        //float newHeight = (_parentObject.childCount * _panelHeight) +
-        //                  ((_parentObject.childCount - 1) * _spaceBetween);
-        //_parentObject.sizeDelta = new Vector2(_parentObject.sizeDelta.x, newHeight);
+        GameObject panel = Instantiate(_dialogPanel, _content);
+        panel.GetComponent<RectTransform>().sizeDelta = new Vector2(_panelHeight, _panelWidth);
 
         _personPhoto = panel.transform.Find("PersonPhoto").GetComponent<Image>();
         _personName = panel.GetComponentInChildren<Text>();
@@ -69,6 +54,7 @@ public class DialogGenerator : MonoBehaviour
             int index = i;
 
             _answers[index].GetComponentInChildren<Text>().text = dialog.OptionsName[index];
+            _answers[index].GetComponent<ButtonInteraction>().AddAudioSource(_buttonAudioSource);
 
             _answers[index].onClick.AddListener(() =>
             {
@@ -90,7 +76,7 @@ public class DialogGenerator : MonoBehaviour
 
     private void PlayAudio(AudioClip audioClip)
     {
-        _audioSource.Stop();
-        _audioSource.PlayOneShot(audioClip);
+        _dialogsAudioSource.Stop();
+        _dialogsAudioSource.PlayOneShot(audioClip);
     }
 }
