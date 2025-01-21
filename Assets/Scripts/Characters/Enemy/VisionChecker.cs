@@ -52,6 +52,10 @@ public class VisionChecker
         return _targetHandler;
     }
 
+    public void SetTargetHandler(ITargetHandler handler)
+    {
+        _targetHandler = handler;
+    }
     private void CanSeeTarget(IEnemy enemy)
     {
         var setting = enemy.EnemySetting;

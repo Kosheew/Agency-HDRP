@@ -48,5 +48,12 @@ namespace Commands
             _invoker.SetCommand(deathCommand);
             _invoker.ExecuteCommands();
         }
+
+        public void CreateToAttackedCommand(IEnemy enemy)
+        {
+            ICommand toAttackedCommand = new ToAttackedCommand(_container, enemy);
+            _invoker.SetCommand(toAttackedCommand);
+            _invoker.ExecuteCommands();
+        }
     }
 }

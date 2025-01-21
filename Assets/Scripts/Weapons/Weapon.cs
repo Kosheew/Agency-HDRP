@@ -5,7 +5,7 @@ using WeaponSettings;
 namespace Weapons
 {
     [RequireComponent(typeof(AudioSource))]
-    [RequireComponent(typeof(Animator))]
+    //[RequireComponent(typeof(Animator))]
     public abstract class Weapon : MonoBehaviour
     {
         [SerializeField] protected WeaponSetting weaponSetting;
@@ -165,7 +165,7 @@ namespace Weapons
             
             _reloading = true;
             
-            _animator?.SetTrigger("Reload");
+         //   _animator?.SetTrigger("Reload");
             _audioSource?.PlayOneShot(weaponSetting?.ReloadingSound);
 
             Invoke(nameof(CompleteReload), weaponSetting.TimeReload);

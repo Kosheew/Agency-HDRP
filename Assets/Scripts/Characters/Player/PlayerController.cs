@@ -10,7 +10,6 @@ using Weapons;
 
 namespace Characters.Player
 {
-    [RequireComponent(typeof(CharacterTouch))]
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(UserInput))]
     public class PlayerController : MonoBehaviour, IPlayer

@@ -52,7 +52,7 @@ namespace Characters.Enemy
         }
         
         public ITargetHandler Target { get; set; }
-
+        
         [SerializeField] private bool checkTarget;
         
         public void Inject(DependencyContainer container)
@@ -62,7 +62,7 @@ namespace Characters.Enemy
             _characterAudioSettings = enemySetting.CharacterAudioSettings;
             
             CommandEnemy = container.Resolve<CommandEnemyFactory>();
-
+            
             FootstepHandler = new FootstepAudioAudioHandler(AudioSource, _characterAudioSettings);
             AttackAudio = new AttackAudioHandler(AudioSource, _characterAudioSettings);
             CharacterAnimator = new CharacterAnimator(Animator);
@@ -73,13 +73,17 @@ namespace Characters.Enemy
             CommandEnemy.CreatePatrolledCommand(this);
             
             CharacterHealth.OnDeath += OnDeath;
+            CharacterHealth.OnHealthChanged += OnDamageable;
         }
-
+        
+        private void OnDamageable(float damage)
+        {
+            CommandEnemy.CreateToAttackedCommand(this);
+        }
         private void OnDeath()
         {
             CommandEnemy.CreateDeathCommand(this);
             _collider.enabled = false;
         }
-        
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player Settings
   m_EditorClassIdentifier: 
   moveSpeed: 2
-  turnSpeed: 40
+  turnSpeed: 80
   sprintSpeed: 5.335
   speedChangeRate: 200
   characterAudioSettings: {fileID: 11400000, guid: f39955d200b77dc449c27dab6d946f8b,
