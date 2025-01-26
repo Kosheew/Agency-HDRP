@@ -10,7 +10,6 @@ namespace Player.State
         protected void RotateTowards(IPlayer player, Vector2 mousePosition)
         {
             var depth = Mathf.Abs(player.TransformMain.position.y - player.MainCamera.transform.position.y);
-            Debug.Log(depth);
             var worldPosition = player.MainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, depth));
 
             // Обчислюємо напрямок у горизонтальній площині (XZ)

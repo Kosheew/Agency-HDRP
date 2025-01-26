@@ -18,7 +18,7 @@ MonoBehaviour:
   typeWeapon: 0
   cartageAmount: 0
   amountSpreadIncreaseRate: 0
-  intervalBetweenShoots: 0.2
+  intervalBetweenShoots: 0.4
   takingTime: 1
   spreadIncreaseInterval: 5
   idleRadiusSpread: 0.4

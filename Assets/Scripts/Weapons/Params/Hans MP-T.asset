@@ -12,20 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6b9b6415eb4f2b43b0239b23db88d46, type: 3}
   m_Name: Hans MP-T
   m_EditorClassIdentifier: 
-  range: 0
-  damage: 0
-  timeReload: 0
+  range: 10
+  damage: 3
+  timeReload: 1.5
   typeWeapon: 1
-  pelletCount: 0
-  intervalBetweenShoots: 0
-  takingTime: 0
-  spreadIncreaseInterval: 0
-  idleRadiusSpread: 0.024
-  walkingRadiusSpread: 0.554
-  runningRadiusRadiusSpread: 1.056
-  spreadIncreaseMultiplier: 1.15
-  spreadIncreaseRate: 1.138
-  maxAmmoStore: 0
+  cartageAmount: 0
+  amountSpreadIncreaseRate: 0
+  intervalBetweenShoots: 0.2
+  takingTime: 1
+  spreadIncreaseInterval: 5
+  idleRadiusSpread: 0.4
+  walkingRadiusSpread: 1
+  runningRadiusRadiusSpread: 1.5
+  spreadIncreaseMultiplier: 2
+  spreadIncreaseRate: 2
+  maxAmmoStore: 35
   shootingSound: {fileID: 0}
   noBulletsSound: {fileID: 0}
   reloadingSound: {fileID: 0}

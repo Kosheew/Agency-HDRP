@@ -118,7 +118,10 @@ namespace Weapons
 
             // Debug.Log("SpreadMultiplier: " + SpreadMultiplier.ToString());
 //            Debug.Log("Max Radius Spread: " + _maxRadiusSpread.ToString());
-            
+
+            // Debug.DrawRay(_spawnPoint.position, shootDirection * weaponSetting.Range, Color.blue, 2f);
+
+
             return (_spawnPoint.forward + _spawnPoint.TransformDirection(spreadDirection)).normalized;
         }
         

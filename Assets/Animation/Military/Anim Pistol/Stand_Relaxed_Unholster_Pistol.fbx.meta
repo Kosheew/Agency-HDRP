@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0b3f663262132634cb00ad9a69d8bf57
+guid: e910abd128c5c4247a5f789118942ac2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: MIL2_M3_W1_Jog_Aim_F
-      takeName: MIL2_M3_W1_Jog_Aim_F
-      internalID: 7974793391266688256
+      name: MIL2_M3_W1_Stand_Relaxed_Unholster
+      takeName: MIL2_M3_W1_Stand_Relaxed_Unholster
+      internalID: 1044708839705763642
       firstFrame: 0
-      lastFrame: 82
+      lastFrame: 71
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -51,7 +51,7 @@ ModelImporter:
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 1
+      keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
