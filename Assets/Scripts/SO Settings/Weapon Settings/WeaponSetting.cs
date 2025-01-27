@@ -43,10 +43,12 @@ namespace WeaponSettings
         [SerializeField] private int maxAmmoStore;
         
         [Header("Clips")] 
-        [SerializeField] protected AudioClip shootingSound;
-        [SerializeField] protected AudioClip noBulletsSound;
-        [SerializeField] protected AudioClip reloadingSound;
+        [SerializeField] private AudioClip shootingSound;
+        [SerializeField] private AudioClip noBulletsSound;
+        [SerializeField] private AudioClip reloadingSound;
 
+        [SerializeField] private Sprite iconWeapon;
+        
         public float Range => range;
         public float Damage => damage;
         public float IntervalBetweenShoots => intervalBetweenShoots;
@@ -65,7 +67,7 @@ namespace WeaponSettings
         public AudioClip ShootingSound => shootingSound;
         public AudioClip NoBulletsSound => noBulletsSound;
         public AudioClip ReloadingSound => reloadingSound;
-        
+        public Sprite IconWeapon => iconWeapon;
         public TypeWeapon TypeWeaponWeapon => typeWeapon;
     }
 }

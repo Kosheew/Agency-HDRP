@@ -1,6 +1,7 @@
 using Characters.Character_Interfaces;
 using UnityEngine;
 using WeaponSettings;
+using System;
 
 namespace Weapons
 {
@@ -11,7 +12,6 @@ namespace Weapons
         [SerializeField] protected WeaponSetting weaponSetting;
         [SerializeField] protected Transform _spawnPoint;
         [SerializeField] protected LayerMask _targetLayer;
-        [SerializeField] protected AmmoView ammoView;
         
         [Header("Effects")] 
         [SerializeField] protected ParticleSystem _shootingEffect;
@@ -19,9 +19,8 @@ namespace Weapons
 
         [SerializeField] protected int ammoInventory;
         [SerializeField] protected int currentAmmo;
-        protected int _maxAmmoStore;
-
         
+        protected int _maxAmmoStore;
         protected AudioSource _audioSource;
         protected Animator _animator;
 
@@ -34,13 +33,14 @@ namespace Weapons
         public float DamageValue { get; private set; }
         public float SpreadMultiplier { get; protected set; }
         
+        public event Action<int, int> OnAmmoUsed;
+        
         public virtual void Init()
         {
             _audioSource = GetComponent<AudioSource>();
             _animator = GetComponent<Animator>();
             
             _maxAmmoStore = weaponSetting.MaxAmmoStore;
-
             DamageValue = weaponSetting.Damage;
 
             _canShoot = true;
@@ -86,6 +86,8 @@ namespace Weapons
             }
             
             currentAmmo--;
+            
+            OnAmmoUsed?.Invoke(currentAmmo, ammoInventory);
             return true;
         }
 
@@ -112,7 +114,7 @@ namespace Weapons
 
             float maxSpreadAngle = Mathf.Atan(_maxRadiusSpread / range);
 
-            Vector2 randomPointInCircle = Random.insideUnitCircle * Mathf.Tan(maxSpreadAngle) * range;
+            Vector2 randomPointInCircle = UnityEngine.Random.insideUnitCircle * Mathf.Tan(maxSpreadAngle) * range;
 
             Vector3 spreadDirection = new Vector3(randomPointInCircle.x, randomPointInCircle.y, range);
 
@@ -181,9 +183,8 @@ namespace Weapons
 
             currentAmmo += ammoToReload;
             ammoInventory -= ammoToReload;
-
-          //  ammoView.UpdateAmmo(currentAmmo, ammoInventory);
-            Debug.Log("Reload Complete");
+            
+            OnAmmoUsed?.Invoke(currentAmmo, ammoInventory);
             _reloading = false;
         }
 
@@ -194,5 +195,9 @@ namespace Weapons
                 ammoInventory += ammoToAdd;
             }
         }
+        
+        public int CurrentAmmo => currentAmmo;
+        public int AmmoInventory => ammoInventory;
+        public Sprite IconWeapon => weaponSetting.IconWeapon;
     }
 }

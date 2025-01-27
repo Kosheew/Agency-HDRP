@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/SlimUI/Modern Menu 1/Scenes/Demos/Demo1.unity
+    path: Assets/Scenes/Menu.unity
     guid: 829a86ba161cdd840842063447f41aab
   - enabled: 1
     path: Assets/Scenes/Example Test Scene.unity

@@ -32,6 +32,8 @@ public class Game : MonoBehaviour
 
     [Header("Weapons")] 
     [SerializeField] private Weapon[] weapons;
+
+    [SerializeField] private WeaponController weaponController;
     
     [Header("Audio Settings")]
     [SerializeField] private AudioManager audioManager;
@@ -126,6 +128,8 @@ public class Game : MonoBehaviour
         
         player.Inject(_container);
 
+        weaponController.Inject(_container);
+        
         foreach (var enemy in enemies)
         {
             enemy.Inject(_container);

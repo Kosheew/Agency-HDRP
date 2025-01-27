@@ -30,14 +30,12 @@ namespace Characters.Player
         public bool TargetAlive => Alive;
         public Transform TargetPosition => transform;
 
-        public Weapon Weapon => _weapon;
+        public Weapon Weapon { get; set; }
         
         private CommandPlayerFactory _commandFactory;
         public bool Alive { get; set; }
         public bool Sneaked { get; set; }
         public bool Grounded { get; set; }
-        
-        [SerializeField] private Weapon _weapon;
         
         public void Inject(DependencyContainer container)
         {
@@ -57,8 +55,6 @@ namespace Characters.Player
             healthView.SetHealth(100);
             
             MainCamera = Camera.main;
-            
-            _weapon.Init();
             
             _commandFactory.CreateRegularCommand(this);
             CharacterHealth.OnHealthChanged += healthView.UpdateHealth;
