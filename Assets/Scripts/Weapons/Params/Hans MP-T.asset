@@ -27,6 +27,7 @@ MonoBehaviour:
   spreadIncreaseMultiplier: 2
   spreadIncreaseRate: 2
   maxAmmoStore: 35
-  shootingSound: {fileID: 0}
-  noBulletsSound: {fileID: 0}
-  reloadingSound: {fileID: 0}
+  shootingSound: {fileID: 8300000, guid: 7b6740ee86cb042b489ce4abcec89fd1, type: 3}
+  noBulletsSound: {fileID: 8300000, guid: e7632c6401c09437e83de45d33c5858e, type: 3}
+  reloadingSound: {fileID: 8300000, guid: cef0fa03af5b747f0abe82cde0b2bccc, type: 3}
+  iconWeapon: {fileID: -784301084, guid: 44598c3ae2f46924b99046f2f3300073, type: 3}

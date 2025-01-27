@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
-
+using System;
 namespace InputActions
 {
 	public class UserInput : MonoBehaviour
@@ -10,6 +10,7 @@ namespace InputActions
 		private Vector2 _move;
 		private Vector2 _look;
 		private Vector2 _mousePosition;
+		private float _scroll;
 		
 		[SerializeField] private bool jump;
 		[SerializeField] private bool sprint;
@@ -24,10 +25,12 @@ namespace InputActions
 		[SerializeField] private bool cursorLocked = true;
 		[SerializeField] private bool cursorInputForLook = true;
 
+		public event Action<float> OnWeaponScroll;
 		
 		public Vector2 Move => _move;
 		public Vector2 Look => _look;
 		public Vector2 MousePosition => _mousePosition;
+		public float Scroll => _scroll; 
 		public bool Jump => jump;
 		public bool Sprint => sprint;
 		public bool Crouch => crouch;
@@ -52,6 +55,11 @@ namespace InputActions
 		public void OnReload(InputValue value) => reload = value.isPressed;
 		public void OnMousePosition(InputValue value) => _mousePosition = value.Get<Vector2>();
 
+		public void OnScroll(InputValue value)
+		{
+			_scroll = value.Get<Vector2>().y;
+			OnWeaponScroll?.Invoke(_scroll);
+		}
 		public void ResetInput()
 		{
 			crouch = false;

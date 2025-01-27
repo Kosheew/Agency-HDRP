@@ -388,6 +388,8 @@ MonoBehaviour:
   ammoView: {fileID: 1113704921}
   weapons:
   - {fileID: 3289723630609420351}
+  - {fileID: 2043278655}
+  - {fileID: 660858440}
 --- !u!4 &138109371 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4639870034382688, guid: 4543ab5e3d405ec40a8d4e9aa5165030,
@@ -2571,8 +2573,8 @@ MonoBehaviour:
     m_Bits: 576
   _shootingEffect: {fileID: 138109373}
   _bulletEffect: {fileID: 0}
-  ammoInventory: 6000
-  currentAmmo: 0
+  ammoInventory: 200
+  currentAmmo: 22
 --- !u!82 &660858441
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2584,7 +2586,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -2629,7 +2631,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -3845,7 +3847,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 293.50256, y: -53.7}
+  m_AnchoredPosition: {x: 293.50244, y: -53.69995}
   m_SizeDelta: {x: 485.21008, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1086655844
@@ -13069,10 +13071,8 @@ MonoBehaviour:
     m_Bits: 576
   _shootingEffect: {fileID: 2075614077}
   _bulletEffect: {fileID: 0}
-  ammoInventory: 0
-  currentAmmo: 0
-  _bullets: 0
-  _reloadingTime: 0
+  ammoInventory: 100
+  currentAmmo: 3
 --- !u!82 &2043278656
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13084,7 +13084,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -13129,7 +13129,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -13358,6 +13358,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1994226553}
     m_Modifications:
+    - target: {fileID: 2594645440985639601, guid: d44aac7fa9fdf3a42b2f0a7a09d9fca1,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2594645440985639601, guid: d44aac7fa9fdf3a42b2f0a7a09d9fca1,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3928943922776609133, guid: d44aac7fa9fdf3a42b2f0a7a09d9fca1,
         type: 3}
       propertyPath: _targetLayer.m_Bits

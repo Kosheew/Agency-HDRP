@@ -171,8 +171,7 @@ namespace Weapons
             _reloading = true;
             
          //   _animator?.SetTrigger("Reload");
-            _audioSource?.PlayOneShot(weaponSetting?.ReloadingSound);
-
+         
             Invoke(nameof(CompleteReload), weaponSetting.TimeReload);
         }
 
@@ -184,8 +183,11 @@ namespace Weapons
             currentAmmo += ammoToReload;
             ammoInventory -= ammoToReload;
             
+            _audioSource.PlayOneShot(weaponSetting.ReloadingSound);
             OnAmmoUsed?.Invoke(currentAmmo, ammoInventory);
+            
             _reloading = false;
+           // CancelInvoke(nameof(CompleteReload));
         }
 
         public void AddAmmo(int ammoToAdd, TypeWeapon typeAmmo)
