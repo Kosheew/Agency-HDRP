@@ -15,6 +15,7 @@ MonoBehaviour:
   range: 10
   damage: 10
   timeReload: 0
+  animType: 1
   typeWeapon: 0
   cartageAmount: 0
   amountSpreadIncreaseRate: 0

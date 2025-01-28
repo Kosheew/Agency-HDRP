@@ -201,5 +201,6 @@ namespace Weapons
         public int CurrentAmmo => currentAmmo;
         public int AmmoInventory => ammoInventory;
         public Sprite IconWeapon => weaponSetting.IconWeapon;
+        public WeaponAnimType AnimType => weaponSetting.AnimType;
     }
 }

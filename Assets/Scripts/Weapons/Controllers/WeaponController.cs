@@ -13,6 +13,7 @@ public class WeaponController : MonoBehaviour
     
     private int _currentWeapon = 0;
 
+    private PlayerAnimation _playerAnimation;
     private AmmoModel _ammoModel;
     private UserInput _userInput;
     
@@ -23,7 +24,8 @@ public class WeaponController : MonoBehaviour
         
         player = container.Resolve<IPlayer>();
         _userInput = GetComponent<UserInput>();
-
+        _playerAnimation = GetComponent<PlayerAnimation>();
+        
         foreach (var weapon in weapons)
         {
             weapon.Init();
@@ -73,6 +75,7 @@ public class WeaponController : MonoBehaviour
         var selectedWeapon = weapons[_currentWeapon];
         selectedWeapon.gameObject.SetActive(true);
         
+        _playerAnimation.ChangeWeapon(selectedWeapon);
         player.Weapon = selectedWeapon;
         
         _ammoModel.CurrentAmmo = selectedWeapon.CurrentAmmo;

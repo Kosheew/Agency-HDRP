@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using Weapons;
+
 public class PlayerAnimation : MonoBehaviour
 {
     private Animator _animator;
@@ -13,7 +15,10 @@ public class PlayerAnimation : MonoBehaviour
     private int _animIDEquipped;
     private int _animIDisCrouched;
     private int _animIDDeath;
-    
+    private int _animIDRifle;
+    private int _animIDPistol;
+    private int _animIDHit;
+    private int _animIDChangeWeapon;
     private bool _equipped;
     
     public void Init()
@@ -33,6 +38,10 @@ public class PlayerAnimation : MonoBehaviour
         _animIDEquipped = Animator.StringToHash("Equipped");
         _animIDisCrouched = Animator.StringToHash("isCrouched");
         _animIDDeath = Animator.StringToHash("Death");
+        _animIDHit = Animator.StringToHash("Hit");
+        _animIDRifle = Animator.StringToHash("Rifle");
+        _animIDPistol = Animator.StringToHash("Pistol");
+        _animIDChangeWeapon = Animator.StringToHash("Change Weapon");
     }
 
     public void SetGrounded(bool isGrounded)
@@ -71,5 +80,24 @@ public class PlayerAnimation : MonoBehaviour
     public void Death()
     {
         _animator.SetTrigger(_animIDDeath);
+    }
+
+    public void ChangeWeapon(Weapon weapon)
+    {
+        switch (weapon.AnimType)
+        {
+            case WeaponAnimType.Pistol:
+                _animator.SetBool(_animIDPistol, true);
+                _animator.SetBool(_animIDRifle, false);
+                break;
+
+            case WeaponAnimType.Rifle:
+                
+                _animator.SetBool(_animIDPistol, false);
+                _animator.SetBool(_animIDRifle, true);
+                break;
+        }
+        
+        _animator.SetTrigger(_animIDChangeWeapon);
     }
 }

@@ -14,6 +14,7 @@ namespace WeaponSettings
         [SerializeField] private float timeReload;
         
         [Header("Weapon Type")]
+        [SerializeField] private WeaponAnimType animType;
         [SerializeField] private TypeWeapon typeWeapon;
         
         [ShowIf("@typeWeapon == TypeWeapon.Shotgun")]
@@ -69,5 +70,6 @@ namespace WeaponSettings
         public AudioClip ReloadingSound => reloadingSound;
         public Sprite IconWeapon => iconWeapon;
         public TypeWeapon TypeWeaponWeapon => typeWeapon;
+        public WeaponAnimType AnimType => animType;
     }
 }
