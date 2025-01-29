@@ -42,7 +42,6 @@ namespace Player.State
                 {
                     player.Weapon.Shoot();
                     _playerAnimation.SetFire();
-                    Debug.Log("Fire");
                 }
             }
             else

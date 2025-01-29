@@ -66,6 +66,40 @@ public class HolsterController : MonoBehaviour
         _previousWeapon.transform.localPosition = positionOffset;
         _previousWeapon.transform.localRotation = rotationOffset;
         
+        if (_isSameTypeSwap)
+        {
+            foreach (var weapon in _activeWeapons)
+            {
+                if (weapon != _currentWeapon && weapon.AnimType == _previousWeapon.AnimType)
+                {
+                    weapon.gameObject.SetActive(false);
+                }
+            }
+        }
+    }
+    
+    public void UnEquipWeaponBase()
+    {
+        if (_previousWeapon == null) return;
+        
+        Transform holsterTransform = _currentWeapon.AnimType == WeaponAnimType.Pistol ? holsterPistolTransform : holsterRifleTransform;
+        Vector3 positionOffset;
+        Quaternion rotationOffset;
+
+        if (_currentWeapon.AnimType == WeaponAnimType.Rifle)
+        {
+            positionOffset = new Vector3(-0.15f, 0.18f, 0.078f);
+            rotationOffset = Quaternion.Euler(-8.1f, 127.879f, 89.256f);
+        }
+        else // Якщо це гвинтівка
+        {
+            positionOffset = new Vector3(-0.06f, 0.04f, 0.1f);  // Унікальні значення
+            rotationOffset = Quaternion.Euler(0, -88f, 0f); // Унікальні значення
+        }
+
+        _currentWeapon.transform.SetParent(holsterTransform);
+        _currentWeapon.transform.localPosition = positionOffset;
+        _currentWeapon.transform.localRotation = rotationOffset;
         
         if (_isSameTypeSwap)
         {

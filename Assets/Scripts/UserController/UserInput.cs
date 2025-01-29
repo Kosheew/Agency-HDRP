@@ -17,7 +17,7 @@ namespace InputActions
 		[SerializeField] private bool crouch;
 		[SerializeField] private bool fire;
 		[SerializeField] private bool reload;
-		
+		[SerializeField] private bool pause;
 		[Header("Movement Settings")]
 		[SerializeField] private bool analogMovement;
 
@@ -25,7 +25,10 @@ namespace InputActions
 		[SerializeField] private bool cursorLocked = true;
 		[SerializeField] private bool cursorInputForLook = true;
 
+		private bool _pauseTriggered = false;
+		
 		public event Action<float> OnWeaponScroll;
+		public event Action<bool> OnPaused;
 		
 		public Vector2 Move => _move;
 		public Vector2 Look => _look;
@@ -37,7 +40,7 @@ namespace InputActions
 		public bool AnalogMovement => analogMovement;
 		public bool Fire => fire;
 		public bool Reload => reload;
-		
+		public bool Pause => pause;
 		
 		public void OnMove(InputValue value) => _move = value.Get<Vector2>();
 		public void OnLook(InputValue value)
@@ -60,6 +63,21 @@ namespace InputActions
 			_scroll = value.Get<Vector2>().y;
 			OnWeaponScroll?.Invoke(_scroll);
 		}
+
+		public void OnPause(InputValue value)
+		{
+			if (!_pauseTriggered && value.isPressed)  
+			{
+				pause = !pause;  
+				OnPaused?.Invoke(pause);  
+				_pauseTriggered = true;  
+			}
+			else if (!value.isPressed)  
+			{
+				_pauseTriggered = false;
+			}
+		}
+		
 		public void ResetInput()
 		{
 			crouch = false;

@@ -113,6 +113,11 @@ namespace Player.State
         
         private void JumpAndGravity(IPlayer player)
         {
+            if (_verticalVelocity < _terminalVelocity)
+            {
+                _verticalVelocity += _playerSetting.Gravity * Time.deltaTime;
+            }
+            
             if (player.Grounded)
             {
                 if (_isFreeFall) 
@@ -140,10 +145,7 @@ namespace Player.State
                 _playerAnimation.SetFreeFall(_isFreeFall);
             }
             
-            if (_verticalVelocity < _terminalVelocity)
-            {
-                _verticalVelocity += _playerSetting.Gravity * Time.deltaTime;
-            }
+            
         }
         
         private void Crouch(IPlayer player)

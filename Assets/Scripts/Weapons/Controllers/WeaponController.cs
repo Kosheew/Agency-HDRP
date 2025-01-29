@@ -81,7 +81,7 @@ public class WeaponController : MonoBehaviour
         ammoView.UpdateAmmoIcon(selectedWeapon.IconWeapon);
 
         _previousWeapon = selectedWeapon;
-        Invoke(nameof(WaitWeaponShoot), 1.2f);
+        Invoke(nameof(WaitWeaponShoot), 1.6f);
     }
     
     private void WaitWeaponShoot()

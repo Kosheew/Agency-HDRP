@@ -1,14 +1,10 @@
-using Wallet;
 using Characters;
 using Characters.Enemy;
 using Characters.Player;
 using Commands;
-using Loader;
+using InputActions;
 using Scene_Manager;
-using Timer;
-using Paused;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Weapons;
 
 public class Game : MonoBehaviour
@@ -17,7 +13,7 @@ public class Game : MonoBehaviour
     [Header("Player Settings")]
     [SerializeField] private PlayerController player;
     
-    [SerializeField] private BatleZone batleZone;
+    [SerializeField] private BatleZone[] batleZone;
     
     [Header("Enemy Manager")] 
     [SerializeField] private EnemyController[] enemies;
@@ -32,7 +28,8 @@ public class Game : MonoBehaviour
     
     [SerializeField] private CharacterAudioSettings characterAudioSettings;
     
-    
+    [SerializeField] private PauseView pauseView;
+    [SerializeField] private UserInput userInput;
     private CommandInvoker _commandInvoker;
     
     
@@ -72,6 +69,8 @@ public class Game : MonoBehaviour
         RegisterDependency();
             
         Injection();
+        
+        OnEvent();
     }
 
     private void RegisterDependency()
@@ -91,7 +90,7 @@ public class Game : MonoBehaviour
         _container.Register(_commandEnemyFactory);
         _container.Register(_commandPlayerFactory);
         _container.Register<IPlayer>(player);
-        
+        _container.Register(userInput);
         _container.Register(_sceneController);
     }
 
@@ -99,8 +98,12 @@ public class Game : MonoBehaviour
     {
         _commandPlayerFactory.Inject(_container);
         _commandEnemyFactory.Inject(_container);
-      
-        batleZone.Inject(_container);
+
+        foreach (var zone in batleZone)
+        {
+            zone.Inject(_container);
+        }
+        
         
         player.Inject(_container);
 
@@ -127,5 +130,9 @@ public class Game : MonoBehaviour
         /*
         _timer.UpdateTimer(Time.deltaTime);*/
     }
-    
+
+    private void OnEvent()
+    {
+        userInput.OnPaused += pauseView.Pause;
+    }
 }
