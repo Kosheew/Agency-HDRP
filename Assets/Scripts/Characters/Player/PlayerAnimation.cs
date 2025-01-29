@@ -81,9 +81,15 @@ public class PlayerAnimation : MonoBehaviour
     {
         _animator.SetTrigger(_animIDDeath);
     }
-
-    public void ChangeWeapon(Weapon weapon)
+    
+    public void ChangeWeapon(Weapon weapon, bool isSameTyprSwap)
     {
+        if (isSameTyprSwap)
+        {
+            _animator.SetTrigger(_animIDChangeWeapon);
+            return;
+        }
+        
         switch (weapon.AnimType)
         {
             case WeaponAnimType.Pistol:
@@ -92,12 +98,9 @@ public class PlayerAnimation : MonoBehaviour
                 break;
 
             case WeaponAnimType.Rifle:
-                
                 _animator.SetBool(_animIDPistol, false);
                 _animator.SetBool(_animIDRifle, true);
                 break;
         }
-        
-        _animator.SetTrigger(_animIDChangeWeapon);
     }
 }
