@@ -13,38 +13,41 @@ public class HolsterController : MonoBehaviour
     [SerializeField] private Transform handTransform;
 
     private Weapon _currentWeapon;
+    private Weapon _previousWeapon;
+    private bool _isSameTypeSwap;
 
     public void EquipNewWeapon(Weapon newWeapon)
     {
-        bool isSameTypeSwap = _currentWeapon != null && _currentWeapon.AnimType == newWeapon.AnimType;
-        if (_currentWeapon != null)
-        {
-            UnEquipWeapon(_currentWeapon, isSameTypeSwap);
-        }
+        _isSameTypeSwap = _currentWeapon != null && _currentWeapon.AnimType == newWeapon.AnimType;
         
+        _previousWeapon = _currentWeapon;
+        if (_previousWeapon == null) _previousWeapon = newWeapon;
         _currentWeapon = newWeapon;
-        EquipWeapon(_currentWeapon);
     }
 
-    public void EquipWeapon(Weapon weapon)
+    public void EquipWeapon()
     {
-        weapon.gameObject.SetActive(true);
-        weapon.transform.SetParent(handTransform);
-        weapon.transform.localPosition = new Vector3(0.147f, -0.04f, 0.034f);
-        weapon.transform.localRotation = Quaternion.Euler(-2.2f, 98.472f, 88.77f);
+        if (_currentWeapon == null) return;
+
+        _currentWeapon.gameObject.SetActive(true);
+        _currentWeapon.transform.SetParent(handTransform);
+        _currentWeapon.transform.localPosition = new Vector3(0.147f, -0.04f, 0.034f);
+        _currentWeapon.transform.localRotation = Quaternion.Euler(-2.2f, 98.472f, 88.77f);
     }
 
-    public void UnEquipWeapon(Weapon weapon, bool disableWeapon)
+    public void UnEquipWeapon()
     {
-        Transform holsterTransform = weapon.AnimType == WeaponAnimType.Pistol ? holsterPistolTransform : holsterRifleTransform;
+        if (_previousWeapon == null) return;
+
+        Transform holsterTransform = _previousWeapon.AnimType == WeaponAnimType.Pistol ? holsterPistolTransform : holsterRifleTransform;
         
-        weapon.transform.SetParent(holsterTransform);
-        weapon.transform.localPosition = new Vector3(-0.15f, 0.18f, 0.078f);
-        weapon.transform.localRotation = Quaternion.Euler(-8.1f, 127.879f, 89.256f);
-        
-        if (disableWeapon)
+        _previousWeapon.transform.SetParent(holsterTransform);
+        _previousWeapon.transform.localPosition = new Vector3(-0.15f, 0.18f, 0.078f);
+        _previousWeapon.transform.localRotation = Quaternion.Euler(-8.1f, 127.879f, 89.256f);
+
+        if (_isSameTypeSwap)
         {
-            weapon.gameObject.SetActive(false);
+            _previousWeapon.gameObject.SetActive(false);
         }
     }
 }

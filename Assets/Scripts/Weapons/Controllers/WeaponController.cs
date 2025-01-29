@@ -73,7 +73,7 @@ public class WeaponController : MonoBehaviour
         bool isSameTypeSwap = _previousWeapon != null && _previousWeapon.AnimType == selectedWeapon.AnimType;
         
         _playerAnimation.ChangeWeapon(selectedWeapon, isSameTypeSwap);
-        _holsterController.EquipWeapon(selectedWeapon);
+        _holsterController.EquipNewWeapon(selectedWeapon);
         player.Weapon = selectedWeapon;
         
         _ammoModel.CurrentAmmo = selectedWeapon.CurrentAmmo;
