@@ -19,7 +19,7 @@ MonoBehaviour:
   characterAudioSettings: {fileID: 11400000, guid: f39955d200b77dc449c27dab6d946f8b,
     type: 2}
   attackDistance: 5
-  attackCooldown: 1
+  attackCooldown: 2
   visionDistance: 8
   fieldOfViewAngle: 100
   visionMask:

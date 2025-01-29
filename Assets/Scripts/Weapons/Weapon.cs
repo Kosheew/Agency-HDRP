@@ -27,7 +27,7 @@ namespace Weapons
         protected float _maxRadiusSpread;
         protected float _lastTimeShoot;
         protected float _lastTimeReload;
-        protected bool _canShoot = true;
+        public bool CanShoot { get; set; }
         protected bool _reloading;
 
         public float DamageValue { get; private set; }
@@ -43,19 +43,20 @@ namespace Weapons
             _maxAmmoStore = weaponSetting.MaxAmmoStore;
             DamageValue = weaponSetting.Damage;
 
-            _canShoot = true;
+            CanShoot = false;
         }
 
         public virtual void Shoot()
         {
-            if (CheckShoot())
-            {
+            
                 GetShoot();
-            }
+            
         }
         
-        protected virtual bool CheckShoot()
+        public virtual bool CheckShoot()
         {
+            if(!CanShoot) return false;
+            
             if (Time.time - _lastTimeShoot < weaponSetting.IntervalBetweenShoots) return false;
             
             _lastTimeShoot = Time.time;
@@ -190,6 +191,11 @@ namespace Weapons
            // CancelInvoke(nameof(CompleteReload));
         }
 
+        public bool CheckReload()
+        {
+            return _reloading;
+        }
+        
         public void AddAmmo(int ammoToAdd, TypeWeapon typeAmmo)
         {
             if (weaponSetting.TypeWeaponWeapon.Equals(typeAmmo))

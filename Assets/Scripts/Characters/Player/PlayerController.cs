@@ -58,12 +58,18 @@ namespace Characters.Player
             
             _commandFactory.CreateRegularCommand(this);
             CharacterHealth.OnHealthChanged += healthView.UpdateHealth;
+            CharacterHealth.OnHealthChanged += OnHit;
             CharacterHealth.OnDeath += OnDeath;
         }
 
         private void LateUpdate()
         {
             UserInput.ResetInput();
+        }
+
+        private void OnHit(float damage)
+        {
+            PlayerAnimation.SetHit();
         }
 
         private void OnDeath()

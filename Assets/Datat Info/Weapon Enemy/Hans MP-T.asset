@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Hans MP-T
   m_EditorClassIdentifier: 
   range: 10
-  damage: 3
+  damage: 2
   timeReload: 1.5
+  animType: 0
   typeWeapon: 1
   cartageAmount: 0
   amountSpreadIncreaseRate: 0

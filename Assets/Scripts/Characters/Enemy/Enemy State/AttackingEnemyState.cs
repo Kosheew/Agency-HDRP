@@ -45,11 +45,16 @@ namespace Enemy.State
                 
                 enemy.Weapon.SetSpread(enemy.Agent.velocity.magnitude);
                 enemy.Weapon.IncreaseSpread();
-                enemy.Weapon.Shoot();
+                
+                if (enemy.Weapon.CheckShoot())
+                {
+                    enemy.Weapon.Shoot();
+                }
             }
             else
             {
                 enemy.Weapon.ResetSpread();
+                enemy.Weapon.CanShoot = true;
             }
             
             enemy.CharacterAnimator.Running(enemy.Agent.velocity.magnitude);

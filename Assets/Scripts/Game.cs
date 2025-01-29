@@ -13,17 +13,9 @@ using Weapons;
 
 public class Game : MonoBehaviour
 {
-    [Header("View Components")]
-    [SerializeField] private WalletView walletView;
-    [SerializeField] private TimerView timerView;
-    [SerializeField] private PauseView pauseView;
-    [FormerlySerializedAs("loadingView")] [SerializeField] private LoaderView loaderView;
     
     [Header("Player Settings")]
     [SerializeField] private PlayerController player;
-        
-    [Header("Game Completion")]
-    [FormerlySerializedAs("loadingScene")] [SerializeField] private SceneLoader sceneLoader;
     
     [SerializeField] private BatleZone batleZone;
     
@@ -41,12 +33,8 @@ public class Game : MonoBehaviour
     [SerializeField] private CharacterAudioSettings characterAudioSettings;
     
     
-    
     private CommandInvoker _commandInvoker;
     
-    private WalletModel _wallet;
-    private TimerModel _timer;
-    private PauseModel _pause;
     
     private DependencyContainer _container;
     
@@ -70,9 +58,6 @@ public class Game : MonoBehaviour
         
         _container = new DependencyContainer();
         
-        _timer = new TimerModel();
-        _pause = new PauseModel();
-        
         _commandInvoker = new CommandInvoker();
         
         _stateEnemyManager = new StateEnemyManager();
@@ -84,22 +69,15 @@ public class Game : MonoBehaviour
         _commandEnemyFactory = new CommandEnemyFactory();
         _commandPlayerFactory = new CommandPlayerFactory();
         
-        _sceneController = new SceneController(sceneLoader);
-        
         RegisterDependency();
             
         Injection();
-            
-        //Init();
-        
-        InitView();
     }
 
     private void RegisterDependency()
     {
         _container.Register(_commandInvoker);
         
-        _container.Register(_wallet);
         _container.Register(audioManager);
         
         _container.Register(characterAudioSettings);
@@ -115,8 +93,6 @@ public class Game : MonoBehaviour
         _container.Register<IPlayer>(player);
         
         _container.Register(_sceneController);
-        _container.Register(_pause);
-        _container.Register(sceneLoader);
     }
 
     private void Injection()
@@ -139,25 +115,7 @@ public class Game : MonoBehaviour
         loaderView.Inject(_container);*/
     }
 
-    private void Init()
-    {
-      //  audioManager.Init();
-
-        /*foreach (var weapon in weapons)
-        {
-            weapon.Init();
-        }*/
-    }
-
-    private void InitView()
-    {
-        /*
-        new WalletController(_wallet, walletView);
-        new TimerController(_timer, timerView);
-        */
-        
-    }
-
+  
 
     private void Update()
     {
@@ -169,18 +127,5 @@ public class Game : MonoBehaviour
         /*
         _timer.UpdateTimer(Time.deltaTime);*/
     }
-
-    private void LateUpdate()
-    {
-        /*if (_userInputs.IsPausing() && !player.Alive)
-        {
-            _pause.SetPaused();
-            _timer.StartTimer();
-        }*/
-    }
-
-    private void OnDestroy()
-    {
-        _timer.StopTimer();
-    }
+    
 }

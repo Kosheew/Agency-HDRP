@@ -37,12 +37,20 @@ namespace Player.State
                 RotateTowards(player, player.UserInput.MousePosition);
                 player.Weapon.SetSpread(_speed);
                 player.Weapon.IncreaseSpread();
-                player.Weapon.Shoot();
+                
+                if (player.Weapon.CheckShoot())
+                {
+                    player.Weapon.Shoot();
+                    _playerAnimation.SetFire();
+                    Debug.Log("Fire");
+                }
             }
             else
             {
                 player.Weapon.ResetSpread();
             }
+            
+            _playerAnimation.SetReload(player.Weapon.CheckReload());
         }
 
         public override void ExitState(IPlayer player)

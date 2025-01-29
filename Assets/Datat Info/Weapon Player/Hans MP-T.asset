@@ -10,24 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6b9b6415eb4f2b43b0239b23db88d46, type: 3}
-  m_Name: Bianchi 12GA
+  m_Name: Hans MP-T
   m_EditorClassIdentifier: 
-  range: 10
-  damage: 10
-  timeReload: 2
-  typeWeapon: 2
-  cartageAmount: 8
-  amountSpreadIncreaseRate: 4
-  intervalBetweenShoots: 2
-  takingTime: 0
-  spreadIncreaseInterval: 0
+  range: 12
+  damage: 8
+  timeReload: 1.5
+  animType: 0
+  typeWeapon: 1
+  cartageAmount: 0
+  amountSpreadIncreaseRate: 0
+  intervalBetweenShoots: 0.2
+  takingTime: 1
+  spreadIncreaseInterval: 5
   idleRadiusSpread: 0.4
   walkingRadiusSpread: 1
   runningRadiusRadiusSpread: 1.5
   spreadIncreaseMultiplier: 2
   spreadIncreaseRate: 2
-  maxAmmoStore: 6
-  shootingSound: {fileID: 8300000, guid: 53a1a8c18087346d18a02d8a4e0c59ca, type: 3}
+  maxAmmoStore: 35
+  shootingSound: {fileID: 8300000, guid: 7b6740ee86cb042b489ce4abcec89fd1, type: 3}
   noBulletsSound: {fileID: 8300000, guid: e7632c6401c09437e83de45d33c5858e, type: 3}
   reloadingSound: {fileID: 8300000, guid: cef0fa03af5b747f0abe82cde0b2bccc, type: 3}
-  iconWeapon: {fileID: 151544889, guid: 44598c3ae2f46924b99046f2f3300073, type: 3}
+  iconWeapon: {fileID: -784301084, guid: 44598c3ae2f46924b99046f2f3300073, type: 3}

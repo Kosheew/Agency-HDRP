@@ -18,6 +18,8 @@ public class PlayerAnimation : MonoBehaviour
     private int _animIDRifle;
     private int _animIDPistol;
     private int _animIDHit;
+    private int _animIDFire;
+    private int _animIDReload;
     private int _animIDChangeWeapon;
     private bool _equipped;
     
@@ -42,6 +44,8 @@ public class PlayerAnimation : MonoBehaviour
         _animIDRifle = Animator.StringToHash("Rifle");
         _animIDPistol = Animator.StringToHash("Pistol");
         _animIDChangeWeapon = Animator.StringToHash("Change Weapon");
+        _animIDFire = Animator.StringToHash("Fire");
+        _animIDReload = Animator.StringToHash("Reload");
     }
 
     public void SetGrounded(bool isGrounded)
@@ -82,9 +86,9 @@ public class PlayerAnimation : MonoBehaviour
         _animator.SetTrigger(_animIDDeath);
     }
     
-    public void ChangeWeapon(Weapon weapon, bool isSameTyprSwap)
+    public void ChangeWeapon(Weapon weapon, bool isSameTypeSwap)
     {
-        if (isSameTyprSwap)
+        if (isSameTypeSwap)
         {
             _animator.SetTrigger(_animIDChangeWeapon);
             return;
@@ -102,5 +106,20 @@ public class PlayerAnimation : MonoBehaviour
                 _animator.SetBool(_animIDRifle, true);
                 break;
         }
+    }
+
+    public void SetHit()
+    {
+        _animator.SetTrigger(_animIDHit);
+    }
+    
+    public void SetFire()
+    {
+        _animator.SetTrigger(_animIDFire);
+    }
+
+    public void SetReload(bool isReload)
+    {
+        _animator.SetBool(_animIDReload, isReload);
     }
 }
