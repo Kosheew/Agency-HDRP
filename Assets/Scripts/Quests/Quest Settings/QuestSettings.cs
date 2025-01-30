@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Quests
 {
-    [CreateAssetMenu(fileName = "NewQuest", menuName = "Quest/QuestSettings")]
+    [CreateAssetMenu(fileName = "Quest", menuName = "Quest/QuestSettings")]
     public class QuestSettings: ScriptableObject
     {
         [SerializeField] private string questName;
-        [SerializeField] private string questDescription;
+        [TextArea(3, 10), SerializeField] private string questDescription;
         [SerializeField] private List<QuestStepSettings> stepsDescriptions; 
 
         public string QuestName => questName;

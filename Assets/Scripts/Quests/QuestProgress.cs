@@ -5,20 +5,22 @@ using System.Collections.Generic;
 public class QuestProgress
 {
     public int QuestHash;
-    public List<KeyValuePair<int, bool>> StepsCompleted;
+    public List<int> StepIds; 
+    public List<bool> StepCompletionStatus;
 
     public QuestProgress(int questHash, Dictionary<int, bool> stepsCompleted)
     {
         QuestHash = questHash;
-        StepsCompleted = new List<KeyValuePair<int, bool>>(stepsCompleted);
+        StepIds = new List<int>(stepsCompleted.Keys);
+        StepCompletionStatus = new List<bool>(stepsCompleted.Values);
     }
     
     public Dictionary<int, bool> GetStepsCompletedDictionary()
     {
         var dictionary = new Dictionary<int, bool>();
-        foreach (var pair in StepsCompleted)
+        for (int i = 0; i < StepIds.Count; i++)
         {
-            dictionary[pair.Key] = pair.Value;
+            dictionary[StepIds[i]] = StepCompletionStatus[i];
         }
         return dictionary;
     }

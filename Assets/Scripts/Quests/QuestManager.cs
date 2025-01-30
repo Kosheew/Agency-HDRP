@@ -1,24 +1,29 @@
-using System.Collections;
 using System.Collections.Generic;
 using Quests;
 using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
+    [SerializeField] private QuestView questView;
     [SerializeField] private List<QuestSettings> availableQuests; 
     private Dictionary<int, Quest> _activeQuests; 
     private Dictionary<int, QuestSettings> _availableQuestLookup;
     
     private BinarySaveSystem _saveSystem;
     
-    private void Start()
+    private void Awake()
     {
         _saveSystem = new BinarySaveSystem();
         _availableQuestLookup = new Dictionary<int, QuestSettings>(availableQuests.Count);
-    
+        
+        mequestHash = QuestHashUtility.GetQuestHash(availableQuests[0].QuestName);
+        
+        //_saveSystem.ClearSaveData();
+        
+        int questHash;
         foreach (var questSettings in availableQuests)
         {
-            int questHash = questSettings.GetHashCode();
+            questHash = questSettings.GetHashCode();
             if (!_availableQuestLookup.ContainsKey(questHash))
             {
                 _availableQuestLookup.Add(questHash, questSettings);
@@ -26,27 +31,48 @@ public class QuestManager : MonoBehaviour
         }
     
         _activeQuests = new Dictionary<int, Quest>(availableQuests.Count);
-        
-        var loadData = _saveSystem.Load<QuestProgressData>();
-        if (loadData != null)
+
+        if (_saveSystem.CheckFileExists())
         {
-            foreach (var questProgress in loadData.Quests)
-            {
-                if (_availableQuestLookup.TryGetValue(questProgress.QuestHash, out var questSettings))
+            var loadData = _saveSystem.Load<QuestProgressData>();
+            
+                foreach (var questProgress in loadData.Quests)
                 {
-                    var quest = new Quest(questSettings);
-                    quest.StepsCompleted = questProgress.GetStepsCompletedDictionary(); // Передбачається, що у Quest є цей метод
-                    _activeQuests.Add(questProgress.QuestHash, quest);
+                    if (_availableQuestLookup.TryGetValue(questProgress.QuestHash, out var questSettings))
+                    {
+                        var quest = new Quest(questSettings);
+                        quest.StepsCompleted =
+                            questProgress.GetStepsCompletedDictionary(); 
+                        _activeQuests.Add(questProgress.QuestHash, quest);
+
+                        if (!quest.IsQuestCompleted())
+                        {
+                            questView.SetQuest(quest);
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Quest with hash {questProgress.QuestHash} not found in available quests.");
+                    }
                 }
-                else
-                {
-                    Debug.LogWarning($"Quest with hash {questProgress.QuestHash} not found in available quests.");
-                }
-            }
+            
         }
+        else
+        {
+            ActivateQuest(mequestHash);
+        }
+        
     }
 
-    
+    private int mequestHash;
+    private void Start()
+    {
+        //if(_saveSystem.Load<QuestProgressData>() != null) return;
+        
+        
+        questView.SetQuest(_activeQuests[mequestHash]);
+    }
+
     public void ActivateQuest(int questHashCode)
     {
         if (_availableQuestLookup.TryGetValue(questHashCode, out var questSettings))
@@ -54,10 +80,11 @@ public class QuestManager : MonoBehaviour
             if (!_activeQuests.ContainsKey(questHashCode))
             {
                 var newQuest = new Quest(questSettings);
-                // Якщо квест новий, ініціалізуємо порожній список кроків
                 newQuest.StepsCompleted = new Dictionary<int, bool>();
+                
                 _activeQuests.Add(questHashCode, newQuest);
                 Debug.Log($"Quest {questSettings.QuestName} activated!");
+                questView.SetQuest(newQuest);
             }
             else
             {
@@ -76,6 +103,7 @@ public class QuestManager : MonoBehaviour
         if (_activeQuests.TryGetValue(questHashCode, out var quest))
         {
             quest.CompleteStep(questStepHashCode);
+            questView.SetQuest(quest);
             if (quest.IsQuestCompleted())
             {
                 Debug.Log($"Quest {quest.GetQuestSO().QuestName} completed!");
@@ -128,4 +156,8 @@ public class QuestManager : MonoBehaviour
         Debug.Log("Quest progress saved!");
     }
 
+    private void OnApplicationQuit()
+    {
+        SaveQuestProgress();
+    }
 }

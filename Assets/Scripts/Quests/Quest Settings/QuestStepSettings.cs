@@ -2,11 +2,11 @@
 
 namespace Quests
 {
-    [CreateAssetMenu(fileName = "NewQuest", menuName = "Quest/QuestStepSettings")]
+    [CreateAssetMenu(fileName = "Quest Step", menuName = "Quest/QuestStepSettings")]
     public class QuestStepSettings: ScriptableObject
     {
         [SerializeField] private string questName;
-        [SerializeField] private string description;
+        [TextArea(3, 10), SerializeField] private string description;
         
         public string Description => description;
         public string QuestName => questName;

@@ -31,8 +31,8 @@ namespace Player.State
         
         public virtual void UpdateState(IPlayer player)
         {
-            JumpAndGravity(player);
             GroundedCheck(player);
+            JumpAndGravity(player);
             Crouch(player);
             Move(player);
         }
@@ -124,10 +124,8 @@ namespace Player.State
                 {
                     player.FootstepHandler.PlayFootstepLandSound(); 
                 }
-                
                 _isFreeFall = false;
-                _playerAnimation.SetFreeFall(_isFreeFall);
-
+                
                 if (_verticalVelocity < 0)
                 {
                     _verticalVelocity = -2;
@@ -142,10 +140,8 @@ namespace Player.State
             else
             {
                 _isFreeFall = true;
-                _playerAnimation.SetFreeFall(_isFreeFall);
             }
-            
-            
+            _playerAnimation.SetFreeFall(_isFreeFall);
         }
         
         private void Crouch(IPlayer player)

@@ -1,24 +1,21 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Quests;
-using UnityEngine;
 
 public class Quest 
 {
-    private QuestSettings _questSettings;
+    public QuestSettings QuestSettings;
     public Dictionary<int, bool> StepsCompleted; // ID кроків як ключі
 
     public Quest(QuestSettings questSettings)
     {
-        _questSettings = questSettings;
-        StepsCompleted = new Dictionary<int, bool>(_questSettings.QuestStepsCount);
+        QuestSettings = questSettings;
+        StepsCompleted = new Dictionary<int, bool>(QuestSettings.QuestStepsCount);
         InitializeSteps();
     }
 
     private void InitializeSteps()
     {
-        foreach (var stepDescription in _questSettings.GetStepsDescriptions)
+        foreach (var stepDescription in QuestSettings.GetStepsDescriptions)
         {
             StepsCompleted.Add(stepDescription.GetHashCode(), false);
         }
@@ -32,10 +29,7 @@ public class Quest
 
     public void CompleteStep(int stepId)
     {
-        if (StepsCompleted.ContainsKey(stepId))
-        {
-            StepsCompleted[stepId] = true;
-        }
+        StepsCompleted[stepId] = true;
     }
 
     public bool IsQuestCompleted()
@@ -43,7 +37,7 @@ public class Quest
         return !StepsCompleted.ContainsValue(false); 
     }
 
-    public QuestSettings GetQuestSO() => _questSettings;
+    public QuestSettings GetQuestSO() => QuestSettings;
     
    
 }

@@ -8,10 +8,14 @@ public class BinarySaveSystem
 
     public BinarySaveSystem()
     {
-        
         _filePath = Application.persistentDataPath + "/Save.dat";
     }
 
+    public void ClearSaveData()
+    {
+        File.Delete(_filePath);
+    }
+    
     public void Save<T>(T data)
     {
         using (FileStream file = File.Create(_filePath))
@@ -31,5 +35,10 @@ public class BinarySaveSystem
         }
 
         return saveData;
+    }
+
+    public bool CheckFileExists()
+    {
+        return File.Exists(_filePath);
     }
 }
