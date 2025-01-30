@@ -1,15 +1,15 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
 public class ButtonInteraction : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private Color _hoverColor; 
+    [SerializeField] private Color _pressedColor;
     [SerializeField] private AudioClip _hoverSound;
     
-    [SerializeField] private AudioSource _audioSource;   
+    private AudioSource _audioSource;   
     private Color _normalTextColor;
     private Text _buttonText;
     private Button _button;
@@ -38,4 +38,7 @@ public class ButtonInteraction : MonoBehaviour, IPointerEnterHandler, IPointerEx
 
     public void AddAudioSource(AudioSource audioSource) =>
         _audioSource = audioSource;
+    
+    public void ChangeTextColor(Button button) =>
+        button.GetComponentInChildren<Text>().color = _pressedColor;
 }
