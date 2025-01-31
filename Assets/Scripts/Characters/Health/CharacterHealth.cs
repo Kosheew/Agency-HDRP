@@ -7,27 +7,41 @@ namespace Characters.Health
 {
     public class CharacterHealth
     {
-        private float _health;
-
+        public float Health { get; private set; }
+        public float MaxHealth {get; private set;}
+        
         public event Action<float> OnHealthChanged;
+        public event Action OnTakeDamage;
         public event Action OnDeath;
         
         public CharacterHealth(float health)
         {
-            _health = health;
+            Health = health;
+            MaxHealth = health;
         }
 
         public void TakeDamage(float damage)
         {
-            _health -= damage;
-            _health = Mathf.Max(0, _health);
+            Health -= damage;
+            Health = Mathf.Max(0, Health);
             
-            OnHealthChanged?.Invoke(_health);
-            Debug.Log(_health.ToString());
+            OnHealthChanged?.Invoke(Health);
+            OnTakeDamage?.Invoke();
+            Debug.Log(Health.ToString());
             
-            if (_health <= 0)
+            if (Health <= 0)
             {
                 OnDeath?.Invoke();
+            }
+        }
+
+        public void Heal(float heal)
+        {
+            Health += heal;
+            OnHealthChanged?.Invoke(Health);
+            if (Health >= MaxHealth)
+            {
+                Health = MaxHealth;
             }
         }
     }

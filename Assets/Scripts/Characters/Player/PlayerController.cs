@@ -37,6 +37,8 @@ namespace Characters.Player
         public bool Sneaked { get; set; }
         public bool Grounded { get; set; }
         
+        private RegenerationSystem _regenerationSystem;
+        
         public void Inject(DependencyContainer container)
         {
             Alive = true;
@@ -53,12 +55,12 @@ namespace Characters.Player
             FootstepHandler = new FootstepAudioAudioHandler(audioSource, CharacterAudioSettings);
             CharacterHealth = new CharacterHealth(100);
             healthView.SetHealth(100);
-            
+            _regenerationSystem = new RegenerationSystem(CharacterHealth, 5, 2, this);
             MainCamera = Camera.main;
             
             _commandFactory.CreateRegularCommand(this);
             CharacterHealth.OnHealthChanged += healthView.UpdateHealth;
-            CharacterHealth.OnHealthChanged += OnHit;
+            CharacterHealth.OnTakeDamage += OnHit;
             CharacterHealth.OnDeath += OnDeath;
         }
 
@@ -67,7 +69,7 @@ namespace Characters.Player
             UserInput.ResetInput();
         }
 
-        private void OnHit(float damage)
+        private void OnHit()
         {
             PlayerAnimation.SetHit();
         }
