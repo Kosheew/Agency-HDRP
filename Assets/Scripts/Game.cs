@@ -1,3 +1,4 @@
+using System;
 using Characters;
 using Characters.Enemy;
 using Characters.Player;
@@ -5,36 +6,38 @@ using Commands;
 using InputActions;
 using Scene_Manager;
 using UnityEngine;
-using Weapons;
 
 public class Game : MonoBehaviour
 {
+    [Header("Character Settings")]
+    [SerializeField] private CharacterAudioSettings characterAudioSettings;
     
     [Header("Player Settings")]
     [SerializeField] private PlayerController player;
-    
-    [SerializeField] private BatleZone[] batleZone;
-    
-    [Header("Enemy Manager")] 
-    [SerializeField] private EnemyController[] enemies;
-
-    [Header("Weapons")] 
-    [SerializeField] private Weapon[] weapons;
-
     [SerializeField] private WeaponController weaponController;
+    [SerializeField] private UserInput userInput;
+    
+    [Header("Enemy Settings")] 
+    [SerializeField] private EnemyController[] enemies;
+    [SerializeField] private BatleZone[] batleZone;
     
     [Header("Audio Settings")]
     [SerializeField] private AudioManager audioManager;
     
-    [SerializeField] private CharacterAudioSettings characterAudioSettings;
-    
+    [Header("Quest Swttings")]
     [SerializeField] private QuestManager questManager;
     [SerializeField] private QuestView questView;
     
-    [SerializeField] private PauseView pauseView;
-    [SerializeField] private UserInput userInput;
-    private CommandInvoker _commandInvoker;
+    [Header("Quest Completes")]
+    [SerializeField] private QuestCompleter[] questCompleter;
     
+    [Header("Quest Adders")]
+    [SerializeField] private QuestAdder[] questAdder;
+    
+    [Header("Other Views")]
+    [SerializeField] private PauseView pauseView;
+    
+    private CommandInvoker _commandInvoker;
     
     private DependencyContainer _container;
     
@@ -49,15 +52,15 @@ public class Game : MonoBehaviour
     
     private SceneController _sceneController;
     
+    private BinarySaveSystem _saveSystem;
         
     private void Awake()
     {
-       // Cursor.lockState = CursorLockMode.Locked;
-       
         Time.timeScale = 1f;
         
-        _container = new DependencyContainer();
+        _saveSystem = new BinarySaveSystem();
         
+        _container = new DependencyContainer();
         _commandInvoker = new CommandInvoker();
         
         _stateEnemyManager = new StateEnemyManager();
@@ -78,6 +81,8 @@ public class Game : MonoBehaviour
 
     private void RegisterDependency()
     {
+        _container.Register(_saveSystem);
+        
         _container.Register(_commandInvoker);
         
         _container.Register(audioManager);
@@ -105,25 +110,33 @@ public class Game : MonoBehaviour
         _commandPlayerFactory.Inject(_container);
         _commandEnemyFactory.Inject(_container);
         
+        questManager.Inject(_container);
+        questView.Inject(_container);
+        player.Inject(_container);
+        weaponController.Inject(_container);
+             
+        
         foreach (var zone in batleZone)
         {
             zone.Inject(_container);
         }
         
-        
-        player.Inject(_container);
-
-        weaponController.Inject(_container);
-        
         foreach (var enemy in enemies)
         {
             enemy.Inject(_container);
         }
+
+        foreach (var adder in questAdder)
+        {   
+            adder.Inject(_container);
+        }
+
+        foreach (var completer in questCompleter)
+        {
+            completer.Inject(_container);
+        }
         
-        questView.Inject(_container);
-        /*
-        pauseView.Inject(_container);
-        loaderView.Inject(_container);*/
+
     }
 
   
@@ -142,5 +155,15 @@ public class Game : MonoBehaviour
     private void OnEvent()
     {
         userInput.OnPaused += pauseView.Pause;
+    }
+
+    private void OnApplicationQuit()
+    {
+        questManager.SaveQuestProgress();
+    }
+
+    private void OnApplicationPause(bool pauseStatus)
+    {
+        questManager.SaveQuestProgress();
     }
 }

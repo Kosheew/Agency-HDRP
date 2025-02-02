@@ -11,19 +11,18 @@ public class QuestManager : MonoBehaviour
     
     private BinarySaveSystem _saveSystem;
     
-    private void Awake()
+    private int _startQuestHash;
+    
+    public void Inject(DependencyContainer container)
     {
-        _saveSystem = new BinarySaveSystem();
+        _saveSystem = container.Resolve<BinarySaveSystem>();
         _availableQuestLookup = new Dictionary<int, QuestSettings>(availableQuests.Count);
         
-        mequestHash = QuestHashUtility.GetQuestHash(availableQuests[0].QuestName);
+        _startQuestHash = QuestHashUtility.GetQuestHash(availableQuests[0].QuestName);
         
-        //_saveSystem.ClearSaveData();
-        
-        int questHash;
         foreach (var questSettings in availableQuests)
         {
-            questHash = questSettings.GetHashCode();
+            var questHash = questSettings.GetHashCode();
             if (!_availableQuestLookup.ContainsKey(questHash))
             {
                 _availableQuestLookup.Add(questHash, questSettings);
@@ -59,19 +58,11 @@ public class QuestManager : MonoBehaviour
         }
         else
         {
-            ActivateQuest(mequestHash);
+            ActivateQuest(_startQuestHash);
         }
+        questView.SetQuest(_activeQuests[_startQuestHash]);
     }
-
-    private int mequestHash;
-    private void Start()
-    {
-        //if(_saveSystem.Load<QuestProgressData>() != null) return;
-        
-        
-        questView.SetQuest(_activeQuests[mequestHash]);
-    }
-
+    
     public void ActivateQuest(int questHashCode)
     {
         if (_availableQuestLookup.TryGetValue(questHashCode, out var questSettings))
@@ -95,7 +86,6 @@ public class QuestManager : MonoBehaviour
             Debug.LogWarning($"Quest with hash {questHashCode} not found in available quests!");
         }
     }
-
     
     public void CompleteQuestStep(int questHashCode, int questStepHashCode)
     {
@@ -153,10 +143,5 @@ public class QuestManager : MonoBehaviour
         _saveSystem.Save(progressData);
 
         Debug.Log("Quest progress saved!");
-    }
-
-    private void OnApplicationQuit()
-    {
-        SaveQuestProgress();
     }
 }
