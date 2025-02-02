@@ -61,7 +61,6 @@ public class QuestManager : MonoBehaviour
         {
             ActivateQuest(mequestHash);
         }
-        
     }
 
     private int mequestHash;

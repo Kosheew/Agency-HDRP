@@ -28,6 +28,9 @@ public class Game : MonoBehaviour
     
     [SerializeField] private CharacterAudioSettings characterAudioSettings;
     
+    [SerializeField] private QuestManager questManager;
+    [SerializeField] private QuestView questView;
+    
     [SerializeField] private PauseView pauseView;
     [SerializeField] private UserInput userInput;
     private CommandInvoker _commandInvoker;
@@ -86,6 +89,9 @@ public class Game : MonoBehaviour
         
         _container.Register(_stateEnemyFactory);
         _container.Register(_statePlayerFactory);
+            
+        _container.Register(questManager);
+        _container.Register(questView);
         
         _container.Register(_commandEnemyFactory);
         _container.Register(_commandPlayerFactory);
@@ -98,7 +104,7 @@ public class Game : MonoBehaviour
     {
         _commandPlayerFactory.Inject(_container);
         _commandEnemyFactory.Inject(_container);
-
+        
         foreach (var zone in batleZone)
         {
             zone.Inject(_container);
@@ -113,6 +119,8 @@ public class Game : MonoBehaviour
         {
             enemy.Inject(_container);
         }
+        
+        questView.Inject(_container);
         /*
         pauseView.Inject(_container);
         loaderView.Inject(_container);*/
