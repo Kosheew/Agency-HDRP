@@ -7,6 +7,7 @@ public class DialogueParams : ScriptableObject
     [SerializeField] private string _personName;
     [SerializeField] private string _text;
     [SerializeField] private string[] _optionsName;
+    [SerializeField] private int _phraseAmount;
     [SerializeField] private DialogueParams[] _options;
     [SerializeField] private AudioClip _audio;
 
@@ -14,6 +15,7 @@ public class DialogueParams : ScriptableObject
     public string PersonName => _personName;
     public string Text => _text;
     public string[] OptionsName => _optionsName;
+    public int PhrasesAmount => _phraseAmount;
     public DialogueParams[] Options => _options;
     public AudioClip Audio => _audio;
 }

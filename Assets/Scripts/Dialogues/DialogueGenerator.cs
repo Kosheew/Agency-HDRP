@@ -17,8 +17,7 @@ public class DialogueGenerator : MonoBehaviour
     [SerializeField] private AudioSource _dialogsAudioSource;
     [SerializeField] private AudioSource _buttonAudioSource;    
     
-    [SerializeField] private DialogueParams _firstPhrase;  
-    [SerializeField] private int _maxPhrasesAmount;
+    [SerializeField] private DialogueParams[] _firstPhrase;  
     [SerializeField] private float _timeAfterLastPhrase;
 
     private Image _personPhoto;
@@ -27,25 +26,31 @@ public class DialogueGenerator : MonoBehaviour
     private List<Button> _answers;
     
     private int _phrasesAmount;
-    private bool _isFirstTimePlayed;
+    private int _index;
+    
+    private bool _isPlaying;
+    private bool _isPlayedAll;
 
     public void PlayFirstPhrase()
     {
-        _scroll.gameObject.SetActive(true);
-        GenerateDialogue(_firstPhrase);
-        _isFirstTimePlayed = true;
+        if (!_isPlaying && !_isPlayedAll)
+        {
+            _scroll.gameObject.SetActive(true);
+            GenerateDialogue(_firstPhrase[_index]);
+            _isPlaying = true;
+        }
     }
     
     public void GenerateDialogue(DialogueParams dialogue)
     {
         if (dialogue.OptionsName.Length != dialogue.Options.Length)
-            throw new InvalidOperationException();
+            throw new InvalidOperationException("Options name and options length mismatch");
         
         if(dialogue.Audio != null)
             PlayAudio(dialogue.Audio);
         
         GameObject panel = Instantiate(_dialogPanel, _content);
-        panel.GetComponent<RectTransform>().sizeDelta = new Vector2(_panelHeight, _panelWidth);
+        panel.GetComponent<RectTransform>().sizeDelta = new Vector2(_panelWidth, _panelHeight);
 
         _personPhoto = panel.transform.Find("PersonPhoto").GetComponent<Image>();
         _personName = panel.GetComponentInChildren<Text>();
@@ -80,7 +85,7 @@ public class DialogueGenerator : MonoBehaviour
 
         _phrasesAmount++;
 
-        if (_phrasesAmount >= _maxPhrasesAmount)
+        if (_phrasesAmount >= dialogue.PhrasesAmount)
             StartCoroutine(EndDialogue());
     }
 
@@ -95,8 +100,12 @@ public class DialogueGenerator : MonoBehaviour
         }
         
         _scroll.gameObject.SetActive(false);
-        _maxPhrasesAmount = 0;
-        _isFirstTimePlayed = false;
+        _phrasesAmount = 0;
+        _isPlaying = false;
+        _index++;
+        
+        if(_index >= _firstPhrase.Length - 1)
+            _isPlayedAll = true;
     }
 
     #region  Helpers

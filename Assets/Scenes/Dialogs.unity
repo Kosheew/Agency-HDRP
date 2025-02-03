@@ -1149,8 +1149,8 @@ MonoBehaviour:
   _dialogsAudioSource: {fileID: 224641254}
   _buttonAudioSource: {fileID: 544894137}
   _firstPhrase: {fileID: 0}
-  _phrasesAmount: 0
-  _timeAfterLastPhrase: 0
+  _maxPhrasesAmount: 10
+  _timeAfterLastPhrase: 2
 --- !u!1 &1855806226
 GameObject:
   m_ObjectHideFlags: 0
