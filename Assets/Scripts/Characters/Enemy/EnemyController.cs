@@ -54,6 +54,8 @@ namespace Characters.Enemy
         public ITargetHandler Target { get; set; }
         
         [SerializeField] private bool checkTarget;
+
+        [SerializeField] private bool patrolled;
         
         public void Inject(DependencyContainer container)
         {
@@ -70,7 +72,11 @@ namespace Characters.Enemy
             CharacterHealth = new CharacterHealth(100);
             _collider = GetComponent<Collider>();
             weapon.Init();
-            CommandEnemy.CreatePatrolledCommand(this);
+            
+            if(patrolled)
+                CommandEnemy.CreatePatrolledCommand(this);
+            else
+                CommandEnemy.CharacterIdleCommand(this);
             
             CharacterHealth.OnDeath += OnDeath;
             CharacterHealth.OnHealthChanged += OnDamageable;

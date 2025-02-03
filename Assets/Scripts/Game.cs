@@ -114,7 +114,6 @@ public class Game : MonoBehaviour
         questView.Inject(_container);
         player.Inject(_container);
         weaponController.Inject(_container);
-             
         
         foreach (var zone in batleZone)
         {
@@ -135,12 +134,8 @@ public class Game : MonoBehaviour
         {
             completer.Inject(_container);
         }
-        
-
     }
-
-  
-
+    
     private void Update()
     {
         _statePlayerManager.UpdateState(player);
@@ -148,8 +143,6 @@ public class Game : MonoBehaviour
         {
             _stateEnemyManager?.UpdateState(enemy);
         }
-        /*
-        _timer.UpdateTimer(Time.deltaTime);*/
     }
 
     private void OnEvent()
