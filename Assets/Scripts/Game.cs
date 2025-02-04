@@ -19,7 +19,10 @@ public class Game : MonoBehaviour
     
     [Header("Enemy Settings")] 
     [SerializeField] private EnemyController[] enemies;
-    [SerializeField] private BatleZone[] batleZone;
+    [SerializeField] private BattleController battleController;
+    
+    [Header("Trigger Zone Settings")]
+    [SerializeField] private TriggerDetector[] triggerDetectors;
     
     [Header("Audio Settings")]
     [SerializeField] private AudioManager audioManager;
@@ -101,6 +104,7 @@ public class Game : MonoBehaviour
         _container.Register(_commandEnemyFactory);
         _container.Register(_commandPlayerFactory);
         _container.Register<IPlayer>(player);
+        _container.Register<PlayerController>(player);
         _container.Register(userInput);
         _container.Register(_sceneController);
     }
@@ -115,10 +119,7 @@ public class Game : MonoBehaviour
         player.Inject(_container);
         weaponController.Inject(_container);
         
-        foreach (var zone in batleZone)
-        {
-            zone.Inject(_container);
-        }
+        battleController.Inject(_container);
         
         foreach (var enemy in enemies)
         {
@@ -134,6 +135,11 @@ public class Game : MonoBehaviour
         {
             completer.Inject(_container);
         }
+
+        foreach (var triggerDetector in triggerDetectors)
+        {
+            triggerDetector.Inject(_container);
+        }
     }
     
     private void Update()
@@ -145,6 +151,15 @@ public class Game : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        foreach (var triggerDetector in triggerDetectors)
+        {
+            if(triggerDetector.PlayerInside)
+                triggerDetector.LateUpdateState();
+        }
+    }
+    
     private void OnEvent()
     {
         userInput.OnPaused += pauseView.Pause;

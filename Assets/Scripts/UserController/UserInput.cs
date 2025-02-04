@@ -18,6 +18,8 @@ namespace InputActions
 		[SerializeField] private bool fire;
 		[SerializeField] private bool reload;
 		[SerializeField] private bool pause;
+		[SerializeField] private bool use;
+		
 		[Header("Movement Settings")]
 		[SerializeField] private bool analogMovement;
 
@@ -41,6 +43,7 @@ namespace InputActions
 		public bool Fire => fire;
 		public bool Reload => reload;
 		public bool Pause => pause;
+		public bool Use => use;
 		
 		public void OnMove(InputValue value) => _move = value.Get<Vector2>();
 		public void OnLook(InputValue value)
@@ -57,7 +60,8 @@ namespace InputActions
 		public void OnFire(InputValue value) => fire = value.isPressed;
 		public void OnReload(InputValue value) => reload = value.isPressed;
 		public void OnMousePosition(InputValue value) => _mousePosition = value.Get<Vector2>();
-
+		public void OnUse(InputValue value) => use = value.isPressed;
+		
 		public void OnScroll(InputValue value)
 		{
 			_scroll = value.Get<Vector2>().y;

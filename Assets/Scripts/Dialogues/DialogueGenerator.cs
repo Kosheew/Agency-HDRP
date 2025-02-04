@@ -29,6 +29,8 @@ public class DialogueGenerator : MonoBehaviour
     private int _phrasesAmount;
     private bool _isFirstTimePlayed;
 
+    private bool _panelActive = false;
+    
     private List<GameObject> _activePanels;
     
     [SerializeField] private Animator _animator;
@@ -92,21 +94,34 @@ public class DialogueGenerator : MonoBehaviour
 
     public void ShowPanel(DialogueParams dialogue)
     {
+        if (_panelActive) return;
+        
+        PanelDestroyed();
         _animator.SetTrigger("Show");
         GenerateDialogue(dialogue);
+        
+        _panelActive = true;   
     }
     
     public void HidePanels()
     {
+        if(!_panelActive) return;
+        
         _maxPhrasesAmount = 0;
         _isFirstTimePlayed = false;
+        PanelDestroyed();
+        
+        _animator.SetTrigger("Hide");
+        _panelActive = false;
+    }
+
+    private void PanelDestroyed()
+    {
         foreach (var panel in _activePanels)
         {
             Destroy(panel);
         }
         _activePanels.Clear();
-        
-        _animator.SetTrigger("Hide");
     }
     
     #region  Helpers

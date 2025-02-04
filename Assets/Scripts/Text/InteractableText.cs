@@ -13,29 +13,21 @@ public class InteractableText : MonoBehaviour
         textImage.fillAmount = 0f;  
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OpenInteractableText()
     {
-        if (other.CompareTag("Player"))
-        {
-            if (coroutine != null)
-            {
-                StopCoroutine(coroutine);  
-            }
-            coroutine = StartCoroutine(StartAnimation(0f, 1f)); 
-        }
+        if (coroutine != null)
+            StopCoroutine(coroutine);  
+            
+        coroutine = StartCoroutine(StartAnimation(0f, 1f)); 
+        
     }
 
-    private void OnTriggerExit(Collider other)
+    public void CloseInteractableText()
     {
-        if (other.CompareTag("Player"))
-        {
-            if (coroutine != null)
-            {
-                StopCoroutine(coroutine);  
-            }
+        if (coroutine != null)
+            StopCoroutine(coroutine);  
             
-            coroutine = StartCoroutine(StartAnimation(textImage.fillAmount, 0f));
-        }
+        coroutine = StartCoroutine(StartAnimation(textImage.fillAmount, 0f));
     }
 
     private IEnumerator StartAnimation(float startFill, float endFill)
