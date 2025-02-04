@@ -57,6 +57,7 @@ namespace Characters.Enemy
 
         [SerializeField] private bool patrolled;
         
+        
         public void Inject(DependencyContainer container)
         {
             Agent.speed = enemySetting.MoveSpeed;
@@ -84,6 +85,7 @@ namespace Characters.Enemy
         
         private void OnDamageable(float damage)
         {
+            ShouldCheckTarget = true;
             CommandEnemy.CreateToAttackedCommand(this);
         }
         private void OnDeath()

@@ -127,7 +127,7 @@ public class DialogueGenerator : MonoBehaviour
 
         private void DisableButtons(List<Button> buttons)
         {
-            foreach (Button button in buttons)
+              foreach (Button button in buttons)
                 button.interactable = false;
         }
 
