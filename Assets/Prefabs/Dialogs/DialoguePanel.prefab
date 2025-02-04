@@ -111,9 +111,9 @@ GameObject:
   - component: {fileID: 2765646923905663779}
   - component: {fileID: 6517681770072823810}
   - component: {fileID: 5663955231547740767}
-  - component: {fileID: 4467926792802150410}
   - component: {fileID: 6589742512339089976}
   - component: {fileID: 3847112275615961572}
+  - component: {fileID: 8979300889064317605}
   m_Layer: 5
   m_Name: Option3
   m_TagString: Untagged
@@ -167,7 +167,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -192,21 +192,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4467926792802150410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4463585843131829704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de2be626426bbd84583950ba7ae8d4ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _hoverColor: {r: 0.8845068, g: 1, b: 0, a: 1}
-  _pressedColor: {r: 0, g: 1, b: 0, a: 1}
-  _hoverSound: {fileID: 8300000, guid: 287b1c23d46038e49addb55a4aa4790a, type: 3}
 --- !u!114 &6589742512339089976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,6 +248,27 @@ MonoBehaviour:
   m_Text: 'c. Option3
 
 '
+--- !u!95 &8979300889064317605
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4463585843131829704}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 66ec12fcac85bc147aa2a96af7bc5dcb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4937652442828259792
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,9 +280,9 @@ GameObject:
   - component: {fileID: 576618061293157097}
   - component: {fileID: 3315778437137946170}
   - component: {fileID: 8973951130296703148}
-  - component: {fileID: 8027350588597811244}
   - component: {fileID: 2016191635714017342}
   - component: {fileID: 5644506881989986487}
+  - component: {fileID: 4450046183183627877}
   m_Layer: 5
   m_Name: Option1
   m_TagString: Untagged
@@ -294,7 +300,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4474579450641854429}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -330,7 +336,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 0.990566, g: 0.990566, b: 0.990566, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -355,21 +361,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8027350588597811244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4937652442828259792}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de2be626426bbd84583950ba7ae8d4ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _hoverColor: {r: 0.8845068, g: 1, b: 0, a: 1}
-  _pressedColor: {r: 0, g: 1, b: 0, a: 1}
-  _hoverSound: {fileID: 8300000, guid: 287b1c23d46038e49addb55a4aa4790a, type: 3}
 --- !u!114 &2016191635714017342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -412,7 +403,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
-    m_FontSize: 17
+    m_FontSize: 18
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 1
@@ -424,6 +415,27 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: a. Option1
+--- !u!95 &4450046183183627877
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4937652442828259792}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 66ec12fcac85bc147aa2a96af7bc5dcb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6474491077918829798
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,10 +621,9 @@ GameObject:
   - component: {fileID: 7557758146901146306}
   - component: {fileID: 6807735090019149935}
   - component: {fileID: 1139871367670771133}
-  - component: {fileID: 621534041345720301}
-  - component: {fileID: 6508628283854865516}
   - component: {fileID: 6108181746969539504}
   - component: {fileID: 5416747227910303221}
+  - component: {fileID: 7754225832746336269}
   m_Layer: 5
   m_Name: Option2
   m_TagString: Untagged
@@ -666,7 +677,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -691,34 +702,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &621534041345720301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6475448039198446188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de2be626426bbd84583950ba7ae8d4ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _hoverColor: {r: 0.8845068, g: 1, b: 0, a: 1}
-  _pressedColor: {r: 0, g: 1, b: 0, a: 1}
-  _hoverSound: {fileID: 8300000, guid: 287b1c23d46038e49addb55a4aa4790a, type: 3}
---- !u!114 &6508628283854865516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6475448039198446188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates: []
 --- !u!114 &6108181746969539504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -773,6 +756,27 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: b. Option2
+--- !u!95 &7754225832746336269
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6475448039198446188}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 66ec12fcac85bc147aa2a96af7bc5dcb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8497744497450551461
 GameObject:
   m_ObjectHideFlags: 0
