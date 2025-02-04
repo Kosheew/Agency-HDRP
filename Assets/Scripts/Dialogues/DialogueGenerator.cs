@@ -14,8 +14,7 @@ public class DialogueGenerator : MonoBehaviour
     [SerializeField] private float _panelHeight = 550f;
     [SerializeField] private float _panelWidth = 500f;
     
-    [SerializeField] private AudioSource _dialogsAudioSource;
-    [SerializeField] private AudioSource _buttonAudioSource;    
+    [SerializeField] private AudioSource _audioSource;
     
     [SerializeField] private DialogueParams _firstPhrase;  
     [SerializeField] private int _maxPhrasesAmount;
@@ -34,7 +33,7 @@ public class DialogueGenerator : MonoBehaviour
     private List<GameObject> _activePanels;
     
     [SerializeField] private Animator _animator;
-    
+    [SerializeField] private AudioClip _clickSound;
     private void Awake()
     {
         _activePanels = new List<GameObject>(15);
@@ -80,12 +79,12 @@ public class DialogueGenerator : MonoBehaviour
             int index = i;
 
             _answers[index].GetComponentInChildren<Text>().text = dialogue.OptionsName[index];
-            ButtonInteraction btn = _answers[index].GetComponent<ButtonInteraction>();
-            btn.AddAudioSource(_buttonAudioSource);
 
             _answers[index].onClick.AddListener(() =>
             {
-                btn.ChangeTextColor(_answers[index]);
+                if(_clickSound != null)
+                    _audioSource.PlayOneShot(_clickSound);
+                
                 DisableButtons(_answers);
                 GenerateDialogue(dialogue.Options[index]);
             });
@@ -134,8 +133,7 @@ public class DialogueGenerator : MonoBehaviour
 
         private void PlayAudio(AudioClip audioClip)
         {
-            _dialogsAudioSource.Stop();
-            _dialogsAudioSource.PlayOneShot(audioClip);
+            _audioSource.PlayOneShot(audioClip);
         }
 
     #endregion
