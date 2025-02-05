@@ -67,4 +67,22 @@ public class QuestView : MonoBehaviour
             questDescription.gameObject.SetActive(true);
         }
     }
+    
+    public void UpdateQuests()
+    {
+        _questPresenter.RefreshQuests();
+    }
+
+    public void Clear()
+    {
+        questTitle.SetText("Немає активних квестів");
+        questDescription.SetText("");
+    
+        foreach (var title in questStepTitle)
+            title.gameObject.SetActive(false);
+    
+        foreach (var description in questStepDescription)
+            description.gameObject.SetActive(false);
+    }
+
 }

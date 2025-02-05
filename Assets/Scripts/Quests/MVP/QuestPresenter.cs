@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class QuestPresenter 
 {
@@ -36,5 +37,21 @@ public class QuestPresenter
 
         _currentQuestIndex = (_currentQuestIndex - 1 + _quests.Count) % _quests.Count;
         _questView.SetQuest(_quests[_currentQuestIndex]);
+    }
+    
+    public void RefreshQuests()
+    {
+        _quests = _questManager.GetActiveQuests();
+        
+        if (_quests.Count > 0)
+        {
+            _currentQuestIndex = Mathf.Clamp(_currentQuestIndex, 0, _quests.Count - 1);
+            _questView.SetQuest(_quests[_currentQuestIndex]);
+        }
+        else
+        {
+            // Якщо активних квестів немає, очистити UI
+            _questView.Clear();
+        }
     }
 }

@@ -1,13 +1,19 @@
+using System;
 using System.Collections.Generic;
 using Quests;
 using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
+    [Header("Start Clear")]
+    [SerializeField] private bool startClear = false;
+    
     [SerializeField] private QuestView questView;
     [SerializeField] private List<QuestSettings> availableQuests; 
+    
     private Dictionary<int, Quest> _activeQuests; 
     private Dictionary<int, QuestSettings> _availableQuestLookup;
+    private Dictionary<int, Quest> _completedQuests;
     
     private BinarySaveSystem _saveSystem;
     
@@ -16,9 +22,15 @@ public class QuestManager : MonoBehaviour
     public void Inject(DependencyContainer container)
     {
         _saveSystem = container.Resolve<BinarySaveSystem>();
+        
         _availableQuestLookup = new Dictionary<int, QuestSettings>(availableQuests.Count);
+        _activeQuests = new Dictionary<int, Quest>(availableQuests.Count);
+        _completedQuests = new Dictionary<int, Quest>(availableQuests.Count);
         
         _startQuestHash = QuestHashUtility.GetQuestHash(availableQuests[0].QuestName);
+        
+        if(startClear)
+            _saveSystem.ClearSaveData();
         
         foreach (var questSettings in availableQuests)
         {
@@ -28,8 +40,6 @@ public class QuestManager : MonoBehaviour
                 _availableQuestLookup.Add(questHash, questSettings);
             }
         }
-    
-        _activeQuests = new Dictionary<int, Quest>(availableQuests.Count);
 
         if (_saveSystem.CheckFileExists())
         {
@@ -40,8 +50,7 @@ public class QuestManager : MonoBehaviour
                     if (_availableQuestLookup.TryGetValue(questProgress.QuestHash, out var questSettings))
                     {
                         var quest = new Quest(questSettings);
-                        quest.StepsCompleted =
-                            questProgress.GetStepsCompletedDictionary(); 
+                        quest.StepsCompleted = questProgress.GetStepsCompletedDictionary(); 
                         _activeQuests.Add(questProgress.QuestHash, quest);
 
                         if (!quest.IsQuestCompleted())
@@ -60,9 +69,13 @@ public class QuestManager : MonoBehaviour
         {
             ActivateQuest(_startQuestHash);
         }
-        questView.SetQuest(_activeQuests[_startQuestHash]);
     }
-    
+
+    private void Start()
+    {
+        questView.UpdateQuests();
+    }
+
     public void ActivateQuest(int questHashCode)
     {
         if (_availableQuestLookup.TryGetValue(questHashCode, out var questSettings))
@@ -70,7 +83,6 @@ public class QuestManager : MonoBehaviour
             if (!_activeQuests.ContainsKey(questHashCode))
             {
                 var newQuest = new Quest(questSettings);
-                newQuest.StepsCompleted = new Dictionary<int, bool>();
                 
                 _activeQuests.Add(questHashCode, newQuest);
                 Debug.Log($"Quest {questSettings.QuestName} activated!");
@@ -93,9 +105,14 @@ public class QuestManager : MonoBehaviour
         {
             quest.CompleteStep(questStepHashCode);
             questView.SetQuest(quest);
+            
             if (quest.IsQuestCompleted())
             {
+                _activeQuests.Remove(questHashCode);
+                _completedQuests.Add(questHashCode, quest);
                 Debug.Log($"Quest {quest.GetQuestSO().QuestName} completed!");
+                
+                questView.UpdateQuests();
             }
         }
         else
@@ -107,6 +124,11 @@ public class QuestManager : MonoBehaviour
     public List<Quest> GetActiveQuests()
     {
         return new List<Quest>(_activeQuests.Values);
+    }
+
+    public List<Quest> GetCompletedQuests()
+    {
+        return new List<Quest>(_completedQuests.Values);
     }
 
     /// <summary>

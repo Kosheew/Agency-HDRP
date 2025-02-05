@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a35b1f304e2ba5846a295e3d795f9380, type: 3}
   m_Name: Character Audio Settings
   m_EditorClassIdentifier: 
-  stepIntervalWalk: 0.5
+  stepIntervalWalk: 0.6
   stepIntervalRun: 0.4
   footstepWalkClips:
   - {fileID: 8300000, guid: 1f0199a4c6005ec4abbb302f71bc036d, type: 3}

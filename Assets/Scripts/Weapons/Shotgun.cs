@@ -6,16 +6,13 @@ namespace Weapons
     {
         public override void Shoot()
         {
-            if (CheckShoot())
+            for (int i = 0; i < weaponSetting.CartageAmount; i++)
             {
-                for (int i = 0; i < weaponSetting.CartageAmount; i++)
-                {
-                    GetShoot();
-                }
+                GetShoot();
             }
         }
 
-        public override void IncreaseSpread()
+        /*public override void IncreaseSpread()
         {
             SpreadMultiplier = Mathf.Min(
                 SpreadMultiplier + weaponSetting.SpreadIncreaseRate * weaponSetting.AmountSpreadIncreaseRate * Time.deltaTime,
@@ -37,6 +34,6 @@ namespace Weapons
             );
 
             return (_spawnPoint.forward + _spawnPoint.TransformDirection(spreadDirection)).normalized;
-        }
+        }*/
     }
 }

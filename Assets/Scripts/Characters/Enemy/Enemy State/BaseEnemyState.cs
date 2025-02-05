@@ -51,8 +51,6 @@ namespace Enemy.State
             }
         }
         
-        
-        
         public abstract void EnterState(IEnemy enemy);
         public abstract void UpdateState(IEnemy enemy);
         public abstract void ExitState(IEnemy enemy);

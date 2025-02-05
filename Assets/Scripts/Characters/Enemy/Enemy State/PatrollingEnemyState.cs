@@ -28,6 +28,8 @@ namespace Enemy.State
 
         public override void UpdateState(IEnemy enemy)
         { 
+            enemy.FootstepHandler.PlayFootstepWalkSound();
+            
             ChangeSpeed(enemy, enemy.EnemySetting.MoveSpeed);  
             
             if (CheckTarget(enemy) != null)

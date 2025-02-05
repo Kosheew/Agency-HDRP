@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Bianchi 12GA
   m_EditorClassIdentifier: 
   range: 12
-  damage: 20
+  damage: 7
   timeReload: 2
   animType: 0
   typeWeapon: 2
   cartageAmount: 8
-  amountSpreadIncreaseRate: 4
+  amountSpreadIncreaseRate: 2.06
   intervalBetweenShoots: 2
   takingTime: 0
   spreadIncreaseInterval: 0

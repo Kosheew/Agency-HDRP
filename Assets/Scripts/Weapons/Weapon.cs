@@ -48,9 +48,7 @@ namespace Weapons
 
         public virtual void Shoot()
         {
-            
-                GetShoot();
-            
+            GetShoot();
         }
         
         public virtual bool CheckShoot()

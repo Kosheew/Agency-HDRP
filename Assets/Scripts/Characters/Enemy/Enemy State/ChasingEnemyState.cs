@@ -22,6 +22,8 @@ namespace Enemy.State
 
         public override void UpdateState(IEnemy enemy)
         {
+            enemy.FootstepHandler.PlayFootstepRunSound();
+            
             ChangeSpeed(enemy, enemy.EnemySetting.SprintSpeed);  
             // enemy.Agent.speed = Mathf.Lerp(enemy.Agent.speed, enemy.EnemySetting.SprintSpeed, Time.deltaTime * 15);
             if (CheckTarget(enemy) == null)
