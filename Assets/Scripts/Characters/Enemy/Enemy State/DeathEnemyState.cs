@@ -8,7 +8,7 @@ namespace Enemy.State
     {
         public void EnterState(IEnemy enemy)
         {
-            Debug.Log("Enemy Death State Enter");
+           //  Debug.Log("Enemy Death State Enter");
             enemy.CharacterAnimator.Death();
             enemy.Agent.speed = 0;
             enemy.Agent.isStopped = true;
