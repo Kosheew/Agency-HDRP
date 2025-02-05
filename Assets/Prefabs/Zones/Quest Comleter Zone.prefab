@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 6314202172189887398}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.09, y: 1.22, z: 4.12}
+  m_LocalPosition: {x: 13.09, y: 4.14, z: -1.77}
   m_LocalScale: {x: 6, y: 4, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dfb15dc91988eb42a91550c16b10d51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onTrigger:
+  onTriggerEnter:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8875019314942856523}
@@ -94,5 +94,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 796778ab63d4be346babe3f8f8c588e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questSettings: {fileID: 0}
-  questStepSettings: {fileID: 0}
+  questSettings: {fileID: 11400000, guid: 71b953bc85803f349aea0464e6dd1fb9, type: 2}
+  questStepSettings: {fileID: 11400000, guid: e085aba38cd784847966b3544541295a, type: 2}

@@ -1,4 +1,4 @@
-using System;
+using Zones;
 using Characters;
 using Characters.Enemy;
 using Characters.Player;
@@ -22,7 +22,7 @@ public class Game : MonoBehaviour
     [SerializeField] private BattleController battleController;
     
     [Header("Trigger Zone Settings")]
-    [SerializeField] private TriggerDetector[] triggerDetectors;
+    [SerializeField] private TriggerUseDetector[] triggerDetectors;
     
     [Header("Audio Settings")]
     [SerializeField] private AudioManager audioManager;
@@ -155,8 +155,7 @@ public class Game : MonoBehaviour
     {
         foreach (var triggerDetector in triggerDetectors)
         {
-            if(triggerDetector.PlayerInside)
-                triggerDetector.LateUpdateState();
+            triggerDetector.LateUpdateState();
         }
     }
     

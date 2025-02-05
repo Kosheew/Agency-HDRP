@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dfb15dc91988eb42a91550c16b10d51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onTrigger:
+  onTriggerEnter:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6142903489656641757}
