@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Avenger .45
   m_EditorClassIdentifier: 
   range: 12
-  damage: 5
+  damage: 8
   timeReload: 1.5
   animType: 1
   typeWeapon: 0

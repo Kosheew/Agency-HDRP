@@ -8,6 +8,7 @@ namespace Player.State
 {
     public class CombatState : BasePlayerState
     {
+        private bool _isReadyToShoot = false;
         
         protected void RotateTowards(IPlayer player, Vector2 mousePosition)
         {
@@ -28,6 +29,10 @@ namespace Player.State
         {
             var direction = (targetPosition - player.TransformMain.position).normalized;
             direction.y = 0;
+            
+            Vector3 cameraForward = player.MainCamera.transform.forward;
+            cameraForward.y = 0; // Ігноруємо вертикальну складову камери
+            
             var lookRotation = Quaternion.LookRotation(direction);
 
             player.TransformMain.rotation = Quaternion.Lerp(
@@ -35,6 +40,9 @@ namespace Player.State
                 lookRotation, 
                 Time.deltaTime * player.PlayerSetting.TurnSpeed
             );
+            
+            float angleDifference = Quaternion.Angle(player.TransformMain.rotation, lookRotation);
+            _isReadyToShoot = angleDifference < 5f;
         }
         
         public override void EnterState(IPlayer player)
@@ -52,6 +60,9 @@ namespace Player.State
             if (player.UserInput.Fire)
             {
                 RotateTowards(player, player.UserInput.MousePosition);
+                
+                if (!_isReadyToShoot) return;
+                
                 player.Weapon.SetSpread(_speed);
                 player.Weapon.IncreaseSpread();
                 

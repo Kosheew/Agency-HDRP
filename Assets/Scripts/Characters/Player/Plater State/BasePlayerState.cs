@@ -44,7 +44,10 @@ namespace Player.State
         
         private void GroundedCheck(IPlayer player)
         {
-            player.Grounded = _controller.isGrounded;
+            bool hasGround = Physics.Raycast(player.TransformMain.position + Vector3.up * 0.1f, Vector3.down, 0.4f);
+
+            player.Grounded = _controller.isGrounded || hasGround;
+            
             _playerAnimation.SetGrounded(player.Grounded);
         }
         
@@ -56,22 +59,14 @@ namespace Player.State
             
             float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
 
-            float speedOffset = 0.2f;
+            float speedOffset = 0.02f;
             float inputMagnitude = _userInput.AnalogMovement ? _userInput.Move.magnitude : 1f;
             
-            if (currentHorizontalSpeed < targetSpeed - speedOffset ||
-                currentHorizontalSpeed > targetSpeed + speedOffset)
-            {
-                _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude,
-                    Time.deltaTime * _playerSetting.SpeedChangeRate);
+  
+            _speed = Mathf.Lerp(_speed, targetSpeed * inputMagnitude, Time.deltaTime * _playerSetting.SpeedChangeRate);
                 
-                _speed = Mathf.Round(_speed * 1000f) / 1000f;
-            }
-            else
-            {
-                _speed = targetSpeed;
-            }
-            
+            _speed = Mathf.Round(_speed * 1000f) / 1000f;
+
             _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * _playerSetting.SpeedChangeRate);
             if (_animationBlend < 0.01f) _animationBlend = 0f;
             
