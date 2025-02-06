@@ -59,18 +59,12 @@ namespace Player.State
             float speedOffset = 0.2f;
             float inputMagnitude = _userInput.AnalogMovement ? _userInput.Move.magnitude : 1f;
             
-            if (currentHorizontalSpeed < targetSpeed - speedOffset ||
-                currentHorizontalSpeed > targetSpeed + speedOffset)
-            {
-                _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude,
+    
+                _speed = Mathf.Lerp(_speed, targetSpeed,
                     Time.deltaTime * _playerSetting.SpeedChangeRate);
                 
                 _speed = Mathf.Round(_speed * 1000f) / 1000f;
-            }
-            else
-            {
-                _speed = targetSpeed;
-            }
+        
             
             _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * _playerSetting.SpeedChangeRate);
             if (_animationBlend < 0.01f) _animationBlend = 0f;

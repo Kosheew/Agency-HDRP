@@ -15,7 +15,7 @@ MonoBehaviour:
   moveSpeed: 2
   turnSpeed: 80
   sprintSpeed: 5.335
-  speedChangeRate: 200
+  speedChangeRate: 10
   characterAudioSettings: {fileID: 11400000, guid: f39955d200b77dc449c27dab6d946f8b,
     type: 2}
   accelerationRate: 0
