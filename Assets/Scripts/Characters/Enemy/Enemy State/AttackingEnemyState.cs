@@ -1,6 +1,7 @@
 using Characters.Character_Interfaces;
 using Characters.Enemy;
 using UnityEngine;
+using Weapons;
 
 namespace Enemy.State
 {
@@ -10,10 +11,18 @@ namespace Enemy.State
 
         private ITargetHandler _targetHandler;
         private Transform _targetTransform;
+
+        private Weapon _enemyWeapon;
+        
         public override void EnterState(IEnemy enemy)
         {
             _targetHandler = CheckTarget(enemy);
             _targetTransform = _targetHandler.TargetPosition;
+
+            _enemyWeapon = enemy.Weapon;
+            
+            _enemyWeapon.transform.localPosition = new Vector3(0.126f, -0.043f, 0.041f);
+            _enemyWeapon.transform.localRotation = Quaternion.Euler(176.87f, -100.96f, -81.22f);
             
             enemy.CharacterAnimator.Attacking(true);
         }
@@ -62,6 +71,9 @@ namespace Enemy.State
 
         public override void ExitState(IEnemy enemy)
         {
+            _enemyWeapon.transform.localPosition = new Vector3(0.122f, -0.071f, 0.042f);
+            _enemyWeapon.transform.localRotation = Quaternion.Euler(164.262f, -90.359f, -82.389f);
+            
             enemy.Agent.isStopped = false;
             enemy.CharacterAnimator.Attacking(false);
         }
