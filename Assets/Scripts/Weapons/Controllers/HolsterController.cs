@@ -101,6 +101,7 @@ public class HolsterController : MonoBehaviour
             rotationOffset = Quaternion.Euler(0, -88f, 0f); // Унікальні значення
         }
 
+        _currentWeapon.SetActiveLaser(false);
         _currentWeapon.transform.SetParent(holsterTransform);
         _currentWeapon.transform.localPosition = positionOffset;
         _currentWeapon.transform.localRotation = rotationOffset;
