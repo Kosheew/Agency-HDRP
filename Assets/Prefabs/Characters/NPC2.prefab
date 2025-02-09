@@ -897,6 +897,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3098855784129660525}
   - component: {fileID: 3305518140161605190}
+  - component: {fileID: 9099713763428492156}
+  - component: {fileID: 9078933759934748898}
   m_Layer: 0
   m_Name: NPC2
   m_TagString: Untagged
@@ -950,6 +952,45 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &9099713763428492156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2326821993154272471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc6c3d91262de46418038244c700dc92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTaking: 0
+  isSitting: 0
+  isRest: 0
+  isTyping: 0
+--- !u!136 &9078933759934748898
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2326821993154272471}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.3
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &2498861096678201489
 GameObject:
   m_ObjectHideFlags: 0

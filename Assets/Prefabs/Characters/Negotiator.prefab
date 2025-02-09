@@ -2971,6 +2971,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9188495130611232903}
   - component: {fileID: 7225338923306268432}
+  - component: {fileID: 180827592742470468}
+  - component: {fileID: 4066708861364905457}
   m_Layer: 0
   m_Name: Negotiator
   m_TagString: Untagged
@@ -3020,6 +3022,45 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!136 &180827592742470468
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8417165099622296125}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.3
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &4066708861364905457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8417165099622296125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc6c3d91262de46418038244c700dc92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTaking: 0
+  isSitting: 0
+  isRest: 0
+  isTyping: 0
 --- !u!1 &8880173343709739560
 GameObject:
   m_ObjectHideFlags: 0
