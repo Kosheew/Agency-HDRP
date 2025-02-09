@@ -10,14 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba755c336eac4c4393bd34af35e8376a, type: 3}
-  m_Name: Quest 1
+  m_Name: 1. The Arrival
   m_EditorClassIdentifier: 
-  questName: "\u0422\u0456\u043D\u0456 \u043D\u0430\u0434 \u0432\u0438\u0431\u043E\u0440\u0430\u043C\u0438"
-  questDescription: "\u0420\u043E\u0437\u0441\u043B\u0456\u0434\u0443\u0439 \u0432\u0442\u0440\u0443\u0447\u0430\u043D\u043D\u044F
-    \u0441\u0445\u0456\u0434\u043D\u043E\u0457 \u0430\u0434\u043C\u0456\u043D\u0456\u0441\u0442\u0440\u0430\u0446\u0456\u0457
-    \u0443 \u0432\u0438\u0431\u043E\u0440\u0438 \u043C\u0456\u0441\u0446\u0435\u0432\u043E\u0433\u043E
-    \u0441\u0430\u043C\u043E\u0432\u0440\u044F\u0434\u0443\u0432\u0430\u043D\u043D\u044F
-    \u043D\u0430 \u0437\u0430\u0445\u043E\u0434\u0456. "
+  questName: The Arrival
+  questDescription: Receive your first assignment
   stepsDescriptions:
   - {fileID: 11400000, guid: fb6dd03ee2a8d424b9b39e774cf6de54, type: 2}
   - {fileID: 11400000, guid: e085aba38cd784847966b3544541295a, type: 2}
