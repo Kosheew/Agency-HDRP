@@ -14,15 +14,12 @@ namespace Player.State
         {
             var ray = player.MainCamera.ScreenPointToRay(mousePosition);
 
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, LayerMask.GetMask("Enemy")))
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
             {
-                if (hit.collider.TryGetComponent<IEnemy>(out var enemy))
-                {
-                    RotateToTarget(player, enemy.MainPosition.position);
-                    return;
-                }
-                Debug.Log(hit.collider.name);
+                RotateToTarget(player, hit.point);
+                return;
             }
+            Debug.Log(hit.collider.name);
         }
         
         private void RotateToTarget(IPlayer player, Vector3 targetPosition)
