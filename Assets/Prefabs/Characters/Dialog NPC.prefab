@@ -169,7 +169,6 @@ GameObject:
   m_Component:
   - component: {fileID: 865589691701410698}
   - component: {fileID: 5512325588447085882}
-  - component: {fileID: 1442709008504376975}
   - component: {fileID: 4598704387649762579}
   - component: {fileID: 4807591493490191861}
   - component: {fileID: 1001499159983486376}
@@ -217,20 +216,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1442709008504376975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9020776350156468342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb1d83353904f27468755f2f22984804, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animationDuration: 0.5
-  textImage: {fileID: 6571853222009399335}
 --- !u!114 &4598704387649762579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,7 +231,7 @@ MonoBehaviour:
   onTriggerEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1442709008504376975}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InteractableText, Assembly-CSharp
         m_MethodName: OpenInteractableText
         m_Mode: 1
@@ -313,7 +298,7 @@ MonoBehaviour:
   onTriggerExit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1442709008504376975}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InteractableText, Assembly-CSharp
         m_MethodName: CloseInteractableText
         m_Mode: 1
