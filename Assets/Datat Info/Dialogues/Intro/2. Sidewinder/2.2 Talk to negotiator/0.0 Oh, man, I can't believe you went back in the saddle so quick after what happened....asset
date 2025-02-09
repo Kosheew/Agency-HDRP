@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d6d48f24e13ad4abc707a0272e2ec8, type: 3}
+  m_Name: 0.0 Oh, man, I can't believe you went back in the saddle so quick after
+    what happened...
+  m_EditorClassIdentifier: 
+  _personPhoto: {fileID: 21300000, guid: 02ce07404e67c6742bba1cfcf2b319fa, type: 3}
+  _personName: Negotiator
+  _text: Oh, man, I can't believe you went back in the saddle so quick after what
+    happened...
+  _optionsName:
+  - What do you mean by that?
+  _options:
+  - {fileID: 11400000, guid: ada5d30b3493c5945a9a57845fa5a4a3, type: 2}
+  _audio: {fileID: 0}

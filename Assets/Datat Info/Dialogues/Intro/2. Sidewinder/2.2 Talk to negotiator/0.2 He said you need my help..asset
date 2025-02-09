@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d6d48f24e13ad4abc707a0272e2ec8, type: 3}
+  m_Name: 0.2 He said you need my help.
+  m_EditorClassIdentifier: 
+  _personPhoto: {fileID: 21300000, guid: 02ce07404e67c6742bba1cfcf2b319fa, type: 3}
+  _personName: Scarecrow
+  _text: 'Ain''t that the truth. Got this man in the room, Viktor something. Works
+    in some pawn shop downtown. We know for sure that he is an Eastern spy, but he
+    plays dumb. '
+  _optionsName:
+  - You need me to roughen him up?
+  _options:
+  - {fileID: 11400000, guid: 33b7419c7067fdf40bfe14546cb0e56b, type: 2}
+  _audio: {fileID: 0}
