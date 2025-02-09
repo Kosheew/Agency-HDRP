@@ -25,8 +25,8 @@ MonoBehaviour:
   idleRadiusSpread: 0.4
   walkingRadiusSpread: 1
   runningRadiusRadiusSpread: 1.5
-  spreadIncreaseMultiplier: 2
-  spreadIncreaseRate: 2
+  spreadIncreaseMultiplier: 1
+  spreadIncreaseRate: 1
   maxAmmoStore: 8
   shootingSound: {fileID: 8300000, guid: 1b766da7cc2d648aa84e36cb5fe8abcb, type: 3}
   noBulletsSound: {fileID: 8300000, guid: e7632c6401c09437e83de45d33c5858e, type: 3}
