@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 0.0 Well, if it isn't Wolf. Thought you'd be taller. We worked together
     not long ago, remember
   m_EditorClassIdentifier: 
-  _personPhoto: {fileID: 21300000, guid: f16ead8463c524a4f8fc27d0f42301e8, type: 3}
+  _personPhoto: {fileID: 21300000, guid: a3c90309194c09a41b8333ba24d05277, type: 3}
   _personName: Agent Kraus
   _text: Well, if it isn't Wolf. Thought you'd be taller. We worked together not
     long ago, remember?

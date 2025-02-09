@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b983de12ebc4684b0ad86dab763be12, type: 3}
-  m_Name: 1.4 Meet with Curator Scarecrow
+  m_Script: {fileID: 11500000, guid: ba755c336eac4c4393bd34af35e8376a, type: 3}
+  m_Name: 2. Sidewinder
   m_EditorClassIdentifier: 
-  questName: Meet with Scarecrow
-  description: Navigate through the agency corridors to the Scarecrow office.
+  questName: Sidewinder
+  questDescription: Receive your first assignment
+  stepsDescriptions:
+  - {fileID: 11400000, guid: 2f555c6d7b662eb4ca0af400aa9b1390, type: 2}

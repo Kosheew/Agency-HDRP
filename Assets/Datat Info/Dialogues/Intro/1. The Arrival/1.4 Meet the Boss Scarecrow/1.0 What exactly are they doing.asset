@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d6d48f24e13ad4abc707a0272e2ec8, type: 3}
+  m_Name: 1.0 What exactly are they doing
+  m_EditorClassIdentifier: 
+  _personPhoto: {fileID: 21300000, guid: 8530def22180cf548847eff14f88fc4c, type: 3}
+  _personName: Scarecrow
+  _text: Before the elections even started, we got word that some high-ranking official
+    in the East wants to take the seat for himself, no matter the cost. We can not
+    let that happen, I'm sure you understand that. Breaking the status-quo in any
+    way can lead us to all matters of shit on the fan.
+  _optionsName:
+  - What is my mission?
+  _options:
+  - {fileID: 11400000, guid: 27fcc191133546c4a898b73abd3c5163, type: 2}
+  _audio: {fileID: 0}
