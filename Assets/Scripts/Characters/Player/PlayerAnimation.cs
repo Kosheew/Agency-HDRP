@@ -26,6 +26,7 @@ public class PlayerAnimation : MonoBehaviour
     public void Init()
     {
         _animator = GetComponent<Animator>();
+        
         AssignAnimationIDs();
     }
     

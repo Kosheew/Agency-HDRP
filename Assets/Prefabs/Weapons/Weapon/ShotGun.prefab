@@ -650,7 +650,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponSetting: {fileID: 11400000, guid: cf5af240319dd354380ba68c6544430a, type: 2}
-  _spawnPoint: {fileID: 6854166644998502737}
+  FirePoint: {fileID: 6854166644998502737}
   _targetLayer:
     serializedVersion: 2
     m_Bits: 576

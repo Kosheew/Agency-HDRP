@@ -17,7 +17,9 @@ namespace Characters.Player
         [SerializeField] private PlayerSetting playerSetting;
         [SerializeField] private AudioSource audioSource;
         [SerializeField] private HealthView healthView;
+        [SerializeField] private Transform pivot;
         
+        public Transform Pivot => pivot;
         public CharacterAudioSettings CharacterAudioSettings { get; private set; }
         public CharacterController Controller { get; private set; }
         public UserInput UserInput { get; private set; }

@@ -20,5 +20,6 @@ namespace Characters
         public bool Sneaked { get; set; }
         public bool Grounded { get; set; }
         
+        public Transform Pivot { get; }
     }
 }

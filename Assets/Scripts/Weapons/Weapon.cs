@@ -2,6 +2,7 @@ using Characters.Character_Interfaces;
 using UnityEngine;
 using WeaponSettings;
 using System;
+using UnityEngine.Serialization;
 
 namespace Weapons
 {
@@ -10,7 +11,7 @@ namespace Weapons
     public abstract class Weapon : MonoBehaviour
     {
         [SerializeField] protected WeaponSetting weaponSetting;
-        [SerializeField] protected Transform _spawnPoint;
+        public Transform  FirePoint;
         [SerializeField] protected LayerMask _targetLayer;
         
         [Header("Effects")] 
@@ -102,7 +103,7 @@ namespace Weapons
         {
             Vector3 shootDirection = GetShootDirection();
 
-            var ray = new Ray(_spawnPoint.position, shootDirection);
+            var ray = new Ray(FirePoint.position, shootDirection);
 
             if (Physics.Raycast(ray, out var hit, weaponSetting.Range, _targetLayer))
             {
@@ -110,7 +111,7 @@ namespace Weapons
                 HandleHit(hit);
             }
             
-            Debug.DrawRay(_spawnPoint.position, shootDirection * weaponSetting.Range, Color.red);
+            Debug.DrawRay(FirePoint.position, shootDirection * weaponSetting.Range, Color.red);
         }
 
         protected virtual Vector3 GetShootDirection()
@@ -128,10 +129,10 @@ namespace Weapons
             // Debug.Log("SpreadMultiplier: " + SpreadMultiplier.ToString());
 //            Debug.Log("Max Radius Spread: " + _maxRadiusSpread.ToString());
 
-            // Debug.DrawRay(_spawnPoint.position, shootDirection * weaponSetting.Range, Color.blue, 2f);
+            // Debug.DrawRay(FirePoint.position, shootDirection * weaponSetting.Range, Color.blue, 2f);
 
 
-            return (_spawnPoint.forward + _spawnPoint.TransformDirection(spreadDirection)).normalized;
+            return (FirePoint.forward + FirePoint.TransformDirection(spreadDirection)).normalized;
         }
         
         protected virtual void HandleHit(RaycastHit hit)

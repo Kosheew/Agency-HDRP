@@ -33,7 +33,7 @@ namespace Weapons
                 range
             );
 
-            return (_spawnPoint.forward + _spawnPoint.TransformDirection(spreadDirection)).normalized;
+            return (FirePoint.forward + FirePoint.TransformDirection(spreadDirection)).normalized;
         }*/
     }
 }

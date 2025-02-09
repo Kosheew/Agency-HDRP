@@ -9,30 +9,32 @@ namespace Player.State
     public class CombatState : BasePlayerState
     {
         private bool _isReadyToShoot = false;
+        private Vector3 _lastTargetPosition;
         
         protected void RotateTowards(IPlayer player, Vector2 mousePosition)
         {
-            var ray = player.MainCamera.ScreenPointToRay(mousePosition);
+            Ray ray = player.MainCamera.ScreenPointToRay(mousePosition); // Промінь від камери
 
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
+            Plane groundPlane = new Plane(Vector3.up, player.TransformMain.position); // Площина на рівні гравця
+
+            if (groundPlane.Raycast(ray, out float enter))
             {
-                RotateToTarget(player, hit.point);
-                return;
+                _lastTargetPosition = ray.GetPoint(enter); // Зберігаємо позицію для стрільби
+                RotateToTarget(player, _lastTargetPosition);
             }
-            Debug.Log(hit.collider.name);
         }
         
         private void RotateToTarget(IPlayer player, Vector3 targetPosition)
         {
-            var direction = (targetPosition - player.TransformMain.position).normalized;
+            Transform pivotTransform = player.Pivot; // Відповідає за обертання
+            Vector3 direction = (targetPosition - pivotTransform.position).normalized;
             direction.y = 0;
             
-            Vector3 cameraForward = player.MainCamera.transform.forward;
-            cameraForward.y = 0; // Ігноруємо вертикальну складову камери
+            Debug.Log(direction);
             
             var lookRotation = Quaternion.LookRotation(direction);
-
-            player.TransformMain.rotation = Quaternion.Lerp(
+            
+            player.TransformMain.rotation = Quaternion.Slerp(
                 player.TransformMain.rotation, 
                 lookRotation, 
                 Time.deltaTime * player.PlayerSetting.TurnSpeed
