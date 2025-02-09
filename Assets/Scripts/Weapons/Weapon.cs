@@ -17,6 +17,8 @@ namespace Weapons
         [SerializeField] protected ParticleSystem _shootingEffect;
         [SerializeField] protected ParticleSystem _bulletEffect;
 
+        [SerializeField] protected GameObject _laser;
+        
         [SerializeField] protected int ammoInventory;
         [SerializeField] protected int currentAmmo;
         
@@ -44,8 +46,14 @@ namespace Weapons
             DamageValue = weaponSetting.Damage;
 
             CanShoot = false;
+            _laser.SetActive(false);
         }
 
+        public void SetActiveLaser(bool active)
+        {
+            _laser.SetActive(active);
+        }
+        
         public virtual void Shoot()
         {
             GetShoot();

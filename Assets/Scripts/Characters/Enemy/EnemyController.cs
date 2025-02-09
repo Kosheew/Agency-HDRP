@@ -70,7 +70,7 @@ namespace Characters.Enemy
             AttackAudio = new AttackAudioHandler(AudioSource, _characterAudioSettings);
             CharacterAnimator = new CharacterAnimator(Animator);
             VisionChecker = new VisionChecker(enemySetting.LoseTargetDelay);
-            CharacterHealth = new CharacterHealth(100);
+            CharacterHealth = new CharacterHealth(20);
             _collider = GetComponent<Collider>();
             weapon.Init();
             

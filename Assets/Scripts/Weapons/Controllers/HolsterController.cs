@@ -39,6 +39,8 @@ public class HolsterController : MonoBehaviour
         _currentWeapon.gameObject.SetActive(true);
         _currentWeapon.transform.SetParent(handTransform);
         
+        _currentWeapon.SetActiveLaser(true);
+        
         _currentWeapon.transform.localPosition = new Vector3(0.147f, -0.04f, 0.034f);
         _currentWeapon.transform.localRotation = Quaternion.Euler(-2.2f, 98.472f, 88.77f);
     }
@@ -62,6 +64,7 @@ public class HolsterController : MonoBehaviour
             rotationOffset = Quaternion.Euler(0, -88f, 0f); // Унікальні значення
         }
 
+        _previousWeapon.SetActiveLaser(false);
         _previousWeapon.transform.SetParent(holsterTransform);
         _previousWeapon.transform.localPosition = positionOffset;
         _previousWeapon.transform.localRotation = rotationOffset;
@@ -72,6 +75,7 @@ public class HolsterController : MonoBehaviour
             {
                 if (weapon != _currentWeapon && weapon.AnimType == _previousWeapon.AnimType)
                 {
+                    weapon.SetActiveLaser(false);
                     weapon.gameObject.SetActive(false);
                 }
             }
