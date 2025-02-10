@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba755c336eac4c4393bd34af35e8376a, type: 3}
-  m_Name: 2. Sidewinder
+  m_Name: 3. Trigger Discipline
   m_EditorClassIdentifier: 
-  questName: Sidewinder
-  questDescription: Receive your first assignment
+  questName: Trigger Discipline
+  questDescription: 
   stepsDescriptions:
-  - {fileID: 11400000, guid: 2f555c6d7b662eb4ca0af400aa9b1390, type: 2}
-  - {fileID: 11400000, guid: 28d9b5c623868554189fbff7ae41c19d, type: 2}
-  - {fileID: 11400000, guid: ef88d1492bc4def4d972e0d9d3087b75, type: 2}
-  - {fileID: 11400000, guid: 8f2edf837533a26468d0fe8c98631b1c, type: 2}
+  - {fileID: 11400000, guid: 83f106af9d096a741acbcbd86a5cd157, type: 2}
+  - {fileID: 11400000, guid: 5057c5c6049daa34f8919c2d1ea40d41, type: 2}

@@ -9,8 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b983de12ebc4684b0ad86dab763be12, type: 3}
-  m_Name: 2.4 Report the information received to the negotiator
+  m_Script: {fileID: 11500000, guid: 42d6d48f24e13ad4abc707a0272e2ec8, type: 3}
+  m_Name: 0.8
   m_EditorClassIdentifier: 
-  questName: Talk to the negotiator
-  description: Talk to the negotiator
+  _personPhoto: {fileID: 0}
+  _personName: 
+  _text: 
+  _optionsName:
+  - 
+  _options:
+  - {fileID: 0}
+  _audio: {fileID: 0}

@@ -10,9 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b983de12ebc4684b0ad86dab763be12, type: 3}
-  m_Name: 2.1 Report to the interrogation room
+  m_Name: 2.4 Report the information received to the negotiator
   m_EditorClassIdentifier: 
-  questName: Report to the interrogation room
-  description: 'Report to the interrogation room
-
-'
+  questName: Report the information received to the negotiator
+  description: 
