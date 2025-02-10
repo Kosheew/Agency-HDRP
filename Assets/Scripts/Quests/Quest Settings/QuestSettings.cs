@@ -10,7 +10,7 @@ namespace Quests
     public class QuestSettings: ScriptableObject
     {
         [SerializeField] private string questName;
-        [SerializeField] private string uniqueID = Guid.NewGuid().ToString();
+        [SerializeField] private string uniqueID;
         [TextArea(3, 10), SerializeField] private string questDescription;
         [SerializeField] private List<QuestStepSettings> stepsDescriptions; 
 

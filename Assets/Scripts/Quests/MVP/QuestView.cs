@@ -56,6 +56,11 @@ public class QuestView : MonoBehaviour
                  questStepTitle[i].fontStyle = FontStyles.Strikethrough;
                  questStepDescription[i].fontStyle = FontStyles.Strikethrough;
             }
+            else
+            {
+                questStepTitle[i].fontStyle = FontStyles.Normal;
+                questStepDescription[i].fontStyle = FontStyles.Normal;
+            }
             
             var questTitle = questStepTitle[i];
             var questDescription = questStepDescription[i];
