@@ -4,12 +4,12 @@ using Quests;
 public class Quest 
 {
     public QuestSettings QuestSettings;
-    public Dictionary<int, bool> StepsCompleted; // ID кроків як ключі
+    public Dictionary<string, bool> StepsCompleted; // ID кроків як ключі
 
     public Quest(QuestSettings questSettings)
     {
         QuestSettings = questSettings;
-        StepsCompleted = new Dictionary<int, bool>(QuestSettings.QuestStepsCount);
+        StepsCompleted = new Dictionary<string, bool>(QuestSettings.QuestStepsCount);
         InitializeSteps();
     }
 
@@ -17,17 +17,17 @@ public class Quest
     {
         foreach (var stepDescription in QuestSettings.GetStepsDescriptions)
         {
-            StepsCompleted.Add(stepDescription.GetHashCode(), false);
+            StepsCompleted.Add(stepDescription.UniqueID, false);
         }
     }
 
-    public bool IsStepCompleted(int stepId)
+    public bool IsStepCompleted(string stepId)
     {
         return StepsCompleted.ContainsKey(stepId) && StepsCompleted[stepId];
     }
     
 
-    public void CompleteStep(int stepId)
+    public void CompleteStep(string stepId)
     {
         StepsCompleted[stepId] = true;
     }

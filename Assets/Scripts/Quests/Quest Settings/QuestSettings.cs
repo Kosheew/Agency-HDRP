@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 using UnityEngine;
+using System;
 
 namespace Quests
 {
@@ -7,6 +10,7 @@ namespace Quests
     public class QuestSettings: ScriptableObject
     {
         [SerializeField] private string questName;
+        [SerializeField] private string uniqueID = Guid.NewGuid().ToString();
         [TextArea(3, 10), SerializeField] private string questDescription;
         [SerializeField] private List<QuestStepSettings> stepsDescriptions; 
 
@@ -14,10 +18,7 @@ namespace Quests
         public string QuestDescription => questDescription;
         public List<QuestStepSettings> GetStepsDescriptions => stepsDescriptions;
         public int QuestStepsCount => stepsDescriptions.Count;
-
-        public override int GetHashCode()
-        {
-            return QuestName.GetHashCode();
-        }
+        
+        public string UniqueID => uniqueID;
     }
 }

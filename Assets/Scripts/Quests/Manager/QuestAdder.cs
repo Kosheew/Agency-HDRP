@@ -8,13 +8,13 @@ public class QuestAdder : MonoBehaviour
     
     private QuestManager _questManager;
 
-    private int _questCompleted;
+    private string _questCompleted;
     
     public void Inject(DependencyContainer container)
     {
         _questManager = container.Resolve<QuestManager>();
 
-        _questCompleted = QuestHashUtility.GetQuestHash(questSettings.QuestName);
+        _questCompleted = questSettings.UniqueID;
     }
 
     public void AddQuest()

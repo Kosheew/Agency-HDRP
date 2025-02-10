@@ -11,30 +11,38 @@ public class QuestManager : MonoBehaviour
     [SerializeField] private QuestView questView;
     [SerializeField] private List<QuestSettings> availableQuests; 
     
-    private Dictionary<int, Quest> _activeQuests; 
-    private Dictionary<int, QuestSettings> _availableQuestLookup;
-    private Dictionary<int, Quest> _completedQuests;
+    private Dictionary<string, Quest> _activeQuests; 
+    private Dictionary<string, QuestSettings> _availableQuestLookup;
+    private Dictionary<string, Quest> _completedQuests;
     
     private BinarySaveSystem _saveSystem;
     
-    private int _startQuestHash;
+    private string _startQuestHash;
     
     public void Inject(DependencyContainer container)
     {
         _saveSystem = container.Resolve<BinarySaveSystem>();
-        
-        _availableQuestLookup = new Dictionary<int, QuestSettings>(availableQuests.Count);
-        _activeQuests = new Dictionary<int, Quest>(availableQuests.Count);
-        _completedQuests = new Dictionary<int, Quest>(availableQuests.Count);
-        
-        _startQuestHash = QuestHashUtility.GetQuestHash(availableQuests[0].QuestName);
-        
-        if(startClear)
+
+        _availableQuestLookup = new Dictionary<string, QuestSettings>(availableQuests.Count);
+        _activeQuests = new Dictionary<string, Quest>(availableQuests.Count);
+        _completedQuests = new Dictionary<string, Quest>(availableQuests.Count);
+
+        if (availableQuests.Count > 0)
+        {
+            _startQuestHash = availableQuests[0].UniqueID;
+        }
+        else
+        {
+            Debug.LogWarning("No available quests found!");
+            return;
+        }
+
+        if (startClear)
             _saveSystem.ClearSaveData();
-        
+
         foreach (var questSettings in availableQuests)
         {
-            var questHash = questSettings.GetHashCode();
+            var questHash = questSettings.UniqueID;
             if (!_availableQuestLookup.ContainsKey(questHash))
             {
                 _availableQuestLookup.Add(questHash, questSettings);
@@ -44,26 +52,25 @@ public class QuestManager : MonoBehaviour
         if (_saveSystem.CheckFileExists())
         {
             var loadData = _saveSystem.Load<QuestProgressData>();
-            
-                foreach (var questProgress in loadData.Quests)
-                {
-                    if (_availableQuestLookup.TryGetValue(questProgress.QuestHash, out var questSettings))
-                    {
-                        var quest = new Quest(questSettings);
-                        quest.StepsCompleted = questProgress.GetStepsCompletedDictionary(); 
-                        _activeQuests.Add(questProgress.QuestHash, quest);
 
-                        if (!quest.IsQuestCompleted())
-                        {
-                            questView.SetQuest(quest);
-                        }
-                    }
-                    else
+            foreach (var questProgress in loadData.Quests)
+            {
+                if (_availableQuestLookup.TryGetValue(questProgress.QuestHash, out var questSettings))
+                {
+                    var quest = new Quest(questSettings);
+                    quest.StepsCompleted = questProgress.GetStepsCompletedDictionary();
+                    _activeQuests.Add(questProgress.QuestHash, quest);
+
+                    if (!quest.IsQuestCompleted())
                     {
-                        Debug.LogWarning($"Quest with hash {questProgress.QuestHash} not found in available quests.");
+                        questView.SetQuest(quest);
                     }
                 }
-            
+                else
+                {
+                    Debug.LogWarning($"Quest with hash {questProgress.QuestHash} not found in available quests.");
+                }
+            }
         }
         else
         {
@@ -76,7 +83,7 @@ public class QuestManager : MonoBehaviour
         questView.UpdateQuests();
     }
 
-    public void ActivateQuest(int questHashCode)
+    public void ActivateQuest(string questHashCode)
     {
         if (_availableQuestLookup.TryGetValue(questHashCode, out var questSettings))
         {
@@ -99,7 +106,7 @@ public class QuestManager : MonoBehaviour
         }
     }
     
-    public void CompleteQuestStep(int questHashCode, int questStepHashCode)
+    public void CompleteQuestStep(string questHashCode, string questStepHashCode)
     {
         if (_activeQuests.TryGetValue(questHashCode, out var quest))
         {
@@ -155,8 +162,8 @@ public class QuestManager : MonoBehaviour
 
         foreach (var questPair in _activeQuests)
         {
-            int questHash = questPair.Key;
-            Dictionary<int, bool> stepsCompleted = questPair.Value.StepsCompleted;
+            string questHash = questPair.Key;
+            Dictionary<string, bool> stepsCompleted = questPair.Value.StepsCompleted;
             questProgressList.Add(new QuestProgress(questHash, stepsCompleted));
         }
 

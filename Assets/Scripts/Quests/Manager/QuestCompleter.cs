@@ -10,15 +10,15 @@ public class QuestCompleter : MonoBehaviour
     
     private QuestManager _questManager;
 
-    private int _questCompleted;
-    private int _questStepCompleted;
+    private string _questCompleted;
+    private string _questStepCompleted;
     
     public void Inject(DependencyContainer container)
     {
         _questManager = container.Resolve<QuestManager>();
 
-        _questCompleted = QuestHashUtility.GetQuestHash(questSettings.QuestName);
-        _questStepCompleted = QuestHashUtility.GetQuestHash(questStepSettings.QuestName);
+        _questCompleted = questSettings.UniqueID;
+        _questStepCompleted = questStepSettings.UniqueID;
     }
 
     public void CompleteStepQuest()

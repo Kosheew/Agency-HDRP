@@ -1,33 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
+using UnityEngine;
 
-namespace Quests
+public static class QuestHashUtility
 {
-    public static class QuestHashUtility
+    public static int GetQuestHash(string uniqueID)
     {
-        private static Dictionary<string, int> _hashCache = new Dictionary<string, int>();
-
-        /// <summary>
-        /// Перетворює ім'я на хеш та кешує результат для швидшого доступу.
-        /// </summary>
-        /// <param name="questName">Ім'я квесту</param>
-        /// <returns>Хеш-код для заданого імені</returns>
-        public static int GetQuestHash(string questName)
-        {
-            if (string.IsNullOrEmpty(questName))
-            {
-                UnityEngine.Debug.LogWarning("Quest name is null or empty!");
-                return 0;
-            }
-
-            if (_hashCache.TryGetValue(questName, out var cachedHash))
-            {
-                return cachedHash;
-            }
-
-            int hash = questName.GetHashCode();
-            _hashCache[questName] = hash;
-            return hash;
-        }
+        return string.IsNullOrEmpty(uniqueID) ? 0 : uniqueID.GetHashCode();
     }
-
 }

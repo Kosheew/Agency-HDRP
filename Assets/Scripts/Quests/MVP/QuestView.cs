@@ -46,7 +46,7 @@ public class QuestView : MonoBehaviour
         
         for (int i = 0; i < questSettings.QuestStepsCount; i++)
         {
-            var stepId = questSteps[i].GetHashCode();
+            var stepId = questSteps[i].UniqueID;
             bool isCompleted = quest.IsStepCompleted(stepId);
             
             Debug.Log(isCompleted);
