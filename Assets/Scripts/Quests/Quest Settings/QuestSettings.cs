@@ -10,7 +10,7 @@ namespace Quests
     public class QuestSettings: ScriptableObject
     {
         [SerializeField] private string questName;
-        [SerializeField] private string uniqueID;
+        [SerializeField] private ushort uniqueID;
         [TextArea(3, 10), SerializeField] private string questDescription;
         [SerializeField] private List<QuestStepSettings> stepsDescriptions; 
 
@@ -19,6 +19,6 @@ namespace Quests
         public List<QuestStepSettings> GetStepsDescriptions => stepsDescriptions;
         public int QuestStepsCount => stepsDescriptions.Count;
         
-        public string UniqueID => uniqueID;
+        public ushort UniqueID => uniqueID;
     }
 }

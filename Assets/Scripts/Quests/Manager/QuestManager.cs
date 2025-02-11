@@ -11,21 +11,21 @@ public class QuestManager : MonoBehaviour
     [SerializeField] private QuestView questView;
     [SerializeField] private List<QuestSettings> availableQuests; 
     
-    private Dictionary<string, Quest> _activeQuests; 
-    private Dictionary<string, QuestSettings> _availableQuestLookup;
-    private Dictionary<string, Quest> _completedQuests;
+    private Dictionary<ushort, Quest> _activeQuests; 
+    private Dictionary<ushort, QuestSettings> _availableQuestLookup;
+    private Dictionary<ushort, Quest> _completedQuests;
     
     private BinarySaveSystem _saveSystem;
     
-    private string _startQuestHash;
+    private ushort _startQuestHash;
     
     public void Inject(DependencyContainer container)
     {
         _saveSystem = container.Resolve<BinarySaveSystem>();
 
-        _availableQuestLookup = new Dictionary<string, QuestSettings>(availableQuests.Count);
-        _activeQuests = new Dictionary<string, Quest>(availableQuests.Count);
-        _completedQuests = new Dictionary<string, Quest>(availableQuests.Count);
+        _availableQuestLookup = new Dictionary<ushort, QuestSettings>(availableQuests.Count);
+        _activeQuests = new Dictionary<ushort, Quest>(availableQuests.Count);
+        _completedQuests = new Dictionary<ushort, Quest>(availableQuests.Count);
 
         if (availableQuests.Count > 0)
         {
@@ -83,7 +83,7 @@ public class QuestManager : MonoBehaviour
         questView.UpdateQuests();
     }
 
-    public void ActivateQuest(string questHashCode)
+    public void ActivateQuest(ushort questHashCode)
     {
         if (_availableQuestLookup.TryGetValue(questHashCode, out var questSettings))
         {
@@ -106,7 +106,7 @@ public class QuestManager : MonoBehaviour
         }
     }
     
-    public void CompleteQuestStep(string questHashCode, string questStepHashCode)
+    public void CompleteQuestStep(ushort questHashCode, ushort questStepHashCode)
     {
         if (_activeQuests.TryGetValue(questHashCode, out var quest))
         {
@@ -162,8 +162,8 @@ public class QuestManager : MonoBehaviour
 
         foreach (var questPair in _activeQuests)
         {
-            string questHash = questPair.Key;
-            Dictionary<string, bool> stepsCompleted = questPair.Value.StepsCompleted;
+            ushort questHash = questPair.Key;
+            Dictionary<ushort, bool> stepsCompleted = questPair.Value.StepsCompleted;
             questProgressList.Add(new QuestProgress(questHash, stepsCompleted));
         }
 

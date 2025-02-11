@@ -8,7 +8,7 @@ public class QuestAdder : MonoBehaviour
     
     private QuestManager _questManager;
 
-    private string _questCompleted;
+    private ushort _questCompleted;
     
     public void Inject(DependencyContainer container)
     {

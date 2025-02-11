@@ -9,12 +9,12 @@ namespace Quests
     public class QuestStepSettings : ScriptableObject
     {
         [SerializeField] private string questName;
-        [SerializeField] private string uniqueID = Guid.NewGuid().ToString();
+        [SerializeField] private ushort uniqueID;
         [TextArea(3, 10), SerializeField] private string description;
 
         public string Description => description;
         public string QuestName => questName;
-        public string UniqueID => uniqueID;
+        public ushort UniqueID => uniqueID;
 
     }
 }

@@ -4,20 +4,20 @@ using System.Collections.Generic;
 [Serializable]
 public class QuestProgress
 {
-    public string QuestHash;
-    public List<string> StepIds; 
+    public ushort QuestHash;
+    public List<ushort> StepIds; 
     public List<bool> StepCompletionStatus;
 
-    public QuestProgress(string questHash, Dictionary<string, bool> stepsCompleted)
+    public QuestProgress(ushort questHash, Dictionary<ushort, bool> stepsCompleted)
     {
         QuestHash = questHash;
-        StepIds = new List<string>(stepsCompleted.Keys);
+        StepIds = new List<ushort>(stepsCompleted.Keys);
         StepCompletionStatus = new List<bool>(stepsCompleted.Values);
     }
     
-    public Dictionary<string, bool> GetStepsCompletedDictionary()
+    public Dictionary<ushort, bool> GetStepsCompletedDictionary()
     {
-        var dictionary = new Dictionary<string, bool>();
+        var dictionary = new Dictionary<ushort, bool>();
         for (int i = 0; i < StepIds.Count; i++)
         {
             dictionary[StepIds[i]] = StepCompletionStatus[i];

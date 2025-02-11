@@ -6,7 +6,6 @@ using System;
 [Serializable]
 public class QuestStep
 {
-  
     public bool IsCompleted { get; private set; }
 
     public void CompleteQuest()

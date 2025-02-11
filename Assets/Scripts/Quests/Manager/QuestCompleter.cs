@@ -10,8 +10,8 @@ public class QuestCompleter : MonoBehaviour
     
     private QuestManager _questManager;
 
-    private string _questCompleted;
-    private string _questStepCompleted;
+    private ushort _questCompleted;
+    private ushort _questStepCompleted;
     
     public void Inject(DependencyContainer container)
     {
