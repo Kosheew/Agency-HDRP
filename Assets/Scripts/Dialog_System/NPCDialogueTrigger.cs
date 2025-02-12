@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class NPCDialogueTrigger : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private DialogueSettings dialogue;
+    
+    private DialogueManager _dialogueManager;
+
+    public void Inject(DialogueManager dialogueManager)
     {
-        
+        _dialogueManager = dialogueManager;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartDialogue()
     {
-        
+        if (_dialogueManager != null && dialogue != null)
+        {
+            _dialogueManager.StartDialogue(dialogue);
+        }
     }
 }

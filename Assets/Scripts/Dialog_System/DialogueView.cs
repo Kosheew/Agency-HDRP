@@ -10,6 +10,9 @@ public class DialogueView : MonoBehaviour
     [SerializeField] private TMP_Text dialogueText;
     [SerializeField] private Button[] optionsButton;
     [SerializeField] private TMP_Text[] optionsText;
+
+    [SerializeField] private TMP_Text selectedOptionText;
+    [SerializeField] private TMP_Text youText;
     
     private EvidenceManager _evidenceManager;
     private QuestManager _questManager;
@@ -26,29 +29,34 @@ public class DialogueView : MonoBehaviour
         personPortrait.sprite = dialogue.PersonPortrait;
         dialogueText.SetText(dialogue.Sentence);
 
-        foreach (var button in optionsButton)
-        {
-            button.gameObject.SetActive(false);
-        }
+        SetActiveButtons(false);
 
         int index = 0;
         
         foreach (var dialogueOption in dialogue.Options)
         { 
-            optionsButton[index].gameObject.SetActive(true);
+            var btn = optionsButton[index];
+            
+            btn.gameObject.SetActive(true);
             
             if (dialogueOption.IsAvailable(_evidenceManager))
             {
-                optionsButton[index].onClick.RemoveAllListeners();
+                btn.onClick.RemoveAllListeners();
                 
                 if (dialogueOption.Quest != null)
                 {
-                    optionsButton[index].onClick.AddListener(() =>
+                    btn.onClick.AddListener(() =>
                     {
                         dialogueOption.AddQuest(_questManager);
                     });
                 }
-                
+
+                btn.onClick.AddListener(() =>
+                {
+                    SelectedOption(dialogueOption.Sentence);
+                    SetActiveButtons(false);
+                });
+
                 optionsText[index].SetText(dialogueOption.Sentence);
             }
             else
@@ -57,6 +65,21 @@ public class DialogueView : MonoBehaviour
             }
             
             index++;
+        }
+    }
+
+    private void SelectedOption(string optionText)
+    {
+        selectedOptionText.gameObject.SetActive(true);
+        youText.gameObject.SetActive(true);
+        selectedOptionText.SetText(optionText);
+    }
+
+    private void SetActiveButtons(bool active)
+    {
+        foreach (var button in optionsButton)
+        {
+            button.gameObject.SetActive(active);
         }
     }
     
