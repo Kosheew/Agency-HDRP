@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 191938dab80e4a29a1dd6c467d0a5522, type: 3}
+  m_Name: Dialogue 1 Option 2
+  m_EditorClassIdentifier: 
+  uniqueID: 12
+  sentence: b. Option 2
+  nextDialogue: {fileID: 0}
+  needHint: 1
+  hint: {fileID: 11400000, guid: c5d596cbe2cb7e34298207fad8160a3e, type: 2}
+  adderQuest: 0
+  quest: {fileID: 0}

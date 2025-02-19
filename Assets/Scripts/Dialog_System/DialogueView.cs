@@ -1,81 +1,48 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using ObjectPool;
 using TMPro;
 
 public class DialogueView : MonoBehaviour
 {
     [SerializeField] private TMP_Text personNameText;
-    [SerializeField] private Image personPortrait;
     [SerializeField] private TMP_Text dialogueText;
     [SerializeField] private Button[] optionsButton;
     [SerializeField] private TMP_Text[] optionsText;
 
     [SerializeField] private TMP_Text selectedOptionText;
     [SerializeField] private TMP_Text youText;
-    
-    private EvidenceManager _evidenceManager;
-    private QuestManager _questManager;
 
-    public void Inject(DependencyContainer container)
+    private DialogPresenter _dialogPresenter;
+    
+    public void Inject(DialogPresenter dialogPresenter)
     {
-        _evidenceManager = container.Resolve<EvidenceManager>();
-        _questManager = container.Resolve<QuestManager>();
+        _dialogPresenter = dialogPresenter;
     }
     
     public void SetDialogue(DialogueSettings dialogue)
     {
         personNameText.SetText(dialogue.PersonName);
-        personPortrait.sprite = dialogue.PersonPortrait;
         dialogueText.SetText(dialogue.Sentence);
 
-        SetActiveButtons(false);
-
-        int index = 0;
+        bool hasOptions = dialogue.Options.Length > 0;
+        SetActiveButtons(hasOptions);
         
-        foreach (var dialogueOption in dialogue.Options)
-        { 
-            var btn = optionsButton[index];
-            
-            btn.gameObject.SetActive(true);
-            
-            if (dialogueOption.IsAvailable(_evidenceManager))
-            {
-                btn.onClick.RemoveAllListeners();
-                
-                if (dialogueOption.Quest != null)
-                {
-                    btn.onClick.AddListener(() =>
-                    {
-                        dialogueOption.AddQuest(_questManager);
-                    });
-                }
+        _dialogPresenter.SetDialogueOptions(dialogue, optionsButton, optionsText);
+    }
 
-                btn.onClick.AddListener(() =>
-                {
-                    SelectedOption(dialogueOption.Sentence);
-                    SetActiveButtons(false);
-                });
-
-                optionsText[index].SetText(dialogueOption.Sentence);
-            }
-            else
-            {
-                optionsText[index].SetText("not available");
-            }
-            
-            index++;
+    public void ShowSelectedOption(string optionText)
+    {
+        if (selectedOptionText != null)
+        {
+            selectedOptionText.gameObject.SetActive(true);
+            youText.gameObject.SetActive(true);
+            selectedOptionText.SetText(optionText);
         }
     }
 
-    private void SelectedOption(string optionText)
-    {
-        selectedOptionText.gameObject.SetActive(true);
-        youText.gameObject.SetActive(true);
-        selectedOptionText.SetText(optionText);
-    }
-
-    private void SetActiveButtons(bool active)
+    public void SetActiveButtons(bool active)
     {
         foreach (var button in optionsButton)
         {
@@ -83,4 +50,21 @@ public class DialogueView : MonoBehaviour
         }
     }
     
+    public void ResetView()
+    {
+        SetActiveButtons(false); // Увімкнути кнопки
+        
+        foreach (var optionText in optionsText)
+        {
+            optionText.SetText(string.Empty);
+        }
+    
+        personNameText.SetText(string.Empty);
+        dialogueText.SetText(string.Empty);
+    
+        selectedOptionText?.SetText(string.Empty);
+        selectedOptionText?.gameObject.SetActive(false);
+        youText?.gameObject.SetActive(false);
+    }
+
 }

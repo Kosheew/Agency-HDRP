@@ -6,6 +6,7 @@ using Commands;
 using InputActions;
 using Scene_Manager;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Game : MonoBehaviour
 {
@@ -39,6 +40,11 @@ public class Game : MonoBehaviour
     
     [Header("Other Views")]
     [SerializeField] private PauseView pauseView;
+    
+    [Header("Dialog System")] 
+    [SerializeField] private EvidenceManager evidenceManager;
+    [SerializeField] private DialogueManager dialogueManager; 
+    [SerializeField] private NPCDialogueManager[] npcDialogueTriggers;
     
     private CommandInvoker _commandInvoker;
     
@@ -107,6 +113,9 @@ public class Game : MonoBehaviour
         _container.Register<PlayerController>(player);
         _container.Register(userInput);
         _container.Register(_sceneController);
+        
+        _container.Register(dialogueManager);
+        _container.Register(evidenceManager);
     }
 
     private void Injection()
@@ -139,6 +148,14 @@ public class Game : MonoBehaviour
         foreach (var triggerDetector in triggerDetectors)
         {
             triggerDetector.Inject(_container);
+        }
+        
+        evidenceManager.Inject(_container);
+        dialogueManager.Inject(_container);
+
+        foreach (var npcDialogueTrigger in npcDialogueTriggers)
+        {
+            npcDialogueTrigger.Inject(_container);
         }
     }
     

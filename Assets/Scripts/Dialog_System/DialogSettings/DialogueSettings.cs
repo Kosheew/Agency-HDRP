@@ -27,4 +27,5 @@ public class DialogueSettings : ScriptableObject
     {
         evidenceManager.CollectHint(hint);
     }
+    
 }
