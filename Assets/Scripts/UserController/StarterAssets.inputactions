@@ -374,7 +374,7 @@
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KeyboardMouse",
                     "action": "Use",
                     "isComposite": false,
                     "isPartOfComposite": false

@@ -1,4 +1,3 @@
-using Characters;
 using InputActions;
 using UnityEngine;
 using UnityEngine.Events;
@@ -20,7 +19,6 @@ namespace Zones
         public void SetPlayerInside(bool value)
         {
             _playerInside = value;
-            Debug.Log(_playerInside);
         }
 
         public void LateUpdateState()
@@ -28,7 +26,6 @@ namespace Zones
             if (_playerInside && _userInput.Use)
             {
                 onUsePressed?.Invoke();
-                Debug.Log("Use Pressed");
             }
         }
     }

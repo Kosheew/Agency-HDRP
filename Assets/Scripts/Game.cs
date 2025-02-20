@@ -6,7 +6,6 @@ using Commands;
 using InputActions;
 using Scene_Manager;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Game : MonoBehaviour
 {
@@ -28,7 +27,7 @@ public class Game : MonoBehaviour
     [Header("Audio Settings")]
     [SerializeField] private AudioManager audioManager;
     
-    [Header("Quest Swttings")]
+    [Header("Quest Settings")]
     [SerializeField] private QuestManager questManager;
     [SerializeField] private QuestView questView;
     
@@ -41,8 +40,11 @@ public class Game : MonoBehaviour
     [Header("Other Views")]
     [SerializeField] private PauseView pauseView;
     
-    [Header("Dialog System")] 
+    [Header("Evidence System")] 
     [SerializeField] private EvidenceManager evidenceManager;
+    
+    [Header("Dialogue System")]
+    [SerializeField] private DialogueView dialogueView;
     [SerializeField] private DialogueManager dialogueManager; 
     [SerializeField] private NPCDialogueManager[] npcDialogueTriggers;
     
@@ -116,6 +118,7 @@ public class Game : MonoBehaviour
         
         _container.Register(dialogueManager);
         _container.Register(evidenceManager);
+        _container.Register(dialogueView);
     }
 
     private void Injection()
@@ -152,7 +155,8 @@ public class Game : MonoBehaviour
         
         evidenceManager.Inject(_container);
         dialogueManager.Inject(_container);
-
+        dialogueView.Inject(_container);
+        
         foreach (var npcDialogueTrigger in npcDialogueTriggers)
         {
             npcDialogueTrigger.Inject(_container);

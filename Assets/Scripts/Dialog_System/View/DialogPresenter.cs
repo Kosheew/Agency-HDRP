@@ -5,18 +5,18 @@ using TMPro;
 
 public class DialogPresenter
 {
-    private DialogueView _view;
+    private DialoguePanelView _panelView;
     private EvidenceManager _evidenceManager;
     private QuestManager _questManager;
     private DialogueManager _dialogueManager;
     
-    public DialogPresenter(DialogueView view, DependencyContainer container)
+    public DialogPresenter(DialoguePanelView panelView, DependencyContainer container)
     {
-        _view = view;
+        _panelView = panelView;
         _evidenceManager = container.Resolve<EvidenceManager>();
         _questManager = container.Resolve<QuestManager>();
         _dialogueManager = container.Resolve<DialogueManager>();
-        _view.Inject(this);
+        _panelView.Inject(this);
     }
     
     public void SetDialogueOptions(DialogueSettings dialogue, Button[] buttons, TMP_Text[] texts)
@@ -34,8 +34,8 @@ public class DialogPresenter
                 
                 btn.onClick.AddListener(() =>
                 {
-                    _view.ShowSelectedOption(option.Sentence);
-                    _view.SetActiveButtons(false);
+                    _panelView.ShowSelectedOption(option.Sentence);
+                    _panelView.SetActiveButtons(false);
                     
                     if (option.Quest != null)
                         option.AddQuest(_questManager);

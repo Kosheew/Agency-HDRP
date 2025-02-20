@@ -1,10 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
-using ObjectPool;
 using TMPro;
 
-public class DialogueView : MonoBehaviour
+public class DialoguePanelView : MonoBehaviour
 {
     [SerializeField] private TMP_Text personNameText;
     [SerializeField] private TMP_Text dialogueText;

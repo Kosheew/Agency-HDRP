@@ -1,20 +1,19 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class NPCDialogueManager : MonoBehaviour
 {
-    [SerializeField] private DialogueSettings dialogue;
+    [SerializeField] private DialogueSettings currentDialogue;
     
     private DialogueManager _dialogueManager;
-    private List<(ushort, ushort)> _passedDialogueSettings;
+    private Dictionary<DialogueSettings, DialogueOptionSettings> _passedDialogueSettings;
     
     public void Inject(DependencyContainer container)
     {
-        _passedDialogueSettings = new List<(ushort, ushort)>(10);
+        _passedDialogueSettings = new Dictionary<DialogueSettings, DialogueOptionSettings>(10);
         _dialogueManager = container.Resolve<DialogueManager>();
     }
-
+    
     public void StartDialogue()
     {
         if(_dialogueManager == null) return;
@@ -25,25 +24,29 @@ public class NPCDialogueManager : MonoBehaviour
         {
             _dialogueManager.ShowPassedDialogues(this);
         }
-        else if (_dialogueManager != null && dialogue != null)
+        else if (currentDialogue != null)
         {
-            _dialogueManager.StartDialogue(dialogue);
+            _dialogueManager.StartDialogue(currentDialogue);
         }
     }
 
-    public void SaveChosenOption(ushort dialogue, ushort chosenOption)
+    public void SetDialogue(DialogueSettings dialogueSettings)
     {
-        /*if (_passedDialogueSettings.ContainsKey(dialogue))
-        {
-            _passedDialogueSettings[dialogue] = chosenOption;
-        }*/
-        if (!_passedDialogueSettings.Contains((dialogue, chosenOption)))
-        {
-            _passedDialogueSettings.Add((dialogue, chosenOption));
-        }
+        currentDialogue = dialogueSettings;
     }
     
-    public List<(ushort, ushort)> GetPassedDialogues()
+    public void SaveChosenOption(DialogueSettings dialogue, DialogueOptionSettings chosenOption)
+    {
+        if (_passedDialogueSettings.ContainsKey(dialogue))
+        {
+            _passedDialogueSettings[dialogue] = chosenOption;
+            return;
+        }
+        
+        _passedDialogueSettings.Add(dialogue, chosenOption);
+    }
+    
+    public Dictionary<DialogueSettings, DialogueOptionSettings> GetPassedDialogues()
     {
         return _passedDialogueSettings;
     }
