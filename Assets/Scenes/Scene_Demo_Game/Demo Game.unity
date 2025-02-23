@@ -34749,7 +34749,7 @@ PrefabInstance:
     - target: {fileID: 4807591493490191861, guid: 273c2f05a30614d4c85b40e50348cefd,
         type: 3}
       propertyPath: onUsePressed.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4807591493490191861, guid: 273c2f05a30614d4c85b40e50348cefd,
         type: 3}
@@ -34775,7 +34775,8 @@ PrefabInstance:
         type: 3}
       propertyPath: onUsePressed.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 34661935}
+      objectReference: {fileID: 11400000, guid: b833860dc58de314d8f7ce2b9f4ba144,
+        type: 2}
     - target: {fileID: 4807591493490191861, guid: 273c2f05a30614d4c85b40e50348cefd,
         type: 3}
       propertyPath: onUsePressed.m_PersistentCalls.m_Calls.Array.data[2].m_Target
@@ -34799,7 +34800,7 @@ PrefabInstance:
     - target: {fileID: 4807591493490191861, guid: 273c2f05a30614d4c85b40e50348cefd,
         type: 3}
       propertyPath: onUsePressed.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: CompleteStepQuest
+      value: Raise
       objectReference: {fileID: 0}
     - target: {fileID: 4807591493490191861, guid: 273c2f05a30614d4c85b40e50348cefd,
         type: 3}
@@ -34814,7 +34815,7 @@ PrefabInstance:
     - target: {fileID: 4807591493490191861, guid: 273c2f05a30614d4c85b40e50348cefd,
         type: 3}
       propertyPath: onUsePressed.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: QuestCompleter, Assembly-CSharp
+      value: GameEvent, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4807591493490191861, guid: 273c2f05a30614d4c85b40e50348cefd,
         type: 3}
@@ -48584,6 +48585,67 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b1701fbb07b07746b25705c0ca759a6, type: 3}
+--- !u!1 &1961536608
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1961536610}
+  - component: {fileID: 1961536609}
+  m_Layer: 0
+  m_Name: EventListener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1961536609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1961536608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a515778a30cebf46b9972f2cea0e4eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: b833860dc58de314d8f7ce2b9f4ba144, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1991482518}
+        m_TargetAssemblyTypeName: NPCDialogueManager, Assembly-CSharp
+        m_MethodName: SetDialogue
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 62a99a14b3e805b40a8f2b7641a46caa,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: DialogueSettings, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!4 &1961536610
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1961536608}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1262.4889, y: 539.9204, z: 509.02347}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &1965915630
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -57844,3 +57906,4 @@ SceneRoots:
   - {fileID: 1697366434}
   - {fileID: 299996543}
   - {fileID: 1967533691}
+  - {fileID: 1961536610}

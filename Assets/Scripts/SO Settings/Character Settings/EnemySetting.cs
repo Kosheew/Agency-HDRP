@@ -3,7 +3,7 @@ using UnityEngine.Serialization;
 
 namespace CharacterSettings
 {
-    [CreateAssetMenu(fileName = "Character Settings", menuName = "Character Settings/Create Enemy Settings")]
+    [CreateAssetMenu(fileName = "Character Settings", menuName = "ScriptableObjects/Character Settings/Create Enemy Settings")]
     public class EnemySetting: CharacterSetting
     {
         [Header("State Settings")]

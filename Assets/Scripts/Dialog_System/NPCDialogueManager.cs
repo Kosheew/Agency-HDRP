@@ -33,6 +33,7 @@ public class NPCDialogueManager : MonoBehaviour
     public void SetDialogue(DialogueSettings dialogueSettings)
     {
         currentDialogue = dialogueSettings;
+        _passedDialogueSettings.Clear();
     }
     
     public void SaveChosenOption(DialogueSettings dialogue, DialogueOptionSettings chosenOption)

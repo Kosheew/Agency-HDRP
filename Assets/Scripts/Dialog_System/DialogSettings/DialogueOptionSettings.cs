@@ -2,7 +2,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Dialogue Option", menuName = "Dialogue/DialogueOptionSettings")]
+[CreateAssetMenu(fileName = "Dialogue Option", menuName = "ScriptableObjects/Dialogue/DialogueOptionSettings")]
 public class DialogueOptionSettings: ScriptableObject
 {
     [SerializeField] private ushort uniqueID;

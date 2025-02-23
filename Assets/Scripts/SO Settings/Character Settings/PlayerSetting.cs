@@ -2,7 +2,7 @@
 
 namespace CharacterSettings
 {
-    [CreateAssetMenu(fileName = "Character Settings", menuName = "Character Settings/Create Player Settings")]
+    [CreateAssetMenu(fileName = "Character Settings", menuName = "ScriptableObjects/Character Settings/Create Player Settings")]
     public class PlayerSetting: CharacterSetting
     {
         [SerializeField] private float accelerationRate;

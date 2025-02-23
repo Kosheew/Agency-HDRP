@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "NPCFile", menuName = "NPC/NPCFile")]
+[CreateAssetMenu(fileName = "NPCFile", menuName = "ScriptableObjects/NPC/NPCFile")]
 public class NPCFileData : ScriptableObject
 {
     [SerializeField] private Sprite spritePerson;

@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using Sirenix.OdinInspector;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Dialogue", menuName = "Dialogue/DialogueSettings")]
+[CreateAssetMenu(fileName = "Dialogue", menuName = "ScriptableObjects/Dialogue/DialogueSettings")]
 public class DialogueSettings : ScriptableObject
 {
     [SerializeField] private Sprite personPortrait;
