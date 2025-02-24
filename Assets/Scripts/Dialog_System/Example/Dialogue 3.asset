@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c574914861c044646bff87c6bc110235, type: 3}
   m_Name: Dialogue 3
   m_EditorClassIdentifier: 
-  personPortrait: {fileID: 0}
   personName: 
   uniqueID: 3
-  sentence: Dialog 3
+  sentence: Dialog 3. Add hint.
   options: []
-  addHint: 0
-  hint: {fileID: 0}
+  addHint: 1
+  hint: {fileID: 11400000, guid: c5d596cbe2cb7e34298207fad8160a3e, type: 2}

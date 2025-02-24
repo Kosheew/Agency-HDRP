@@ -19,3 +19,5 @@ MonoBehaviour:
   hint: {fileID: 0}
   adderQuest: 0
   quest: {fileID: 0}
+  addAction: 0
+  gameEvent: {fileID: 0}

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Game/Event")]
-public class GameEvent : ScriptableObject
+public class GameEventData : ScriptableObject
 {
     [SerializeField] private short uniqueID;
     

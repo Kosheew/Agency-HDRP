@@ -26,6 +26,7 @@ public class DialogPresenter
         {
             var btn = buttons[index];
             btn.gameObject.SetActive(true);
+            
             texts[index].SetText(option.IsAvailable(_evidenceManager) ? option.Sentence : "not available");
             
             btn.onClick.RemoveAllListeners();
@@ -40,13 +41,15 @@ public class DialogPresenter
                     if (option.Quest != null)
                         option.AddQuest(_questManager);
                     
-                    if (option.NextDialogue != null)
-                    {
-                        _dialogueManager.SelectOption(dialogue, option);
-                    }
+                    option.GameEvent.Raise();
+                    
+                    _dialogueManager.SelectOption(dialogue, option);
+                    
                 });
             }
             index++;
         }
+        dialogue.AddHint(_evidenceManager);
+        
     }
 }

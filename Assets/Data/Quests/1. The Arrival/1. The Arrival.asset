@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 1. The Arrival
   m_EditorClassIdentifier: 
   questName: The Arrival
-  uniqueID: 01
+  uniqueID: 1
   questDescription: Receive your first assignment
   stepsDescriptions:
   - {fileID: 11400000, guid: fb6dd03ee2a8d424b9b39e774cf6de54, type: 2}

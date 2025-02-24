@@ -25,17 +25,16 @@ public class DialogueManager : MonoBehaviour {
     {
         if (_dialogueView.IsDialogueOpen()) return;
         
-        _currentNPCDialogueManager.SaveChosenOption(dialogue, null);
-        
         _dialogueView.GenerateDialoguePanel(dialogue);
     }
     
 
     public void SelectOption(DialogueSettings dialogue, DialogueOptionSettings selectedOption)
     {
+        _currentNPCDialogueManager.SaveChosenOption(dialogue, selectedOption);
+        
         if (selectedOption.NextDialogue != null)
         {
-            _currentNPCDialogueManager.SaveChosenOption(dialogue, selectedOption);
             _currentNPCDialogueManager.SaveChosenOption(selectedOption.NextDialogue, null);
             
             _dialogueView.GenerateDialoguePanel(selectedOption.NextDialogue);

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 2. Sidewinder
   m_EditorClassIdentifier: 
   questName: Sidewinder
-  uniqueID: 02
+  uniqueID: 2
   questDescription: 
   stepsDescriptions:
   - {fileID: 11400000, guid: 2f555c6d7b662eb4ca0af400aa9b1390, type: 2}

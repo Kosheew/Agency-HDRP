@@ -48614,7 +48614,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a515778a30cebf46b9972f2cea0e4eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: b833860dc58de314d8f7ce2b9f4ba144, type: 2}
+  gameEventData: {fileID: 11400000, guid: b833860dc58de314d8f7ce2b9f4ba144, type: 2}
   response:
     m_PersistentCalls:
       m_Calls:
@@ -48623,7 +48623,7 @@ MonoBehaviour:
         m_MethodName: SetDialogue
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 62a99a14b3e805b40a8f2b7641a46caa,
+          m_ObjectArgument: {fileID: 11400000, guid: d6320cd01c776284b8edb1db9fc3cd53,
             type: 2}
           m_ObjectArgumentAssemblyTypeName: DialogueSettings, Assembly-CSharp
           m_IntArgument: 0
@@ -57740,6 +57740,14 @@ MonoBehaviour:
   _firstPhrase: {fileID: 11400000, guid: c391eb8c2cc06674dbf2e7dc9fe54eaf, type: 2}
   _maxPhrasesAmount: 15
   _timeAfterLastPhrase: 1
+  _personPhoto: {fileID: 0}
+  _personName: {fileID: 0}
+  _text: {fileID: 0}
+  _answers: []
+  _phrasesAmount: 0
+  _isFirstTimePlayed: 0
+  _panelActive: 0
+  _activePanels: []
   _animator: {fileID: 7604427655419564130}
   _clickSound: {fileID: 8300000, guid: 1e7a587164fcbef45b40536469e6c432, type: 3}
 --- !u!1 &8277512576429621454

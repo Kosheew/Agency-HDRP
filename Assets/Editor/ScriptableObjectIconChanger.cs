@@ -1,6 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 using System.Reflection;
+using Quests;
 
 [InitializeOnLoad]
 public static class ScriptableObjectIconSetter
@@ -15,26 +16,30 @@ public static class ScriptableObjectIconSetter
     {
         SetIcons();
     }
-
     
     private static void SetIcons()
     {
-        Texture2D customIconDialog = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Icons/Dialog.png");
-        var customIconDialogOption = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Icons/DialogOptions.png");
-        
-        if (customIconDialog == null) return;
+        ApplyIcon<DialogueSettings>("Assets/Icons/Dialog.png");
+        ApplyIcon<DialogueOptionSettings>("Assets/Icons/DialogOptions.png");
+        ApplyIcon<NPCFileData>("Assets/Icons/NPCFile.png");
+        ApplyIcon<GameEventData>("Assets/Icons/Event.png");
+        ApplyIcon<HintData>("Assets/Icons/Hint.png");
+        ApplyIcon<QuestSettings>("Assets/Icons/Quest.png");
 
-        foreach (var obj in Resources.FindObjectsOfTypeAll<DialogueSettings>())
-        {
-            EditorGUIUtility.SetIconForObject(obj, customIconDialog);
-        }
-        
-        if(customIconDialogOption == null) return;
+        // Збереження змін
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+    }
 
-        foreach (var obj in Resources.FindObjectsOfTypeAll<DialogueOptionSettings>())
+    private static void ApplyIcon<T>(string iconPath) where T : ScriptableObject
+    {
+        Texture2D texture = AssetDatabase.LoadAssetAtPath<Texture2D>(iconPath);
+        if (texture == null) return;
+
+        foreach (var obj in Resources.FindObjectsOfTypeAll<T>())
         {
-            EditorGUIUtility.SetIconForObject(obj, customIconDialogOption);
+            EditorGUIUtility.SetIconForObject(obj, texture);
+            EditorUtility.SetDirty(obj);  // Позначаємо об'єкт як змінений
         }
     }
-    
 }

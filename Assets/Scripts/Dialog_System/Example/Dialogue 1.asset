@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c574914861c044646bff87c6bc110235, type: 3}
   m_Name: Dialogue 1
   m_EditorClassIdentifier: 
-  personPortrait: {fileID: 0}
   personName: 
-  uniqueID: 0
-  sentence: 
-  options: []
+  uniqueID: 1
+  sentence: Dialog 1
+  options:
+  - {fileID: 11400000, guid: 766a977283f3c07428dd509ff7337bad, type: 2}
+  - {fileID: 11400000, guid: 07e8f2f362890f449bfe8e2a0b55abf1, type: 2}
   addHint: 0
   hint: {fileID: 0}

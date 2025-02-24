@@ -19,3 +19,5 @@ MonoBehaviour:
   hint: {fileID: 11400000, guid: c5d596cbe2cb7e34298207fad8160a3e, type: 2}
   adderQuest: 0
   quest: {fileID: 0}
+  addAction: 0
+  gameEvent: {fileID: 0}

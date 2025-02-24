@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c574914861c044646bff87c6bc110235, type: 3}
   m_Name: Dialogue 2
   m_EditorClassIdentifier: 
-  personPortrait: {fileID: 0}
   personName: 
   uniqueID: 2
   sentence: Dialog 2

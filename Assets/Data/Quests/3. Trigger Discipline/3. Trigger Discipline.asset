@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 3. Trigger Discipline
   m_EditorClassIdentifier: 
   questName: Trigger Discipline
-  uniqueID: 03
+  uniqueID: 3
   questDescription: 
   stepsDescriptions:
   - {fileID: 11400000, guid: 83f106af9d096a741acbcbd86a5cd157, type: 2}

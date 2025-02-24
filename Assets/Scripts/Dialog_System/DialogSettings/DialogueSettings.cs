@@ -4,17 +4,33 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Dialogue", menuName = "ScriptableObjects/Dialogue/DialogueSettings")]
 public class DialogueSettings : ScriptableObject
 {
-    [SerializeField] private Sprite personPortrait;
-    [SerializeField] private string personName;
-    [SerializeField] private ushort uniqueID;
-    [SerializeField, TextArea(3,5)] private string sentence;
-    [SerializeField] private DialogueOptionSettings[] options;
-
-    [SerializeField] private bool addHint;
-    [ShowIf("@addHint")]
-    [SerializeField] private HintData hint;
+    [Title("Основні дані")]
+    [BoxGroup("Основні дані")]
+    [LabelText("Ім'я персонажа"), SerializeField]
+    private string personName;
     
-    public Sprite PersonPortrait => personPortrait;
+    [BoxGroup("Основні дані")]
+    [LabelText("Унікальний ID"), SerializeField]
+    private ushort uniqueID;
+    
+    [BoxGroup("Основні дані")]
+    [LabelText("Текст діалогу"), SerializeField, TextArea(3, 5)]
+    private string sentence;
+    
+    [Space(10)]
+    [BoxGroup("Основні дані"), LabelText("Опції"), SerializeField] 
+    private DialogueOptionSettings[] options;
+
+    [Space(10)]
+    [Title("Додаткові налаштування")]
+    [BoxGroup("Додаткові налаштування")]
+    [LabelText("Додати підказку?"), SerializeField]
+    private bool addHint;
+    
+    [BoxGroup("Додаткові налаштування")]
+    [ShowIf("@addHint"), LabelText("Підказка"), SerializeField]
+    private HintData hint;
+    
     public string PersonName => personName;
     public ushort UniqueID => uniqueID;
     public string Sentence => sentence;
@@ -22,7 +38,8 @@ public class DialogueSettings : ScriptableObject
 
     public void AddHint(EvidenceManager evidenceManager)
     {
-        evidenceManager.CollectHint(hint);
+        if(addHint)
+            evidenceManager.CollectHint(hint);
     }
     
 }
