@@ -3,10 +3,8 @@ using System.Linq;
 using UnityEngine;
 using ObjectPool;
 
-public class DialogueManager : MonoBehaviour {
-    
-    [SerializeField] private DialogueSettings[] dialogueSettings;
-    [SerializeField] private DialogueOptionSettings[] optionSettings;
+public class DialogueManager : MonoBehaviour 
+{
     
     private NPCDialogueManager _currentNPCDialogueManager;
     private DialogueView _dialogueView;
@@ -25,19 +23,23 @@ public class DialogueManager : MonoBehaviour {
     {
         if (_dialogueView.IsDialogueOpen()) return;
         
-        _dialogueView.GenerateDialoguePanel(dialogue);
+        _currentNPCDialogueManager.AddChosenOption(dialogue, null);
+        
+        _dialogueView.SetDialoguePanel(dialogue);
+        _dialogueView.TypingText();
     }
-    
 
     public void SelectOption(DialogueSettings dialogue, DialogueOptionSettings selectedOption)
     {
-        _currentNPCDialogueManager.SaveChosenOption(dialogue, selectedOption);
+        _currentNPCDialogueManager.AddChosenOption(dialogue, selectedOption);
         
         if (selectedOption.NextDialogue != null)
         {
-            _currentNPCDialogueManager.SaveChosenOption(selectedOption.NextDialogue, null);
+            _currentNPCDialogueManager.AddChosenOption(selectedOption.NextDialogue, null);
             
-            _dialogueView.GenerateDialoguePanel(selectedOption.NextDialogue);
+            _dialogueView.SetDialoguePanel(selectedOption.NextDialogue);
+            
+            _dialogueView.TypingText();
             Debug.Log(selectedOption.NextDialogue);
         }
 

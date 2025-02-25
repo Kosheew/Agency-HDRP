@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uniqueID: 12
   sentence: b. Option 2
+  voiceActingClip: {fileID: 0}
   nextDialogue: {fileID: 0}
   needHint: 1
   hint: {fileID: 11400000, guid: c5d596cbe2cb7e34298207fad8160a3e, type: 2}

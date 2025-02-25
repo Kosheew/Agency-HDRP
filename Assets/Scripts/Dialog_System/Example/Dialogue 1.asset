@@ -14,7 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   personName: 
   uniqueID: 1
-  sentence: Dialog 1
+  sentence: 'Dialog 1 Dialog 1 Dialog 1 Dialog 1 Dialog 1
+
+    Dialog 1 Dialog 1
+    Dialog 1 Dialog 1 Dialog 1
+
+    Dialog 1 Dialog 1 Dialog 1 Dialog 1 Dialog 1'
+  voiceActingClip: {fileID: 8300000, guid: fed559e81a4af47e6a873693a7525a30, type: 3}
   options:
   - {fileID: 11400000, guid: 766a977283f3c07428dd509ff7337bad, type: 2}
   - {fileID: 11400000, guid: 07e8f2f362890f449bfe8e2a0b55abf1, type: 2}

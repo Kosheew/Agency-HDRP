@@ -6,9 +6,12 @@ using Commands;
 using InputActions;
 using Scene_Manager;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Game : MonoBehaviour
 {
+    [SerializeField] private GameSaveManager gameSaveManager;
+    
     [Header("Character Settings")]
     [SerializeField] private CharacterAudioSettings characterAudioSettings;
     
@@ -45,8 +48,11 @@ public class Game : MonoBehaviour
     
     [Header("Dialogue System")]
     [SerializeField] private DialogueView dialogueView;
+    
     [SerializeField] private DialogueManager dialogueManager; 
-    [SerializeField] private NPCDialogueManager[] npcDialogueTriggers;
+    [SerializeField] private DialogProgressManager dialogProgressManager;
+    
+     [SerializeField] private NPCDialogueManager[] npcDialogueManagers;
     
     private CommandInvoker _commandInvoker;
     
@@ -83,6 +89,8 @@ public class Game : MonoBehaviour
         _commandEnemyFactory = new CommandEnemyFactory();
         _commandPlayerFactory = new CommandPlayerFactory();
         
+       // _saveSystem.ClearSaveData();
+        
         RegisterDependency();
             
         Injection();
@@ -93,6 +101,8 @@ public class Game : MonoBehaviour
     private void RegisterDependency()
     {
         _container.Register(_saveSystem);
+        
+        _container.Register(gameSaveManager);
         
         _container.Register(_commandInvoker);
         
@@ -119,12 +129,15 @@ public class Game : MonoBehaviour
         _container.Register(dialogueManager);
         _container.Register(evidenceManager);
         _container.Register(dialogueView);
+        _container.Register(dialogProgressManager);
     }
 
     private void Injection()
     {
         _commandPlayerFactory.Inject(_container);
         _commandEnemyFactory.Inject(_container);
+        
+        gameSaveManager.Inject(_container);
         
         questManager.Inject(_container);
         questView.Inject(_container);
@@ -153,14 +166,18 @@ public class Game : MonoBehaviour
             triggerDetector.Inject(_container);
         }
         
+        dialogProgressManager.Inject(_container);
+        
         evidenceManager.Inject(_container);
         dialogueManager.Inject(_container);
         dialogueView.Inject(_container);
         
-        foreach (var npcDialogueTrigger in npcDialogueTriggers)
+        foreach (var npcDialogueTrigger in npcDialogueManagers)
         {
             npcDialogueTrigger.Inject(_container);
         }
+        
+        
     }
     
     private void Update()
@@ -187,11 +204,19 @@ public class Game : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        questManager.SaveQuestProgress();
+      //  gameSaveManager.SaveQuestProgress(questManager);
+        
+      //  gameSaveManager.SaveNPCProgress(npcDialogueManagers);
+        
+      //  gameSaveManager.SaveGame();
     }
 
     private void OnApplicationPause(bool pauseStatus)
     {
-        questManager.SaveQuestProgress();
+      //  gameSaveManager.SaveQuestProgress(questManager);
+        
+       // gameSaveManager.SaveNPCProgress(npcDialogueManagers);
+        
+      //  gameSaveManager.SaveGame();
     }
 }

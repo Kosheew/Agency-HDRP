@@ -1,22 +1,42 @@
 using UnityEngine;
 
-namespace Characters
+public class AudioManager : MonoBehaviour
 {
-    public class AudioManager : MonoBehaviour
+    public static AudioManager Instance { get; private set; } 
+
+    private AudioSource _audioSource;
+    
+    public void Awake()
     {
-        private AudioSource _audioSource; 
-
-        public void Init()
+        if (Instance != null && Instance != this)
         {
-            _audioSource = GetComponent<AudioSource>();
+            Destroy(gameObject);
+            return;
         }
+        
+        Instance = this;
 
-        public void PlaySound(AudioClip clip)
+        _audioSource = GetComponent<AudioSource>();
+        _audioSource.loop = false;
+        
+        DontDestroyOnLoad(gameObject);
+    }
+    
+    public void PlayDialogueAudio(AudioClip clip)
+    {
+        if(clip == null) return;
+
+        StopAudio();
+        
+        _audioSource.clip = clip;
+        _audioSource.Play();
+    }
+
+    public void StopAudio()
+    {
+        if (_audioSource.isPlaying)
         {
-            if (clip != null && _audioSource != null)
-            {
-                _audioSource.PlayOneShot(clip);
-            }
+            _audioSource.Stop();
         }
     }
 }

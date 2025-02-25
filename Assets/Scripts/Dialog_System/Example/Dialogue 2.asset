@@ -15,6 +15,7 @@ MonoBehaviour:
   personName: 
   uniqueID: 2
   sentence: Dialog 2
+  voiceActingClip: {fileID: 8300000, guid: e7632c6401c09437e83de45d33c5858e, type: 3}
   options:
   - {fileID: 11400000, guid: 4fa073e0ae7eb264e9f0683892a39ef2, type: 2}
   addHint: 0

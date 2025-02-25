@@ -32,7 +32,6 @@ public class DialogPresenter
             btn.onClick.RemoveAllListeners();
             if (option.IsAvailable(_evidenceManager))
             {
-                
                 btn.onClick.AddListener(() =>
                 {
                     _panelView.ShowSelectedOption(option.Sentence);
@@ -41,7 +40,8 @@ public class DialogPresenter
                     if (option.Quest != null)
                         option.AddQuest(_questManager);
                     
-                    option.GameEvent.Raise();
+                    if(option.GameEvent != null)
+                        option.GameEvent.Raise();
                     
                     _dialogueManager.SelectOption(dialogue, option);
                     

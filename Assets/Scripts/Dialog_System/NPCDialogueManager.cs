@@ -1,17 +1,22 @@
 using System.Collections.Generic;
+using Dialog_System;
 using UnityEngine;
 
 public class NPCDialogueManager : MonoBehaviour
 {
+    [SerializeField] private NPCFileData npcFileData;
     [SerializeField] private DialogueSettings currentDialogue;
     
     private DialogueManager _dialogueManager;
+    private DialogProgressManager _dialogProgressManager;
     private Dictionary<DialogueSettings, DialogueOptionSettings> _passedDialogueSettings;
     
     public void Inject(DependencyContainer container)
     {
-        _passedDialogueSettings = new Dictionary<DialogueSettings, DialogueOptionSettings>(10);
         _dialogueManager = container.Resolve<DialogueManager>();
+        _dialogProgressManager = container.Resolve<DialogProgressManager>();
+
+        _passedDialogueSettings = new Dictionary<DialogueSettings, DialogueOptionSettings>(10);
     }
     
     public void StartDialogue()
@@ -36,7 +41,7 @@ public class NPCDialogueManager : MonoBehaviour
         _passedDialogueSettings.Clear();
     }
     
-    public void SaveChosenOption(DialogueSettings dialogue, DialogueOptionSettings chosenOption)
+    public void AddChosenOption(DialogueSettings dialogue, DialogueOptionSettings chosenOption)
     {
         if (_passedDialogueSettings.ContainsKey(dialogue))
         {
@@ -50,5 +55,10 @@ public class NPCDialogueManager : MonoBehaviour
     public Dictionary<DialogueSettings, DialogueOptionSettings> GetPassedDialogues()
     {
         return _passedDialogueSettings;
+    }
+
+    public NPCDialogProgress GetDialogueProgress()
+    {
+        return new NPCDialogProgress(npcFileData.UniqueID, _passedDialogueSettings);
     }
 }

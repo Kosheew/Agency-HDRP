@@ -4,6 +4,7 @@ using System.Collections.Generic;
 [CreateAssetMenu(fileName = "NPCFile", menuName = "ScriptableObjects/NPC/NPCFile")]
 public class NPCFileData : ScriptableObject
 {
+    [SerializeField] private ushort uniqueID;
     [SerializeField] private Sprite spritePerson;
     [SerializeField] private string description;
     
@@ -12,6 +13,7 @@ public class NPCFileData : ScriptableObject
     public Sprite SpritePerson => spritePerson;
     public string Description => description;
     public HintData[] Hints => hints;
+    public ushort UniqueID => uniqueID;
     
     public List<HintData> GetKnownHints(EvidenceManager evidenceManager)
     {

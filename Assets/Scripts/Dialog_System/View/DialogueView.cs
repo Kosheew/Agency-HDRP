@@ -40,18 +40,24 @@ public class DialogueView : MonoBehaviour
         _animatorIDShow = Animator.StringToHash("Show");
     }
 
-    public void GenerateDialoguePanel(DialogueSettings dialogue)
+    public void SetDialoguePanel(DialogueSettings dialogue)
     { 
         _currentPanel = _dialogueViewPool.Get();
-        
+                
         _currentPanel.ResetView();
+                
         new DialogPresenter(_currentPanel, _dependencyContainer);
-
+        
         _activePanels.Add(_currentPanel);
         
         _currentPanel.SetDialogue(dialogue);
     }
 
+    public void TypingText()
+    {
+        _currentPanel.StartTyping();
+    }
+    
     public bool IsDialogueOpen()
     {
         if(_isDialogueOpen) return true;
@@ -92,7 +98,8 @@ public class DialogueView : MonoBehaviour
             
             if(dialog == null) continue;
             
-            GenerateDialoguePanel(dialog);
+            SetDialoguePanel(dialog);
+            _currentPanel.SkipTyping();
             
             if (dialogue.Value != null)
             {

@@ -1,13 +1,10 @@
-using System;
 using System.Collections.Generic;
 using Quests;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
-    [Header("Start Clear")]
-    [SerializeField] private bool startClear = false;
-    
     [SerializeField] private QuestView questView;
     [SerializeField] private List<QuestSettings> availableQuests; 
     
@@ -15,13 +12,15 @@ public class QuestManager : MonoBehaviour
     private Dictionary<ushort, QuestSettings> _availableQuestLookup;
     private Dictionary<ushort, Quest> _completedQuests;
     
-    private BinarySaveSystem _saveSystem;
+    private GameSaveManager _gameSaveManager;
+    
+    private GameData _gameData;
     
     private ushort _startQuestHash;
     
     public void Inject(DependencyContainer container)
     {
-        _saveSystem = container.Resolve<BinarySaveSystem>();
+        _gameSaveManager = container.Resolve<GameSaveManager>();
 
         _availableQuestLookup = new Dictionary<ushort, QuestSettings>(availableQuests.Count);
         _activeQuests = new Dictionary<ushort, Quest>(availableQuests.Count);
@@ -36,9 +35,7 @@ public class QuestManager : MonoBehaviour
             Debug.LogWarning("No available quests found!");
             return;
         }
-
-        if (startClear)
-            _saveSystem.ClearSaveData();
+        
 
         foreach (var questSettings in availableQuests)
         {
@@ -48,33 +45,27 @@ public class QuestManager : MonoBehaviour
                 _availableQuestLookup.Add(questHash, questSettings);
             }
         }
-
-        if (_saveSystem.CheckFileExists())
+        
+        ActivateQuest(_startQuestHash);
+    }
+    
+    public void RestoreQuestProgress(QuestProgress questProgress)
+    {
+       
+        if (_availableQuestLookup.TryGetValue(questProgress.QuestHash, out var questSettings))
         {
-            var loadData = _saveSystem.Load<QuestProgressData>();
+            var quest = new Quest(questSettings);
+            quest.StepsCompleted = questProgress.GetStepsCompletedDictionary();
+            _activeQuests.Add(questProgress.QuestHash, quest);
 
-            foreach (var questProgress in loadData.Quests)
+            if (!quest.IsQuestCompleted())
             {
-                if (_availableQuestLookup.TryGetValue(questProgress.QuestHash, out var questSettings))
-                {
-                    var quest = new Quest(questSettings);
-                    quest.StepsCompleted = questProgress.GetStepsCompletedDictionary();
-                    _activeQuests.Add(questProgress.QuestHash, quest);
-
-                    if (!quest.IsQuestCompleted())
-                    {
-                        questView.SetQuest(quest);
-                    }
-                }
-                else
-                {
-                    Debug.LogWarning($"Quest with hash {questProgress.QuestHash} not found in available quests.");
-                }
+                questView.SetQuest(quest);
             }
         }
         else
         {
-            ActivateQuest(_startQuestHash);
+            Debug.LogWarning($"Quest with hash {questProgress.QuestHash} not found in available quests.");
         }
     }
 
@@ -138,6 +129,8 @@ public class QuestManager : MonoBehaviour
         return new List<Quest>(_completedQuests.Values);
     }
 
+    public Dictionary<ushort, Quest> GetQuests => _activeQuests;
+
     /// <summary>
     /// Отримує список доступних, але ще неактивних квестів.
     /// </summary>
@@ -156,21 +149,4 @@ public class QuestManager : MonoBehaviour
         return availableQuests;
     }
     
-    public void SaveQuestProgress()
-    {
-        var questProgressList = new List<QuestProgress>();
-
-        foreach (var questPair in _activeQuests)
-        {
-            ushort questHash = questPair.Key;
-            Dictionary<ushort, bool> stepsCompleted = questPair.Value.StepsCompleted;
-            questProgressList.Add(new QuestProgress(questHash, stepsCompleted));
-        }
-
-        var progressData = new QuestProgressData(questProgressList);
-        
-        _saveSystem.Save(progressData);
-
-        Debug.Log("Quest progress saved!");
-    }
 }

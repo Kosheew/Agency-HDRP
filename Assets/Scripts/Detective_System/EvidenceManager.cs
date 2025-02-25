@@ -5,24 +5,19 @@ public class EvidenceManager: MonoBehaviour
 {
     private HashSet<ushort> _collectedHints;
     private HashSet<ushort> _archivedHints;
-    private BinarySaveSystem _saveSystem;
+    private GameSaveManager _saveSystem;
 
     public void Inject(DependencyContainer container)
     {
-        _saveSystem = container.Resolve<BinarySaveSystem>();
+        _saveSystem = container.Resolve<GameSaveManager>();
 
-        // Завантажуємо збережені докази
-        if (_saveSystem.CheckFileExists())
-        {
-            var data = _saveSystem.Load<EvidenceProgressData>();
-            _collectedHints = new HashSet<ushort>(data.CollectedHintIDs);
-            _archivedHints = new HashSet<ushort>(data.ArchivedHintIDs);
-        }
-        else
-        {
-            _collectedHints = new HashSet<ushort>();
-            _archivedHints = new HashSet<ushort>();
-        }
+    
+    //    var data = _saveSystem.gameData.evidenceProgressData;
+            
+           
+        _collectedHints = new HashSet<ushort>(10);
+        _archivedHints = new HashSet<ushort>(10);
+        
     }
 
     public void CollectHint(HintData hint)
@@ -65,10 +60,4 @@ public class EvidenceManager: MonoBehaviour
         return visibleHints;
     }
     
-    public void SaveProgress()
-    {
-        var progressData = new EvidenceProgressData(_collectedHints, _archivedHints);
-        _saveSystem.Save(progressData);
-        Debug.Log("Evidence progress saved!");
-    }
 }

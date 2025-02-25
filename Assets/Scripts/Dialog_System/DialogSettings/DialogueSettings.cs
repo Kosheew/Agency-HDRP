@@ -17,6 +17,10 @@ public class DialogueSettings : ScriptableObject
     [LabelText("Текст діалогу"), SerializeField, TextArea(3, 5)]
     private string sentence;
     
+    [BoxGroup("Основні дані")]
+    [LabelText("Озвучка тексту"), SerializeField]
+    private AudioClip voiceActingClip;
+    
     [Space(10)]
     [BoxGroup("Основні дані"), LabelText("Опції"), SerializeField] 
     private DialogueOptionSettings[] options;
@@ -34,6 +38,7 @@ public class DialogueSettings : ScriptableObject
     public string PersonName => personName;
     public ushort UniqueID => uniqueID;
     public string Sentence => sentence;
+    public AudioClip VoiceActingClip => voiceActingClip;
     public DialogueOptionSettings[] Options => options;
 
     public void AddHint(EvidenceManager evidenceManager)

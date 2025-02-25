@@ -15,6 +15,10 @@ public class DialogueOptionSettings: ScriptableObject
     [LabelText("Основний текст"), SerializeField, TextArea(3, 8)]
     private string sentence;
     
+    [BoxGroup("Основні дані")]
+    [LabelText("Озвучка тексту"), SerializeField]
+    private AudioClip voiceActingClip;
+    
     [Space(10)]
     [BoxGroup("Основні дані")]
     [LabelText("Наступний діалог"), SerializeField] 
@@ -46,6 +50,7 @@ public class DialogueOptionSettings: ScriptableObject
     public DialogueSettings NextDialogue => nextDialogue;
     public QuestSettings Quest => quest;
     public GameEventData GameEvent => gameEvent;
+    public AudioClip VoiceActingClip => voiceActingClip;
     
     public bool IsAvailable(EvidenceManager evidenceManager)
     {

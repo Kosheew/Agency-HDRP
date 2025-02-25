@@ -15,6 +15,7 @@ MonoBehaviour:
   personName: 
   uniqueID: 3
   sentence: Dialog 3. Add hint.
+  voiceActingClip: {fileID: 8300000, guid: a1a3178f0271f49c5a12bc0c347e6e52, type: 3}
   options: []
   addHint: 1
   hint: {fileID: 11400000, guid: c5d596cbe2cb7e34298207fad8160a3e, type: 2}
