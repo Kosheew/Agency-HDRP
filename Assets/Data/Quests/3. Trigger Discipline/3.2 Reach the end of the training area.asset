@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b983de12ebc4684b0ad86dab763be12, type: 3}
   m_Name: 3.2 Reach the end of the training area
   m_EditorClassIdentifier: 
-  questName: Reach the end of the training area
   uniqueID: 32
+  questName: Reach the end of the training area
   description: 

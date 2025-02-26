@@ -4,8 +4,8 @@ using UnityEngine.Serialization;
 
 public class GameEventListener : MonoBehaviour
 {
-    [FormerlySerializedAs("gameEvent")] [SerializeField] private GameEventData gameEventData;  // Посилання на подію
-    [SerializeField] private UnityEvent response;  // Подія, що виконується при виклику Raise()
+    [SerializeField] private GameEventData gameEventData;  
+    [SerializeField] private UnityEvent response;  
 
     private void OnEnable() => gameEventData.Register(OnEventRaised);
     private void OnDisable() => gameEventData.Unregister(OnEventRaised);

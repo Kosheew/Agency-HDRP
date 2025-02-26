@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b983de12ebc4684b0ad86dab763be12, type: 3}
   m_Name: 1.2 Speak with Agent Kraus
   m_EditorClassIdentifier: 
-  questName: Speak with Agent Kraus
   uniqueID: 12
+  questName: Speak with Agent Kraus
   description: 

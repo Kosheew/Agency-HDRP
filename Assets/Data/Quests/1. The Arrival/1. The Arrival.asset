@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba755c336eac4c4393bd34af35e8376a, type: 3}
   m_Name: 1. The Arrival
   m_EditorClassIdentifier: 
-  questName: The Arrival
   uniqueID: 1
+  questName: The Arrival
   questDescription: Receive your first assignment
   stepsDescriptions:
   - {fileID: 11400000, guid: fb6dd03ee2a8d424b9b39e774cf6de54, type: 2}

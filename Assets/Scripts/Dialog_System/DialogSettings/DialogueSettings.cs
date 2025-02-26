@@ -23,7 +23,8 @@ public class DialogueSettings : ScriptableObject
     private AudioClip voiceActingClip;
     
     [Space(10)]
-    [BoxGroup("Основні дані"), LabelText("Опції"), SerializeField] 
+    [BoxGroup("Основні дані"), ListDrawerSettings(Expanded = true, DraggableItems = true, ShowItemCount = true)] 
+    [SerializeField] 
     private DialogueOptionSettings[] options;
 
     [Space(10)]

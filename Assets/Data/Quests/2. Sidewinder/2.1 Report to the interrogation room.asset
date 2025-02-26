@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b983de12ebc4684b0ad86dab763be12, type: 3}
   m_Name: 2.1 Report to the interrogation room
   m_EditorClassIdentifier: 
-  questName: Report to the interrogation room
   uniqueID: 21
+  questName: Report to the interrogation room
   description: '
 
 '

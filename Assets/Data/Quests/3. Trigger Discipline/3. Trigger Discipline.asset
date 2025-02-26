@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba755c336eac4c4393bd34af35e8376a, type: 3}
   m_Name: 3. Trigger Discipline
   m_EditorClassIdentifier: 
-  questName: Trigger Discipline
   uniqueID: 3
+  questName: Trigger Discipline
   questDescription: 
   stepsDescriptions:
   - {fileID: 11400000, guid: 83f106af9d096a741acbcbd86a5cd157, type: 2}

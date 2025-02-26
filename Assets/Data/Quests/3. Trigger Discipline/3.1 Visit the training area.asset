@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b983de12ebc4684b0ad86dab763be12, type: 3}
   m_Name: 3.1 Visit the training area
   m_EditorClassIdentifier: 
-  questName: Visit the training area
   uniqueID: 31
+  questName: Visit the training area
   description: 

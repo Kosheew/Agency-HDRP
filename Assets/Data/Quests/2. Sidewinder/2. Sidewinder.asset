@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba755c336eac4c4393bd34af35e8376a, type: 3}
   m_Name: 2. Sidewinder
   m_EditorClassIdentifier: 
-  questName: Sidewinder
   uniqueID: 2
+  questName: Sidewinder
   questDescription: 
   stepsDescriptions:
   - {fileID: 11400000, guid: 2f555c6d7b662eb4ca0af400aa9b1390, type: 2}
