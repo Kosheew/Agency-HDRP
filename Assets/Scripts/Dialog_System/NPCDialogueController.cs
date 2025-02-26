@@ -2,36 +2,33 @@ using System.Collections.Generic;
 using Dialog_System;
 using UnityEngine;
 
-public class NPCDialogueManager : MonoBehaviour
+public class NPCDialogueController : MonoBehaviour
 {
     [SerializeField] private NPCFileData npcFileData;
     [SerializeField] private DialogueSettings currentDialogue;
     
-    private DialogueManager _dialogueManager;
-    private DialogProgressManager _dialogProgressManager;
+    private DialogueController _dialogueController;
     private Dictionary<DialogueSettings, DialogueOptionSettings> _passedDialogueSettings;
     
     public void Inject(DependencyContainer container)
     {
-        _dialogueManager = container.Resolve<DialogueManager>();
-        _dialogProgressManager = container.Resolve<DialogProgressManager>();
-
+        _dialogueController = container.Resolve<DialogueController>();
         _passedDialogueSettings = new Dictionary<DialogueSettings, DialogueOptionSettings>(10);
     }
     
     public void StartDialogue()
     {
-        if(_dialogueManager == null) return;
+        if(_dialogueController == null) return;
         
-        _dialogueManager.SetNpcDialogueManager(this);
+        _dialogueController.SetNpcDialogueManager(this);
         
         if (_passedDialogueSettings.Count > 0)
         {
-            _dialogueManager.ShowPassedDialogues(this);
+            _dialogueController.ShowPassedDialogues(this);
         }
         else if (currentDialogue != null)
         {
-            _dialogueManager.StartDialogue(currentDialogue);
+            _dialogueController.StartDialogue(currentDialogue);
         }
     }
 
@@ -57,8 +54,14 @@ public class NPCDialogueManager : MonoBehaviour
         return _passedDialogueSettings;
     }
 
-    public NPCDialogProgress GetDialogueProgress()
+    /*public NPCDialogProgress GetDialogueProgress()
     {
         return new NPCDialogProgress(npcFileData.UniqueID, _passedDialogueSettings);
     }
+    
+    public void LoadDialogueProgress(NPCDialogProgress progress)
+    {
+       // if (progress == null || progress.PassedDialogues == null) return;
+       // _passedDialogueSettings = new Dictionary<DialogueSettings, DialogueOptionSettings>(progress.PassedDialogues);
+    }*/
 }

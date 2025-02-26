@@ -40383,7 +40383,7 @@ MonoBehaviour:
   - {fileID: 1320124622}
   - {fileID: 1991482520}
   audioManager: {fileID: 2014427147}
-  questManager: {fileID: 26892833}
+  questController: {fileID: 26892833}
   questView: {fileID: 1613380272}
   questCompleter:
   - {fileID: 2103875911}
@@ -40400,9 +40400,9 @@ MonoBehaviour:
   - {fileID: 313455315}
   - {fileID: 1871769606}
   pauseView: {fileID: 162478785}
-  evidenceManager: {fileID: 1967533690}
+  cluesController: {fileID: 1967533690}
   dialogueView: {fileID: 7604427655419564131}
-  dialogueManager: {fileID: 299996542}
+  dialogueController: {fileID: 299996542}
   dialogProgressManager: {fileID: 299996544}
   npcDialogueManagers:
   - {fileID: 34661938}

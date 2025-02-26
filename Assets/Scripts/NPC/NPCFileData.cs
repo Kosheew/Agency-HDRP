@@ -8,20 +8,20 @@ public class NPCFileData : ScriptableObject
     [SerializeField] private Sprite spritePerson;
     [SerializeField] private string description;
     
-    [SerializeField] private HintData[] hints;
+    [SerializeField] private CluesData[] hints;
     
     public Sprite SpritePerson => spritePerson;
     public string Description => description;
-    public HintData[] Hints => hints;
+    public CluesData[] Hints => hints;
     public ushort UniqueID => uniqueID;
     
-    public List<HintData> GetKnownHints(EvidenceManager evidenceManager)
+    public List<CluesData> GetKnownHints(CluesController cluesController)
     {
-        var knownHints = new List<HintData>();
+        var knownHints = new List<CluesData>();
 
         foreach (var hint in hints)
         {
-            if (evidenceManager.HasHint(hint) && !evidenceManager.IsHintArchived(hint))
+            if (cluesController.HasClue(hint) && !cluesController.IsClueArchived(hint))
             {
                 knownHints.Add(hint);
             }

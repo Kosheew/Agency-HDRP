@@ -3,9 +3,9 @@ using Dialog_System;
 
 public class NPCDialogSaveSystem : ISaveable
 {
-    private NPCDialogueManager[] _npcDialogues;
+    private NPCDialogueController[] _npcDialogues;
 
-    public NPCDialogSaveSystem(NPCDialogueManager[] npcDialogues)
+    public NPCDialogSaveSystem(NPCDialogueController[] npcDialogues)
     {
         _npcDialogues = npcDialogues;
     }

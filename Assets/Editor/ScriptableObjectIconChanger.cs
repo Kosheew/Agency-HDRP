@@ -19,12 +19,13 @@ public static class ScriptableObjectIconSetter
     
     private static void SetIcons()
     {
-        ApplyIcon<DialogueSettings>("Assets/Icons/Dialog.png");
-        ApplyIcon<DialogueOptionSettings>("Assets/Icons/DialogOptions.png");
-        ApplyIcon<NPCFileData>("Assets/Icons/NPCFile.png");
-        ApplyIcon<GameEventData>("Assets/Icons/Event.png");
-        ApplyIcon<HintData>("Assets/Icons/Hint.png");
-        ApplyIcon<QuestSettings>("Assets/Icons/Quest.png");
+        ApplyIcon<DialogueSettings>("Assets/Icons/DialogIcon.png");
+        ApplyIcon<DialogueOptionSettings>("Assets/Icons/DialogOptionsIcon.png");
+        ApplyIcon<NPCFileData>("Assets/Icons/NPCFileIcon.png");
+        ApplyIcon<GameEventData>("Assets/Icons/EventIcon.png");
+        ApplyIcon<CluesData>("Assets/Icons/HintIcon.png");
+        ApplyIcon<QuestSettings>("Assets/Icons/QuestIcon.png");
+        ApplyIcon<QuestStepSettings>("Assets/Icons/QuestStepIcon.png");
 
         // Збереження змін
         AssetDatabase.SaveAssets();

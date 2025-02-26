@@ -9,11 +9,11 @@ public class NPCFileView : MonoBehaviour
     [SerializeField] private Transform hintsContainer;
     [SerializeField] private GameObject hintPrefab;
     
-    private EvidenceManager _evidenceManager;
+    private CluesController _cluesController;
 
-    public void Inject(EvidenceManager evidenceManager)
+    public void Inject(CluesController cluesController)
     {
-        _evidenceManager = evidenceManager;
+        _cluesController = cluesController;
     }
 
     public void ShowNPCFile(NPCFileData npcFile)
@@ -28,12 +28,12 @@ public class NPCFileView : MonoBehaviour
         }
 
         // Отримуємо лише відомі зачіпки
-        List<HintData> knownHints = npcFile.GetKnownHints(_evidenceManager);
+        List<CluesData> knownHints = npcFile.GetKnownHints(_cluesController);
 
         foreach (var hint in knownHints)
         {
             var hintGO = Instantiate(hintPrefab, hintsContainer);
-            hintGO.GetComponentInChildren<Text>().text = hint.Description; // Припустимо, що HintData має HintText
+            hintGO.GetComponentInChildren<Text>().text = hint.Description; // Припустимо, що CluesData має HintText
         }
     }
 }

@@ -38,6 +38,4 @@ public class Quest
     }
 
     public QuestSettings GetQuestSO() => QuestSettings;
-    
-   
 }

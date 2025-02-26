@@ -14,10 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uniqueID: 11
   sentence: a. Option 1
-  voiceActingClip: {fileID: 0}
   nextDialogue: {fileID: 11400000, guid: 6edbae6bfc880ed429e38560fe2485a8, type: 2}
   needHint: 0
-  hint: {fileID: 0}
+  clues: {fileID: 0}
   adderQuest: 0
   quest: {fileID: 0}
   addAction: 0

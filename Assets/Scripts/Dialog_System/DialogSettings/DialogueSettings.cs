@@ -1,5 +1,6 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "Dialogue", menuName = "ScriptableObjects/Dialogue/DialogueSettings")]
 public class DialogueSettings : ScriptableObject
@@ -31,9 +32,10 @@ public class DialogueSettings : ScriptableObject
     [LabelText("Додати підказку?"), SerializeField]
     private bool addHint;
     
+    [FormerlySerializedAs("hint")]
     [BoxGroup("Додаткові налаштування")]
     [ShowIf("@addHint"), LabelText("Підказка"), SerializeField]
-    private HintData hint;
+    private CluesData clues;
     
     public string PersonName => personName;
     public ushort UniqueID => uniqueID;
@@ -41,10 +43,10 @@ public class DialogueSettings : ScriptableObject
     public AudioClip VoiceActingClip => voiceActingClip;
     public DialogueOptionSettings[] Options => options;
 
-    public void AddHint(EvidenceManager evidenceManager)
+    public void AddHint(CluesController cluesController)
     {
         if(addHint)
-            evidenceManager.CollectHint(hint);
+            cluesController.CollectClue(clues);
     }
     
 }

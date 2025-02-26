@@ -27,6 +27,8 @@ public class QuestView : MonoBehaviour
 
         nextQuestButton.onClick.AddListener(_questPresenter.NextQuest);
         previousQuestButton.onClick.AddListener(_questPresenter.PreviousQuest);
+
+        UpdateQuests();
     }
     
     public void SetQuest(Quest quest)

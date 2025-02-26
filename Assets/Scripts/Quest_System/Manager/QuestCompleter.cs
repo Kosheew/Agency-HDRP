@@ -8,14 +8,14 @@ public class QuestCompleter : MonoBehaviour
     [Header("Quests Step Complete")]
     [SerializeField] private QuestStepSettings questStepSettings;
     
-    private QuestManager _questManager;
+    private QuestController _questController;
 
     private ushort _questCompleted;
     private ushort _questStepCompleted;
     
     public void Inject(DependencyContainer container)
     {
-        _questManager = container.Resolve<QuestManager>();
+        _questController = container.Resolve<QuestController>();
 
         _questCompleted = questSettings.UniqueID;
         _questStepCompleted = questStepSettings.UniqueID;
@@ -23,6 +23,6 @@ public class QuestCompleter : MonoBehaviour
 
     public void CompleteStepQuest()
     {
-        _questManager.CompleteQuestStep(_questCompleted, _questStepCompleted);
+        _questController.CompleteQuestStep(_questCompleted, _questStepCompleted);
     }
 }

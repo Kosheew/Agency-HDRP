@@ -86,7 +86,7 @@ public class DialogueView : MonoBehaviour
         _activePanels.Clear();
     }
     
-    public void ShowPassedDialogues(NPCDialogueManager npc)
+    public void ShowPassedDialogues(NPCDialogueController npc)
     {
         if (IsDialogueOpen()) return;
         

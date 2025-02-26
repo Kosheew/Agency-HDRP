@@ -21,11 +21,11 @@ public class GameSaveManager : MonoBehaviour
     }
     
     
-    public void SaveNPCProgress(NPCDialogueManager[] npcDialogues)
+    public void SaveNPCProgress(NPCDialogueController[] npcDialogues)
     {
         var npcProgressData = new List<NPCDialogProgress>(10);
         
-        foreach (NPCDialogueManager npcDialogue in npcDialogues)
+        foreach (NPCDialogueController npcDialogue in npcDialogues)
         {
             var dialogueProgress = npcDialogue.GetComponent<NPCDialogProgress>();
             

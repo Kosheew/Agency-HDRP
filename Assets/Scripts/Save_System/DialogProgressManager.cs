@@ -19,8 +19,6 @@ public class DialogProgressManager: MonoBehaviour
         _gameSaveManager = container.Resolve<GameSaveManager>();
         
         _npcProgressData = new List<NPCDialogProgress>(10);
-        
-      //  LoadProgressDialogue();
     }
 
     private void LoadProgressDialogue()

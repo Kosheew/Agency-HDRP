@@ -30,8 +30,9 @@ public class Game : MonoBehaviour
     [Header("Audio Settings")]
     [SerializeField] private AudioManager audioManager;
     
+    [FormerlySerializedAs("questManager")]
     [Header("Quest Settings")]
-    [SerializeField] private QuestManager questManager;
+    [SerializeField] private QuestController questController;
     [SerializeField] private QuestView questView;
     
     [Header("Quest Completes")]
@@ -43,16 +44,18 @@ public class Game : MonoBehaviour
     [Header("Other Views")]
     [SerializeField] private PauseView pauseView;
     
+    [FormerlySerializedAs("cluesManager")]
+    [FormerlySerializedAs("evidenceManager")]
     [Header("Evidence System")] 
-    [SerializeField] private EvidenceManager evidenceManager;
+    [SerializeField] private CluesController cluesController;
     
     [Header("Dialogue System")]
     [SerializeField] private DialogueView dialogueView;
     
-    [SerializeField] private DialogueManager dialogueManager; 
+    [FormerlySerializedAs("dialogueManager")] [SerializeField] private DialogueController dialogueController; 
     [SerializeField] private DialogProgressManager dialogProgressManager;
     
-     [SerializeField] private NPCDialogueManager[] npcDialogueManagers;
+     [SerializeField] private NPCDialogueController[] npcDialogueManagers;
     
     private CommandInvoker _commandInvoker;
     
@@ -116,7 +119,7 @@ public class Game : MonoBehaviour
         _container.Register(_stateEnemyFactory);
         _container.Register(_statePlayerFactory);
             
-        _container.Register(questManager);
+        _container.Register(questController);
         _container.Register(questView);
         
         _container.Register(_commandEnemyFactory);
@@ -126,8 +129,8 @@ public class Game : MonoBehaviour
         _container.Register(userInput);
         _container.Register(_sceneController);
         
-        _container.Register(dialogueManager);
-        _container.Register(evidenceManager);
+        _container.Register(dialogueController);
+        _container.Register(cluesController);
         _container.Register(dialogueView);
         _container.Register(dialogProgressManager);
     }
@@ -139,7 +142,7 @@ public class Game : MonoBehaviour
         
         gameSaveManager.Inject(_container);
         
-        questManager.Inject(_container);
+        questController.Inject(_container);
         questView.Inject(_container);
         player.Inject(_container);
         weaponController.Inject(_container);
@@ -168,8 +171,8 @@ public class Game : MonoBehaviour
         
         dialogProgressManager.Inject(_container);
         
-        evidenceManager.Inject(_container);
-        dialogueManager.Inject(_container);
+        cluesController.Inject(_container);
+        dialogueController.Inject(_container);
         dialogueView.Inject(_container);
         
         foreach (var npcDialogueTrigger in npcDialogueManagers)
@@ -204,7 +207,7 @@ public class Game : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-      //  gameSaveManager.SaveQuestProgress(questManager);
+      //  gameSaveManager.SaveQuestProgress(questController);
         
       //  gameSaveManager.SaveNPCProgress(npcDialogueManagers);
         
@@ -213,7 +216,7 @@ public class Game : MonoBehaviour
 
     private void OnApplicationPause(bool pauseStatus)
     {
-      //  gameSaveManager.SaveQuestProgress(questManager);
+      //  gameSaveManager.SaveQuestProgress(questController);
         
        // gameSaveManager.SaveNPCProgress(npcDialogueManagers);
         

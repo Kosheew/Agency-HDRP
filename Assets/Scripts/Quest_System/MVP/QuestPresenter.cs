@@ -4,16 +4,16 @@ using UnityEngine;
 public class QuestPresenter 
 {
     private List<Quest> _quests;
-    private QuestManager _questManager;
+    private QuestController _questController;
     private QuestView _questView;
     private int _currentQuestIndex = 0;
 
     public QuestPresenter(DependencyContainer container)
     {
-        _questManager = container.Resolve<QuestManager>();
+        _questController = container.Resolve<QuestController>();
         _questView = container.Resolve<QuestView>();
 
-        _quests = _questManager.GetActiveQuests();
+        _quests = _questController.GetActiveQuests();
 
         if (_quests.Count > 0)
         {
@@ -23,7 +23,7 @@ public class QuestPresenter
 
     public void NextQuest()
     {
-        _quests = _questManager.GetActiveQuests();
+        _quests = _questController.GetActiveQuests();
         if (_quests.Count == 0) return;
 
         _currentQuestIndex = (_currentQuestIndex + 1) % _quests.Count;
@@ -32,7 +32,7 @@ public class QuestPresenter
 
     public void PreviousQuest()
     {
-        _quests = _questManager.GetActiveQuests();
+        _quests = _questController.GetActiveQuests();
         if (_quests.Count == 0) return;
 
         _currentQuestIndex = (_currentQuestIndex - 1 + _quests.Count) % _quests.Count;
@@ -41,7 +41,7 @@ public class QuestPresenter
     
     public void RefreshQuests()
     {
-        _quests = _questManager.GetActiveQuests();
+        _quests = _questController.GetActiveQuests();
         
         if (_quests.Count > 0)
         {

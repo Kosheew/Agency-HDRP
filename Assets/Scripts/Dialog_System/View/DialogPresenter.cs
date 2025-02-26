@@ -6,16 +6,16 @@ using TMPro;
 public class DialogPresenter
 {
     private DialoguePanelView _panelView;
-    private EvidenceManager _evidenceManager;
-    private QuestManager _questManager;
-    private DialogueManager _dialogueManager;
+    private CluesController _cluesController;
+    private QuestController _questController;
+    private DialogueController _dialogueController;
     
     public DialogPresenter(DialoguePanelView panelView, DependencyContainer container)
     {
         _panelView = panelView;
-        _evidenceManager = container.Resolve<EvidenceManager>();
-        _questManager = container.Resolve<QuestManager>();
-        _dialogueManager = container.Resolve<DialogueManager>();
+        _cluesController = container.Resolve<CluesController>();
+        _questController = container.Resolve<QuestController>();
+        _dialogueController = container.Resolve<DialogueController>();
         _panelView.Inject(this);
     }
     
@@ -27,10 +27,10 @@ public class DialogPresenter
             var btn = buttons[index];
             btn.gameObject.SetActive(true);
             
-            texts[index].SetText(option.IsAvailable(_evidenceManager) ? option.Sentence : "not available");
+            texts[index].SetText(option.IsAvailable(_cluesController) ? option.Sentence : "not available");
             
             btn.onClick.RemoveAllListeners();
-            if (option.IsAvailable(_evidenceManager))
+            if (option.IsAvailable(_cluesController))
             {
                 btn.onClick.AddListener(() =>
                 {
@@ -38,18 +38,18 @@ public class DialogPresenter
                     _panelView.SetActiveButtons(false);
                     
                     if (option.Quest != null)
-                        option.AddQuest(_questManager);
+                        option.AddQuest(_questController);
                     
                     if(option.GameEvent != null)
                         option.GameEvent.Raise();
                     
-                    _dialogueManager.SelectOption(dialogue, option);
+                    _dialogueController.SelectOption(dialogue, option);
                     
                 });
             }
             index++;
         }
-        dialogue.AddHint(_evidenceManager);
+        dialogue.AddHint(_cluesController);
         
     }
 }

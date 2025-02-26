@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Hint", menuName = "ScriptableObjects/NPC/Hint")]
-public class HintData : ScriptableObject
+public class CluesData : ScriptableObject
 {
     [SerializeField] private ushort uniqueID;
     [SerializeField] private string hintName;
