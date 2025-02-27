@@ -86,7 +86,7 @@ public class Game : MonoBehaviour
         _stateEnemyManager = new StateEnemyManager();
         _statePlayerManager = new StatePlayerManager();
         
-        _stateEnemyFactory = new StateEnemyFactory();
+        _stateEnemyFactory = new StateEnemyFactory(enemies);
         _statePlayerFactory = new StatePlayerFactory();
         
         _commandEnemyFactory = new CommandEnemyFactory();

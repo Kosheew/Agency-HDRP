@@ -3,26 +3,25 @@ using Characters.Enemy;
 
 namespace Characters.Command
 {
-    public class ToAttackedCommand: ICommand
+    public class ToAttackedCommand: ICommandEnemy
     {
         private readonly StateEnemyManager _stateEnemyManager;
         private readonly StateEnemyFactory _stateEnemyFactory;
-        private readonly IEnemy _enemy;
         private readonly ITargetHandler _targetHandler;
+        public IEnemy Enemy {get; set;}
         
-        public ToAttackedCommand(DependencyContainer container, IEnemy enemy)
+        public ToAttackedCommand(DependencyContainer container)
         {
             _stateEnemyManager = container.Resolve<StateEnemyManager>();
             _stateEnemyFactory = container.Resolve<StateEnemyFactory>();
             _targetHandler = container.Resolve<IPlayer>();
-            _enemy = enemy;
         }
 
         public void Execute()
         {
-            _enemy.VisionChecker.SetTargetHandler(_targetHandler);
-            var characterState = _stateEnemyFactory.CreateState(TypeCharacterStates.Chased);
-            _stateEnemyManager.SetState(characterState, _enemy);
+            Enemy.VisionChecker.SetTargetHandler(_targetHandler);
+            var characterState = _stateEnemyFactory.CreateState(Enemy,TypeEnemyStates.Chased);
+            _stateEnemyManager.SetState(characterState, Enemy);
         }
     }
 

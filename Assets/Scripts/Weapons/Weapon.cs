@@ -141,7 +141,7 @@ namespace Weapons
             {
                 var damageCalculator = new DamageCalculatorSimple(this);
                 var damage = damageCalculator.CalculateDamage();
-                healthCharacter.CharacterHealth.TakeDamage(damage);
+                healthCharacter.HealthComponent.TakeDamage(damage);
             }
         }
 

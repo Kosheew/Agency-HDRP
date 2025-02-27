@@ -6,53 +6,65 @@ namespace Commands
     public class CommandEnemyFactory
     {
         private CommandInvoker _invoker;
-        private DependencyContainer _container;
 
+        private ICommandEnemy _commandEnemyAttack;
+        private ICommandEnemy _commandEnemyPatrol;
+        private ICommandEnemy _commandEnemyChasing;
+        private ICommandEnemy _commandEnemyDeath;
+        private ICommandEnemy _commandEnemyToAttacked;
+        private ICommandEnemy _commandEnemyIdle;
+        
         public void Inject(DependencyContainer container)
         {
             _invoker = container.Resolve<CommandInvoker>();
-            _container = container;
+            
+            _commandEnemyToAttacked = new ToAttackedCommand(container);
+            _commandEnemyChasing = new ChasingCommand(container);
+            _commandEnemyAttack = new AttackCommand(container);
+            _commandEnemyPatrol = new PatrolledCommand(container);
+            _commandEnemyDeath = new DeathCommand(container);
+            _commandEnemyIdle = new IdleCommand(container);
         }
         
         public void CreateAttackCommand(IEnemy enemy)
         {
-            ICommand attackCommand = new AttackCommand(_container, enemy);
-            _invoker.SetCommand(attackCommand);
+            _commandEnemyAttack.Enemy = enemy;
+            _invoker.SetCommand(_commandEnemyAttack);
             _invoker.ExecuteCommands();
         }
 
         public void CreatePatrolledCommand(IEnemy enemy)
         {
-            ICommand patrolledCommand = new PatrolledCommand(_container, enemy);
-            _invoker.SetCommand(patrolledCommand);
+            _commandEnemyPatrol.Enemy = enemy;
+            _invoker.SetCommand(_commandEnemyPatrol);
             _invoker.ExecuteCommands();
         }
 
         public void CreateChasingCommand(IEnemy enemy)
         {
-            ICommand chasingCommand = new ChasingCommand(_container, enemy);
-            _invoker.SetCommand(chasingCommand);
+            _commandEnemyChasing.Enemy = enemy;
+            _invoker.SetCommand(_commandEnemyChasing);
             _invoker.ExecuteCommands();
         }
 
         public void CharacterIdleCommand(IEnemy enemy)
         {
-            ICommand idleCommand = new IdleCommand(_container, enemy);
-            _invoker.SetCommand(idleCommand);
+            _commandEnemyIdle.Enemy = enemy;
+            _invoker.SetCommand(_commandEnemyIdle);
             _invoker.ExecuteCommands();
         }
 
         public void CreateDeathCommand(IEnemy enemy)
         {
-            ICommand deathCommand = new DeathCommand(_container, enemy);
-            _invoker.SetCommand(deathCommand);
+            _commandEnemyDeath.Enemy = enemy;
+            _invoker.SetCommand(_commandEnemyDeath);
             _invoker.ExecuteCommands();
         }
 
         public void CreateToAttackedCommand(IEnemy enemy)
         {
-            ICommand toAttackedCommand = new ToAttackedCommand(_container, enemy);
-            _invoker.SetCommand(toAttackedCommand);
+            _commandEnemyToAttacked.Enemy = enemy;
+            _invoker.SetCommand(_commandEnemyToAttacked);
             _invoker.ExecuteCommands();
         }
     }

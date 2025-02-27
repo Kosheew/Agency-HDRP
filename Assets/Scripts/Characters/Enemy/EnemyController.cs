@@ -31,7 +31,7 @@ namespace Characters.Enemy
         public EnemySetting EnemySetting => enemySetting;
         public Transform[] PatrolTargets => patrolTargets;
 
-        public CharacterHealth CharacterHealth { get; private set; }
+        public HealthComponent HealthComponent { get; private set; }
         public CharacterAnimator CharacterAnimator { get; private set; }
         public IFootstepAudioHandler FootstepHandler { get; private set; }
         public AttackAudioHandler AttackAudio { get; private set; }
@@ -70,7 +70,7 @@ namespace Characters.Enemy
             AttackAudio = new AttackAudioHandler(AudioSource, _characterAudioSettings);
             CharacterAnimator = new CharacterAnimator(Animator);
             VisionChecker = new VisionChecker(enemySetting.LoseTargetDelay);
-            CharacterHealth = new CharacterHealth(50);
+            HealthComponent = new HealthComponent(50);
             _collider = GetComponent<Collider>();
             weapon.Init();
             
@@ -79,8 +79,8 @@ namespace Characters.Enemy
             else
                 CommandEnemy.CharacterIdleCommand(this);
             
-            CharacterHealth.OnDeath += OnDeath;
-            CharacterHealth.OnHealthChanged += OnDamageable;
+            HealthComponent.OnDeath += OnDeath;
+            HealthComponent.OnHealthChanged += OnDamageable;
         }
         
         private void OnDamageable(float damage)

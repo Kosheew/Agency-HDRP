@@ -2,23 +2,22 @@ using Characters.Enemy;
 
 namespace Characters.Command
 {
-    public class AttackCommand : ICommand
+    public class AttackCommand : ICommandEnemy
     {
         private readonly StateEnemyManager _stateEnemyManager;
         private readonly StateEnemyFactory _stateEnemyFactory;
-        private readonly IEnemy _enemy;
+        public IEnemy Enemy { get; set; }
         
-        public AttackCommand(DependencyContainer container, IEnemy enemy)
+        public AttackCommand(DependencyContainer container)
         {
             _stateEnemyManager = container.Resolve<StateEnemyManager>();
             _stateEnemyFactory = container.Resolve<StateEnemyFactory>();
-            _enemy = enemy;
         }
 
         public void Execute()
         {
-            var characterState = _stateEnemyFactory.CreateState(TypeCharacterStates.Attacked);
-            _stateEnemyManager.SetState(characterState, _enemy);
+            var characterState = _stateEnemyFactory.CreateState(Enemy,TypeEnemyStates.Attacked);
+            _stateEnemyManager.SetState(characterState, Enemy);
         }
     }
 }

@@ -5,14 +5,14 @@ namespace Characters.Health
 {
     public class RegenerationSystem
     {
-        private readonly CharacterHealth _health;
+        private readonly HealthComponent _health;
         private readonly float _regenRate;
         private readonly float _regenDelay;
         private readonly MonoBehaviour _coroutineRunner;
         private Coroutine _regenCoroutine;
         private float _lastDamageTime;
 
-        public RegenerationSystem(CharacterHealth health, float regenRate, float regenDelay, MonoBehaviour coroutineRunner)
+        public RegenerationSystem(HealthComponent health, float regenRate, float regenDelay, MonoBehaviour coroutineRunner)
         {
             _health = health;
             _regenRate = regenRate;

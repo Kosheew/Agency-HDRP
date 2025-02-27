@@ -16,7 +16,7 @@ public class DialogueView : MonoBehaviour
     
     private bool _isDialogueOpen;
     private CustomPool<DialoguePanelView> _dialogueViewPool;
-    private List<DialoguePanelView> _activePanels;
+    private Stack<DialoguePanelView> _activePanels;
     private DependencyContainer _dependencyContainer;
     
     private DialoguePanelView _currentPanel;
@@ -27,7 +27,7 @@ public class DialogueView : MonoBehaviour
         
         DialoguePanelView panelView = dialogueViewPrefab.GetComponent<DialoguePanelView>();
         _dialogueViewPool = new CustomPool<DialoguePanelView>(panelView, maxPanelCount, context.transform);
-        _activePanels = new List<DialoguePanelView>(maxPanelCount);
+        _activePanels = new Stack<DialoguePanelView>(maxPanelCount);
         
         _dependencyContainer = container;
         
@@ -48,7 +48,7 @@ public class DialogueView : MonoBehaviour
                 
         new DialogPresenter(_currentPanel, _dependencyContainer);
         
-        _activePanels.Add(_currentPanel);
+        _activePanels.Push(_currentPanel);
         
         _currentPanel.SetDialogue(dialogue);
     }
@@ -72,8 +72,6 @@ public class DialogueView : MonoBehaviour
     {
         _animator.SetTrigger(_animatorIDHide);
         _isDialogueOpen = false;
-        
-        _activePanels.Reverse();
         
         foreach (var obj in _activePanels)
         {

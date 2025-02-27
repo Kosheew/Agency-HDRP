@@ -8,30 +8,48 @@ namespace Commands
         private CommandInvoker _invoker;
         private DependencyContainer _container;
 
+        
+        private ICommandPlayer _deadCommand;
+        private ICommandPlayer _regularCommand;
+        private ICommandPlayer _combatCommand;
+        private ICommandPlayer _baseCommand;
+        
         public void Inject(DependencyContainer container)
         {
             _invoker = container.Resolve<CommandInvoker>();
             _container = container;
+            
+            _deadCommand = new DeadCommand(_container);
+            _regularCommand = new RegularCommand(_container);
+            _combatCommand = new CombatCommand(_container);
+            _baseCommand = new BaseStateCommand(_container);
         }
         
         public void CreateDeadCommand(IPlayer player)
         {
-            ICommand deadCommand = new DeadCommand(_container, player);
-            _invoker.SetCommand(deadCommand);
+            _deadCommand.Player = player;
+            _invoker.SetCommand(_deadCommand);
             _invoker.ExecuteCommands();
         }
 
         public void CreateRegularCommand(IPlayer player)
         {
-            ICommand moveCommand = new RegularCommand(_container, player);
-            _invoker.SetCommand(moveCommand);
+            _regularCommand.Player = player;
+            _invoker.SetCommand(_regularCommand);
             _invoker.ExecuteCommands();
         }
 
         public void CreateCombatCommand(IPlayer player)
         {
-            ICommand moveCommand = new CombatCommand(_container, player);
-            _invoker.SetCommand(moveCommand);
+            _combatCommand.Player = player;
+            _invoker.SetCommand(_combatCommand);
+            _invoker.ExecuteCommands();
+        }
+
+        public void CreateBaseState(IPlayer player)
+        {
+            _baseCommand.Player = player;
+            _invoker.SetCommand(_baseCommand);
             _invoker.ExecuteCommands();
         }
     }

@@ -1,19 +1,31 @@
 using System;
 using Player.State;
+using System.Collections.Generic;
 
 namespace Characters
 {
     public class StatePlayerFactory
     {
-        public IPlayerState CreateState(TypeCharacterStates stateName)
+        
+        private readonly Dictionary<TypePlayerStates, IPlayerState> _statePool = new Dictionary<TypePlayerStates, IPlayerState>();
+
+        public StatePlayerFactory()
         {
-            return stateName switch
+            _statePool[TypePlayerStates.Combat] = new CombatState();
+            _statePool[TypePlayerStates.Regular] = new RegularState();
+            _statePool[TypePlayerStates.Dead] = new DeadState();
+            _statePool[TypePlayerStates.Base] = new BasePlayerState();
+        }
+
+        
+        public IPlayerState GetState(TypePlayerStates stateName)
+        {
+            if (_statePool.ContainsKey(stateName))
             {
-                TypeCharacterStates.Combat => new CombatState(),
-                TypeCharacterStates.Regular => new RegularState(),
-                TypeCharacterStates.Dead => new DeadState(),
-                _ => throw new ArgumentException($"Unknown state: {stateName}")
-            };
+                return _statePool[stateName];
+            }
+
+            throw new ArgumentException($"Unknown state: {stateName}");
         }
     }
 }

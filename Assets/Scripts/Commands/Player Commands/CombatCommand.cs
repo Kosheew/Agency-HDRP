@@ -1,22 +1,21 @@
 ﻿namespace Characters.Command
 {
-    public class CombatCommand: ICommand
+    public class CombatCommand: ICommandPlayer
     {
         private readonly StatePlayerManager _stateEnemyManager;
         private readonly StatePlayerFactory _stateEnemyFactory;
-        private readonly IPlayer _player;
+        public IPlayer Player { get; set; }
         
-        public CombatCommand(DependencyContainer container, IPlayer player)
+        public CombatCommand(DependencyContainer container)
         {
             _stateEnemyManager = container.Resolve<StatePlayerManager>();
             _stateEnemyFactory = container.Resolve<StatePlayerFactory>();
-            _player = player;
         }
 
         public void Execute()
         {
-            var characterState = _stateEnemyFactory.CreateState(TypeCharacterStates.Combat);
-            _stateEnemyManager.SetState(characterState, _player);
+            var characterState = _stateEnemyFactory.GetState(TypePlayerStates.Combat);
+            _stateEnemyManager.SetState(characterState, Player);
         }
     }
 }

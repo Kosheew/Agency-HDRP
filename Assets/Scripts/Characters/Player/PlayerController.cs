@@ -2,7 +2,6 @@ using UnityEngine;
 using Commands;
 using CharacterSettings;
 using Audio;
-using Characters.Enemy;
 using Characters.Health;
 using InputActions;
 using Views;
@@ -25,7 +24,7 @@ namespace Characters.Player
         public UserInput UserInput { get; private set; }
         public PlayerSetting PlayerSetting => playerSetting;
         public PlayerAnimation PlayerAnimation { get; private set; }
-        public CharacterHealth CharacterHealth { get; private set; }
+        public HealthComponent HealthComponent { get; private set; }
         public Camera MainCamera { get; private set; }
         public IFootstepAudioHandler FootstepHandler { get; private set; }
         public Transform TransformMain => transform;
@@ -55,15 +54,16 @@ namespace Characters.Player
             CharacterAudioSettings = playerSetting.CharacterAudioSettings;
             
             FootstepHandler = new FootstepAudioAudioHandler(audioSource, CharacterAudioSettings);
-            CharacterHealth = new CharacterHealth(100);
+            HealthComponent = new HealthComponent(100);
             healthView.SetHealth(100);
-            _regenerationSystem = new RegenerationSystem(CharacterHealth, 5, 2, this);
+            _regenerationSystem = new RegenerationSystem(HealthComponent, 5, 2, this);
             MainCamera = Camera.main;
             
+            _commandFactory.CreateBaseState(this);
             _commandFactory.CreateRegularCommand(this);
-            CharacterHealth.OnHealthChanged += healthView.UpdateHealth;
-            CharacterHealth.OnTakeDamage += OnHit;
-            CharacterHealth.OnDeath += OnDeath;
+            HealthComponent.OnHealthChanged += healthView.UpdateHealth;
+            HealthComponent.OnTakeDamage += OnHit;
+            HealthComponent.OnDeath += OnDeath;
         }
 
         private void LateUpdate()

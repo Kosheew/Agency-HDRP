@@ -1,4 +1,12 @@
-public enum TypeCharacterStates 
+public enum TypePlayerStates 
+{
+   Dead,
+   Combat,
+   Regular,
+   Base
+}
+
+public enum TypeEnemyStates
 {
    Attacked,
    Patrolled,
@@ -6,6 +14,4 @@ public enum TypeCharacterStates
    Idle,
    Move,
    Dead,
-   Combat,
-   Regular
 }

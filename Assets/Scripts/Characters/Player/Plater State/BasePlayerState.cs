@@ -5,14 +5,14 @@ using UnityEngine;
 
 namespace Player.State
 {
-    public abstract class BasePlayerState : IPlayerState
+    public class BasePlayerState : IPlayerState
     {
         private PlayerSetting _playerSetting;
         private CharacterController _controller;
         private UserInput _userInput;
-        protected PlayerAnimation _playerAnimation;
+        private PlayerAnimation _playerAnimation;
         
-        protected float _speed;
+        private float _speed;
         private float _animationBlend;
         private float _targetRotation = 0.0f;
         private float _rotationVelocity;
@@ -54,19 +54,19 @@ namespace Player.State
         private void Move(IPlayer player)
         {
             float targetSpeed = !player.Sneaked && _userInput.Sprint ? _playerSetting.SprintSpeed : _playerSetting.MoveSpeed;
-            
-            if (_userInput.Move == Vector2.zero) targetSpeed = 0.0f;
-            
-            float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
 
-            float speedOffset = 0.02f;
+            if (_userInput.Move == Vector2.zero)
+            {
+                targetSpeed = 0.0f;
+                _speed = targetSpeed;
+            }
+            
             float inputMagnitude = _userInput.AnalogMovement ? _userInput.Move.magnitude : 1f;
             
-  
             _speed = Mathf.Lerp(_speed, targetSpeed * inputMagnitude, Time.deltaTime * _playerSetting.SpeedChangeRate);
-                
-            _speed = Mathf.Round(_speed * 1000f) / 1000f;
 
+            _speed = Mathf.Round(_speed * 1000f) / 1000f;
+            
             _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * _playerSetting.SpeedChangeRate);
             if (_animationBlend < 0.01f) _animationBlend = 0f;
             
