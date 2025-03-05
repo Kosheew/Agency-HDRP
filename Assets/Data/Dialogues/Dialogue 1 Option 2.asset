@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uniqueID: 12
   sentence: b. Option 2
-  nextDialogue: {fileID: 0}
+  nextDialogue: {fileID: 11400000, guid: f97bb6c93fd9d46409a875c9e36c9079, type: 2}
   needHint: 1
   clues: {fileID: 11400000, guid: c5d596cbe2cb7e34298207fad8160a3e, type: 2}
   adderQuest: 0

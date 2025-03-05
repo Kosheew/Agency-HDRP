@@ -16,6 +16,9 @@ MonoBehaviour:
   uniqueID: 3
   sentence: Dialog 3. Add hint.
   voiceActingClip: {fileID: 8300000, guid: a1a3178f0271f49c5a12bc0c347e6e52, type: 3}
-  options: []
+  options:
+  - {fileID: 11400000, guid: 417049d5ceca9484b856d85a59adb685, type: 2}
+  - {fileID: 11400000, guid: 64b5272321e58d748b7dcf8a7359cfa8, type: 2}
+  - {fileID: 11400000, guid: a82334633559760488e08de33e43aeb3, type: 2}
   addHint: 1
   clues: {fileID: 11400000, guid: c5d596cbe2cb7e34298207fad8160a3e, type: 2}

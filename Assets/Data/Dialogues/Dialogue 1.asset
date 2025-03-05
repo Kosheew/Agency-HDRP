@@ -22,7 +22,8 @@ MonoBehaviour:
     Dialog 1 Dialog 1 Dialog 1 Dialog 1 Dialog 1'
   voiceActingClip: {fileID: 8300000, guid: fed559e81a4af47e6a873693a7525a30, type: 3}
   options:
-  - {fileID: 11400000, guid: 766a977283f3c07428dd509ff7337bad, type: 2}
-  - {fileID: 11400000, guid: 07e8f2f362890f449bfe8e2a0b55abf1, type: 2}
+  - {fileID: 11400000, guid: 37026121d043b2b488a7d44daf27937c, type: 2}
+  - {fileID: 11400000, guid: e1c8ea45c7858ba45a22f9f7f836ae56, type: 2}
+  - {fileID: 11400000, guid: e215f69968f290c4eacded003f1ba5dc, type: 2}
   addHint: 0
   clues: {fileID: 0}

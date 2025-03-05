@@ -1,6 +1,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "Dialogue", menuName = "ScriptableObjects/Dialogue/DialogueSettings")]
 public class DialogueSettings : ScriptableObject
@@ -25,7 +26,7 @@ public class DialogueSettings : ScriptableObject
     [Space(10)]
     [BoxGroup("Основні дані"), ListDrawerSettings(Expanded = true, DraggableItems = true, ShowItemCount = true)] 
     [SerializeField] 
-    private DialogueOptionSettings[] options;
+    private List<DialogueOptionSettings> options = new();
 
     [Space(10)]
     [Title("Додаткові налаштування")]
@@ -42,8 +43,13 @@ public class DialogueSettings : ScriptableObject
     public ushort UniqueID => uniqueID;
     public string Sentence => sentence;
     public AudioClip VoiceActingClip => voiceActingClip;
-    public DialogueOptionSettings[] Options => options;
+    public List<DialogueOptionSettings> Options => options;
 
+    public void AddOptions(DialogueOptionSettings option)
+    {
+        options.Add(option);
+    }
+    
     public void AddHint(CluesController cluesController)
     {
         if(addHint)

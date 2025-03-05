@@ -18,7 +18,7 @@ LightingSettings:
   m_UsingShadowmask: 1
   m_BakeBackend: 2
   m_LightmapMaxSize: 1024
-  m_BakeResolution: 70
+  m_BakeResolution: 40
   m_Padding: 2
   m_LightmapCompression: 3
   m_AO: 1
@@ -41,10 +41,10 @@ LightingSettings:
   m_PVRCulling: 1
   m_PVRSampling: 1
   m_PVRDirectSampleCount: 16
-  m_PVRSampleCount: 128
+  m_PVRSampleCount: 256
   m_PVREnvironmentSampleCount: 64
   m_PVREnvironmentReferencePointCount: 2048
-  m_LightProbeSampleCountMultiplier: 20
+  m_LightProbeSampleCountMultiplier: 10
   m_PVRBounces: 4
   m_PVRMinBounces: 0
   m_PVREnvironmentImportanceSampling: 1

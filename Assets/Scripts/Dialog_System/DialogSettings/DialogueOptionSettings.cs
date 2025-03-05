@@ -59,4 +59,9 @@ public class DialogueOptionSettings: ScriptableObject
     {
         questController.ActivateQuest(quest.UniqueID);
     }
+
+    public void SetNextDialogue(DialogueSettings newNextDialogue)
+    {
+        nextDialogue = newNextDialogue;
+    }
 }
