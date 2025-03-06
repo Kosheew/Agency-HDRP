@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 191938dab80e4a29a1dd6c467d0a5522, type: 3}
-  m_Name: Option_87bdb3ce-75c6-4023-8a82-c93af51b8828
+  m_Name: Option_asdfa
   m_EditorClassIdentifier: 
   uniqueID: 0
   sentence: 
-  nextDialogue: {fileID: 11400000, guid: fe327a1b2fabfa84aa2971d961c20607, type: 2}
+  nextDialogue: {fileID: 0}
   needHint: 0
   clues: {fileID: 0}
   adderQuest: 0

@@ -202,6 +202,7 @@ public class DialogueTreeEditor : EditorWindow
             }
         };
         
+        
         node.mainContainer.Add(createOptionButton);
         
         node.RefreshExpandedState();
@@ -227,6 +228,12 @@ public class DialogueTreeEditor : EditorWindow
 
     private void CreateNewDialogue(DialogueOptionNode dialogueNode, string dialogueName)
     {
+        if (dialogueNode.DialogueOptionSettings.NextDialogue != null)
+        {
+            Debug.LogWarning("Dialogue Settings already exists");
+            return;
+        }
+        
         Debug.Log("Creating new Dialogue");
         var newDialogue = AddNewDialogue(dialogueNode.DialogueOptionSettings, dialogueName);
         var dialogue = CreateDialogueNode(newDialogue, Event.current.mousePosition, Guid.NewGuid().ToString());
@@ -304,6 +311,7 @@ public class DialogueTreeEditor : EditorWindow
         
         return newDialogue;
     }
+    
     
     private void LoadConnections()
     {
@@ -389,4 +397,6 @@ public class DialogueTreeEditor : EditorWindow
         
         _rightPanel.Add(imguiContainer);
     }
+    
+  
 }
