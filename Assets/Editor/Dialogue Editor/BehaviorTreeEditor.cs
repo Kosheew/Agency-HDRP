@@ -10,11 +10,8 @@ public class DialogueTreeEditor : EditorWindow
 {
     private DialogueDatabase _currentDatabase;
     private VisualElement _rightPanel;
+    private DialogueGraphView _graphView;
     
-    public DialogueGraphView graphView;
-    
-    private const string DialogueFolder = "Assets/Dialogues";
-
     [MenuItem("Window/Dialogue Graph Window")]
     public static DialogueTreeEditor ShowWindow()
     {
@@ -35,28 +32,31 @@ public class DialogueTreeEditor : EditorWindow
         _currentDatabase = asset;
         Debug.Log($"Loading new asset: {_currentDatabase.name}");
         
-        graphView.Database = _currentDatabase;
+        _graphView.Database = _currentDatabase;
         
-        if (_currentDatabase.Dialogues.Count <= 0)
+        if (_currentDatabase.StartDialogue == null)
         {
+            var startDialogue = AddNewDialogue(null);
+            _currentDatabase.SetStartDialogue(startDialogue);
             string startGuid = Guid.NewGuid().ToString();
-            var startedNode = CreateDialogueNode(_currentDatabase.StartDialogue, new Vector2(100, 100), startGuid);
-            _currentDatabase.AddDialogues(_currentDatabase.StartDialogue, new Vector2(100, 100), startGuid);
-            graphView.AddElement(startedNode);
+            var startedNode = CreateDialogueNode(startDialogue, new Vector2(100, 100), startGuid);
+            _currentDatabase.AddDialogues(startDialogue, new Vector2(100, 100), startGuid);
+            _graphView.AddElement(startedNode);
+
         }
         else
         {
             foreach (var dialogue in _currentDatabase.Dialogues)
             {
                 var node = CreateDialogueNode(dialogue.dialogue, dialogue.position, dialogue.nodeGUID);
-                graphView.AddElement(node);
+                _graphView.AddElement(node);
                 Debug.Log($"Added node: {dialogue.dialogue.name}");
             }
             
             foreach (var option in _currentDatabase.Options)
             {
                 var node = CreateOptionNode(option.dialogueOption, option.position, option.nodeGUID);
-                graphView.AddElement(node);
+                _graphView.AddElement(node);
             }
                     
             LoadConnections();
@@ -69,11 +69,11 @@ public class DialogueTreeEditor : EditorWindow
     {
         rootVisualElement.Clear();
         
-        if (graphView != null)
+        if (_graphView != null)
         {
-            graphView.DeleteElements(graphView.graphElements.ToList());
-            graphView.Clear();
-            graphView.Database = null;
+            _graphView.DeleteElements(_graphView.graphElements.ToList());
+            _graphView.Clear();
+            _graphView.Database = null;
         }
         
         var splitView = new TwoPaneSplitView(0, position.width * 0.8f, TwoPaneSplitViewOrientation.Horizontal);
@@ -96,7 +96,7 @@ public class DialogueTreeEditor : EditorWindow
         _rightPanel.style.flexShrink = 0;
         _rightPanel.style.flexGrow = 0;
         
-        graphView = new DialogueGraphView
+        _graphView = new DialogueGraphView
         {
             name = "Dialogue Tree Graph",
             style =
@@ -105,116 +105,76 @@ public class DialogueTreeEditor : EditorWindow
             }
         };
         
-        graphView.RegisterCallback<MouseDownEvent>(OnNodeSelected, TrickleDown.TrickleDown);
+        _graphView.RegisterCallback<MouseDownEvent>(OnNodeSelected, TrickleDown.TrickleDown);
         
-        graphView.SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
+        _graphView.SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
         
-        graphView.AddManipulator(new ContentDragger());
+        _graphView.AddManipulator(new ContentDragger());
         
-        splitView.Add(graphView);
+        splitView.Add(_graphView);
         splitView.Add(_rightPanel);
         rootVisualElement.Add(splitView);
     }
 
-    private DialogueNode CreateDialogueNode(DialogueSettings dialogue, Vector2 position, string guid)
+    private T CreateNode<T>(ScriptableObject data, Vector2 position, string guid, Color titleColor, string buttonText, Action<T> buttonAction) where T : Node
     {
-        var node = new DialogueNode(dialogue, graphView, guid)
-        {
-            title = dialogue.name,
-            style = 
-            {
-                left = position.x,
-                top = position.y,
-                width = 300,
-            },
-        };
-        
-        node.titleContainer.style.backgroundColor = new StyleColor(new Color(0.3f, 1f, 0.8f, 0.2f));
+        var node = (T)Activator.CreateInstance(typeof(T), data, _graphView, guid);
+    
+        node.title = data.name;
+        node.style.left = position.x;
+        node.style.top = position.y;
+        node.style.width = 300;
+
+        node.titleContainer.style.backgroundColor = new StyleColor(titleColor);
         node.titleContainer.style.color = new StyleColor(Color.black);
-        
-        var optionNameField = new TextField("Option Name")
+
+        var button = new Button(() => buttonAction(node))
         {
-            value = "New Option",
-            style =
-            {
-                height = 20,
-                marginTop = 5
-            }
-        };
-        node.mainContainer.Add(optionNameField );
-        
-        var createOptionButton = new Button(() => CreateNewOption(node, optionNameField.value)) 
-        {
-            text = "Create Option",
+            text = buttonText,
             style =
             {
                 width = 120,
-                height = 30, 
+                height = 30,
                 marginTop = 5,
-                alignSelf = Align.Center 
+                alignSelf = Align.Center
             }
         };
-        node.mainContainer.Add(createOptionButton);
-        
+
+        node.mainContainer.Add(button);
         node.RefreshExpandedState();
         node.RefreshPorts();
-        
+
         return node;
+    }
+
+    private DialogueNode CreateDialogueNode(DialogueSettings dialogue, Vector2 position, string guid)
+    {
+        return CreateNode<DialogueNode>(
+            dialogue, 
+            position, 
+            guid, 
+            new Color(0.3f, 1f, 0.8f, 0.2f), 
+            "Create Option", 
+            node => CreateNewOption((DialogueNode)node)
+        );
     }
 
     private DialogueOptionNode CreateOptionNode(DialogueOptionSettings dialogueOption, Vector2 position, string guid)
     {
-        var node = new DialogueOptionNode(dialogueOption, graphView, guid)
-        {
-            title = dialogueOption.name,
-            style =
-            {
-                left = position.x,
-                top = position.y,
-                width = 300,
-
-            }
-        };
-        
-        node.titleContainer.style.backgroundColor = new StyleColor(new Color(1f, 1f, 0f,0.2f));
-        node.titleContainer.style.color = new StyleColor(Color.black);
-        
-        var dialogueNameField = new TextField("Dialogue Name")
-        {
-            value = "New Dialogue",
-            style =
-            {
-                height = 20,
-                marginTop = 5
-            }
-        };
-        node.mainContainer.Add(dialogueNameField);
-
-        var createOptionButton = new Button(() => CreateNewDialogue(node, dialogueNameField.value))
-        {
-            text = "Create Dialogue",
-            style =
-            {
-                width = 120, 
-                height = 30, 
-                marginTop = 5, 
-                alignSelf = Align.Center 
-            }
-        };
-        
-        
-        node.mainContainer.Add(createOptionButton);
-        
-        node.RefreshExpandedState();
-        node.RefreshPorts();
-        
-        return node;
+        return CreateNode<DialogueOptionNode>(
+            dialogueOption, 
+            position, 
+            guid, 
+            new Color(1f, 1f, 0f, 0.2f), 
+            "Create Dialogue", 
+            node => CreateNewDialogue((DialogueOptionNode)node)
+        );
     }
     
-    private void CreateNewOption(DialogueNode dialogueNode, string optionName)
+    private void CreateNewOption(DialogueNode dialogueNode)
     {
         Debug.Log("Creating new Option");
-        var newOption = AddNewDialogueOptionSettings(optionName);
+        var newOption = AddNewDialogueOptionSettings();
         var option = CreateOptionNode(newOption, Event.current.mousePosition, Guid.NewGuid().ToString());
     
         Conected(dialogueNode.OutputPort, option.InputPort);
@@ -223,10 +183,10 @@ public class DialogueTreeEditor : EditorWindow
         
         _currentDatabase.AddOptions(newOption, Event.current.mousePosition, option.GUID);
         
-        graphView.AddElement(option);
+        _graphView.AddElement(option);
     }
 
-    private void CreateNewDialogue(DialogueOptionNode dialogueNode, string dialogueName)
+    private void CreateNewDialogue(DialogueOptionNode dialogueNode)
     {
         if (dialogueNode.DialogueOptionSettings.NextDialogue != null)
         {
@@ -235,14 +195,14 @@ public class DialogueTreeEditor : EditorWindow
         }
         
         Debug.Log("Creating new Dialogue");
-        var newDialogue = AddNewDialogue(dialogueNode.DialogueOptionSettings, dialogueName);
+        var newDialogue = AddNewDialogue(dialogueNode.DialogueOptionSettings);
         var dialogue = CreateDialogueNode(newDialogue, Event.current.mousePosition, Guid.NewGuid().ToString());
         
         Conected(dialogueNode.OutputPort, dialogue.InputPort);
         
         _currentDatabase.AddDialogues(newDialogue, Event.current.mousePosition, dialogue.GUID);
         
-        graphView.AddElement(dialogue);
+        _graphView.AddElement(dialogue);
     }
 
     private void LoadConnected(Port portOutput, Port portInPort)
@@ -253,7 +213,7 @@ public class DialogueTreeEditor : EditorWindow
             input = portInPort 
         };
         edge.AddToClassList("connector");
-        graphView.AddElement(edge);
+        _graphView.AddElement(edge);
     }
     
     private void Conected(Port portOutput, Port portInPort)
@@ -266,52 +226,52 @@ public class DialogueTreeEditor : EditorWindow
         }
     }
     
-    private DialogueOptionSettings AddNewDialogueOptionSettings(string optionName)
+    private T CreateAsset<T>(string prefix) where T : ScriptableObject
     {
-        if (!AssetDatabase.IsValidFolder(DialogueFolder))
+        if (_currentDatabase == null)
         {
-            AssetDatabase.CreateFolder("Assets", "Dialogues");
+            Debug.LogError("Помилка: База даних не задана.");
+            return null;
         }
-        
-        var newOption = CreateInstance<DialogueOptionSettings>();
-        newOption.name = "New Option";
-        
-        string optionPath = $"{DialogueFolder}/Option_{optionName}.asset";
-        AssetDatabase.CreateAsset(newOption, optionPath);
-        EditorUtility.SetDirty(newOption);
-        
+
+        string databasePath = AssetDatabase.GetAssetPath(_currentDatabase);
+        string directoryPath = System.IO.Path.GetDirectoryName(databasePath);
+
+        if (string.IsNullOrEmpty(directoryPath) || !AssetDatabase.IsValidFolder(directoryPath))
+        {
+            Debug.LogError("Помилка: Не вдалося знайти директорію бази даних.");
+            return null;
+        }
+
+        var newAsset = CreateInstance<T>();
+        newAsset.name = $"New {typeof(T).Name}";
+
+        string assetPath = $"{directoryPath}/{prefix}_{Guid.NewGuid()}.asset";
+        AssetDatabase.CreateAsset(newAsset, assetPath);
+        EditorUtility.SetDirty(newAsset);
+
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
         Repaint();
         SceneView.RepaintAll();
-        
-        return newOption;
+
+        return newAsset;
     }
-    
-    private DialogueSettings AddNewDialogue(DialogueOptionSettings optionSettings, string dialogueName)
+
+    private DialogueOptionSettings AddNewDialogueOptionSettings()
     {
-        if (!AssetDatabase.IsValidFolder(DialogueFolder))
+        return CreateAsset<DialogueOptionSettings>("Option");
+    }
+
+    private DialogueSettings AddNewDialogue(DialogueOptionSettings optionSettings)
+    {
+        var newDialogue = CreateAsset<DialogueSettings>("Dialogue");
+        if (newDialogue != null && optionSettings != null)
         {
-            AssetDatabase.CreateFolder("Assets", "Dialogues");
+            optionSettings.SetNextDialogue(newDialogue);
         }
-        
-        var newDialogue = CreateInstance<DialogueSettings>();
-        newDialogue.name = "New Dialogue"; 
-        optionSettings.SetNextDialogue(newDialogue);
-        // newDialogue.Sentence = "Enter dialogue text";
-        
-        string dialoguePath = $"{DialogueFolder}/Dialogue_{dialogueName}.asset";
-        AssetDatabase.CreateAsset(newDialogue, dialoguePath);
-        EditorUtility.SetDirty(newDialogue);
-        
-        AssetDatabase.SaveAssets();
-        AssetDatabase.Refresh();
-        Repaint();
-        SceneView.RepaintAll();
-        
         return newDialogue;
     }
-    
     
     private void LoadConnections()
     {
@@ -328,11 +288,11 @@ public class DialogueTreeEditor : EditorWindow
         {
             Debug.Log($"Loading connection: {connection.fromNodeGUID} -> {connection.toNodeGUID}");
 
-            var fromNode = graphView.nodes.ToList()
+            var fromNode = _graphView.nodes.ToList()
                 .OfType<IDialogueNode>()
                 .FirstOrDefault(n => n.GUID == connection.fromNodeGUID);
 
-            var toNode = graphView.nodes.ToList()
+            var toNode = _graphView.nodes.ToList()
                 .OfType<IDialogueNode>()
                 .FirstOrDefault(n => n.GUID == connection.toNodeGUID);
 
@@ -386,6 +346,17 @@ public class DialogueTreeEditor : EditorWindow
             return;
         }
         
+        var titleLabel = new Label(so.name)
+        {
+            style =
+            {
+                unityFontStyleAndWeight = FontStyle.Bold,
+                fontSize = 14,
+                marginBottom = 5
+            }
+        };
+        _rightPanel.Add(titleLabel);
+        
         var editor = UnityEditor.Editor.CreateEditor(so);
         var imguiContainer = new IMGUIContainer(() =>
         {
@@ -398,5 +369,4 @@ public class DialogueTreeEditor : EditorWindow
         _rightPanel.Add(imguiContainer);
     }
     
-  
 }

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7f5a07051e75064caf624e2ee225131, type: 3}
+  m_Name: DialogueDatabase_NPC_1
+  m_EditorClassIdentifier: 
+  startDialogue: {fileID: 11400000, guid: 6241b42d0ac1ff647b295ac39854662e, type: 2}
+  dialogues:
+  - dialogue: {fileID: 11400000, guid: 6241b42d0ac1ff647b295ac39854662e, type: 2}
+    position: {x: 247, y: 144}
+    nodeGUID: abe8efa5-7451-4655-b8bf-b47217743aad
+  options:
+  - dialogueOption: {fileID: 11400000, guid: 420b3b137949a054695dc5e48f95d14b, type: 2}
+    position: {x: 625, y: 50}
+    nodeGUID: 587ccca6-4aa4-454b-b721-148de47baf3f
+  - dialogueOption: {fileID: 11400000, guid: 58edb27cdd8285c4a8ab29eb88d30fd0, type: 2}
+    position: {x: 609, y: 261}
+    nodeGUID: 3a0ad69a-0fe8-4214-90e1-929e4dd1c7dc
+  connections:
+  - fromNodeGUID: abe8efa5-7451-4655-b8bf-b47217743aad
+    toNodeGUID: 587ccca6-4aa4-454b-b721-148de47baf3f
+  - fromNodeGUID: abe8efa5-7451-4655-b8bf-b47217743aad
+    toNodeGUID: 3a0ad69a-0fe8-4214-90e1-929e4dd1c7dc

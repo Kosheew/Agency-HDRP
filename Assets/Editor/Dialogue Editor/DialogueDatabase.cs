@@ -13,11 +13,26 @@ public class DialogueDatabase : ScriptableObject
         DialogueTreeEditor window = DialogueTreeEditor.ShowWindow();
         window.LoadNewAsset(this);
     }
+
+    [SerializeField, FoldoutGroup("Dialogue Data"), HideIf("@!showData")] 
+    private DialogueSettings startDialogue;
     
-    [SerializeField] private DialogueSettings startDialogue; 
-    private List<DialoguePosition> dialogues = new List<DialoguePosition>();
-    private List<DialogueOptionPosition> options = new List<DialogueOptionPosition>();
-    private List<Connection> connections = new List<Connection>();
+    [SerializeField, FoldoutGroup("Dialogue Data"), HideIf("@!showData")]
+    private List<DialoguePosition> dialogues;
+    
+    [SerializeField, FoldoutGroup("Dialogue Data"), HideIf("@!showData")]
+    private List<DialogueOptionPosition> options;
+    
+    [SerializeField, FoldoutGroup("Dialogue Data"), HideIf("@!showData")]
+    private List<Connection> connections;
+    
+    private bool showData = true;
+
+    [Button("Toggle Data Visibility", ButtonSizes.Large)]
+    private void ToggleDataVisibility()
+    {
+        showData = !showData;
+    }
     
     public DialogueSettings StartDialogue => startDialogue;
     public List<DialoguePosition> Dialogues => dialogues;
@@ -91,7 +106,6 @@ public class DialogueDatabase : ScriptableObject
     
     public void RemoveConnections(string nodeGUID)
     {
-        // Видаляємо всі зв'язки, пов'язані з цим вузлом
         Connections.RemoveAll(c => c.fromNodeGUID == nodeGUID || c.toNodeGUID == nodeGUID);
         Debug.Log($"Removed connections for node with GUID: {nodeGUID}");
     }
@@ -103,17 +117,14 @@ public class DialogueDatabase : ScriptableObject
             Debug.LogWarning("Dialogue is null, cannot delete.");
             return;
         }
-
-        // Отримуємо шлях до файлу
+        
         string assetPath = AssetDatabase.GetAssetPath(dialogue);
 
         if (!string.IsNullOrEmpty(assetPath) && AssetDatabase.LoadAssetAtPath<DialogueSettings>(assetPath) != null)
         {
-            // Видаляємо діалог
             AssetDatabase.DeleteAsset(assetPath);
             Debug.Log($"Deleted dialogue: {assetPath}");
-        
-            // Оновлюємо базу даних Unity
+            
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
@@ -130,17 +141,14 @@ public class DialogueDatabase : ScriptableObject
             Debug.LogWarning("Option is null, cannot delete.");
             return;
         }
-
-        // Отримуємо шлях до файлу
+        
         string assetPath = AssetDatabase.GetAssetPath(option);
 
         if (!string.IsNullOrEmpty(assetPath) && AssetDatabase.LoadAssetAtPath<DialogueOptionSettings>(assetPath) != null)
         {
-            // Видаляємо опцію
             AssetDatabase.DeleteAsset(assetPath);
             Debug.Log($"Deleted option: {assetPath}");
-
-            // Оновлюємо базу даних Unity
+            
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
@@ -148,6 +156,11 @@ public class DialogueDatabase : ScriptableObject
         {
             Debug.LogWarning($"Option asset not found at: {assetPath}");
         }
+    }
+
+    public void SetStartDialogue(DialogueSettings dialogue)
+    {
+        startDialogue = dialogue;
     }
 }
 
@@ -170,6 +183,6 @@ public class DialogueOptionPosition
 [System.Serializable]
 public class Connection
 {
-    public string fromNodeGUID; // GUID вузла, звідки йде зв’язок
-    public string toNodeGUID;   // GUID вузла, куди веде зв’язок
+    public string fromNodeGUID; 
+    public string toNodeGUID;   
 }

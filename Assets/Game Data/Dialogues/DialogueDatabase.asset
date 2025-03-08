@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7f5a07051e75064caf624e2ee225131, type: 3}
+  m_Name: DialogueDatabase
+  m_EditorClassIdentifier: 
+  startDialogue: {fileID: 11400000, guid: baf8cbda1a0c4434d996de14c335c797, type: 2}
+  dialogues:
+  - dialogue: {fileID: 11400000, guid: baf8cbda1a0c4434d996de14c335c797, type: 2}
+    position: {x: 106, y: 231}
+    nodeGUID: c04dc021-5509-4b9c-af52-9f965afcfdb0
+  options: []
+  connections: []

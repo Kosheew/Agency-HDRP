@@ -9,7 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8795afff9f1e0940b372cbe2cbb44d4, type: 3}
-  m_Name: DialogDatabase
+  m_Script: {fileID: 11500000, guid: c574914861c044646bff87c6bc110235, type: 3}
+  m_Name: Dialogue_3b058c60-d8fd-4564-8d33-02d79bf7c42a
   m_EditorClassIdentifier: 
-  dialogues: []
+  personName: 
+  uniqueID: 0
+  sentence: 
+  voiceActingClip: {fileID: 0}
+  options: []
+  addHint: 0
+  clues: {fileID: 0}

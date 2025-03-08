@@ -27,6 +27,14 @@ public class DialogueNode : Node, IDialogueNode
         OutputPort.portName = "Output"; 
         outputContainer.Add(OutputPort);
         
+        TextField nameField = new TextField("Name:");
+        nameField.value = DialogueData.name;
+        nameField.RegisterCallback<FocusOutEvent>(evt =>
+        {
+            RenameDialogueAsset(nameField.value);
+        });
+        mainContainer.Add(nameField);
+        
         RegisterCallback<GeometryChangedEvent>(evt => graphView.OnNodeDialogueMoved(this));
         
         RefreshExpandedState();
@@ -34,5 +42,21 @@ public class DialogueNode : Node, IDialogueNode
         
     }
 
-
+    private void RenameDialogueAsset(string newName)
+    {
+        if (DialogueData == null) return;
+        
+        string assetPath = AssetDatabase.GetAssetPath(DialogueData);
+        if (!string.IsNullOrEmpty(assetPath))
+        {
+            string error = AssetDatabase.RenameAsset(assetPath, newName);
+            if (string.IsNullOrEmpty(error))
+            {
+                DialogueData.name = newName;
+                title = newName;
+                EditorUtility.SetDirty(DialogueData);
+                AssetDatabase.SaveAssets();
+            }
+        }
+    }
 }

@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7f5a07051e75064caf624e2ee225131, type: 3}
   m_Name: DialogueDatabase 1
   m_EditorClassIdentifier: 
-  startDialogue: {fileID: 11400000, guid: 08f78ff8cf95078459b9ac2ad95c9624, type: 2}
+  startDialogue: {fileID: 11400000, guid: dc4508bb390d2c340b31ce203c4d1cbc, type: 2}
+  dialogues:
+  - dialogue: {fileID: 11400000, guid: dc4508bb390d2c340b31ce203c4d1cbc, type: 2}
+    position: {x: 100, y: 100}
+    nodeGUID: be767f89-1c56-4e60-8f91-7a2e7fb12b08
+  options: []
+  connections: []

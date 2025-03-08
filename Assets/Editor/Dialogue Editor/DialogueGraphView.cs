@@ -32,11 +32,6 @@ public class DialogueGraphView : GraphView
             Database.AddOptions(node.DialogueOptionSettings, node.GetPosition().position, node.GUID);
         }
     }
-
-    public void OnNodeSelected(DialogueNode node)
-    {
-        
-    }
     
     private void OnKeyDown(KeyDownEvent evt)
     {
@@ -49,11 +44,9 @@ public class DialogueGraphView : GraphView
     
     public void DeleteSelectionNode()
     {
-        Debug.Log("Delete Selection");
-
         var elementsToRemove = selection
-            .OfType<GraphElement>()  // Переконуємося, що це GraphElement
-            .Where(e => e is DialogueNode || e is DialogueOptionNode)  // Відбираємо тільки потрібні вузли
+            .OfType<GraphElement>()  
+            .Where(e => e is DialogueNode || e is DialogueOptionNode)  
             .ToList();
 
         foreach (var element in elementsToRemove)
@@ -72,37 +65,7 @@ public class DialogueGraphView : GraphView
                 Database?.RemoveConnections(optionNode.GUID);
             }
         }
-
-        // Видаляємо елементи з GraphView
+        
         base.DeleteSelection();
     }
-    
-    private void DeleteDialogue(DialogueSettings dialogue)
-    {
-        if (dialogue == null)
-        {
-            Debug.LogWarning("Dialogue is null, cannot delete.");
-            return;
-        }
-
-        // Отримуємо шлях до файлу
-        string assetPath = AssetDatabase.GetAssetPath(dialogue);
-
-        if (!string.IsNullOrEmpty(assetPath) && AssetDatabase.LoadAssetAtPath<DialogueSettings>(assetPath) != null)
-        {
-            // Видаляємо діалог
-            AssetDatabase.DeleteAsset(assetPath);
-            Debug.Log($"Deleted dialogue: {assetPath}");
-        
-            // Оновлюємо базу даних Unity
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
-        }
-        else
-        {
-            Debug.LogWarning($"Dialogue asset not found at: {assetPath}");
-        }
-    }
-
-
 }
