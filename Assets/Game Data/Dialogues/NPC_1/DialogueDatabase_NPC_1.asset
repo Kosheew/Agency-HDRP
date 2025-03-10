@@ -15,7 +15,7 @@ MonoBehaviour:
   startDialogue: {fileID: 11400000, guid: 6241b42d0ac1ff647b295ac39854662e, type: 2}
   dialogues:
   - dialogue: {fileID: 11400000, guid: 6241b42d0ac1ff647b295ac39854662e, type: 2}
-    position: {x: 247, y: 144}
+    position: {x: 231, y: 84}
     nodeGUID: abe8efa5-7451-4655-b8bf-b47217743aad
   options:
   - dialogueOption: {fileID: 11400000, guid: 420b3b137949a054695dc5e48f95d14b, type: 2}

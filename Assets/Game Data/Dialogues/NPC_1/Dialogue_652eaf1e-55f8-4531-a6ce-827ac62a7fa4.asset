@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c574914861c044646bff87c6bc110235, type: 3}
-  m_Name: Start_Dialogue_Name
+  m_Name: Dialogue_652eaf1e-55f8-4531-a6ce-827ac62a7fa4
   m_EditorClassIdentifier: 
-  personName: Archibalt
-  uniqueID: 4234
-  sentence: New Text
+  personName: 
+  uniqueID: 0
+  sentence: 
   voiceActingClip: {fileID: 0}
   options:
-  - {fileID: 11400000, guid: 420b3b137949a054695dc5e48f95d14b, type: 2}
-  - {fileID: 11400000, guid: 58edb27cdd8285c4a8ab29eb88d30fd0, type: 2}
-  - {fileID: 11400000, guid: 9e70f5f6535cb7f4ca5ea22dc6af38a3, type: 2}
+  - {fileID: 11400000, guid: b96f2e8481234b444af76a2d25b9c462, type: 2}
+  - {fileID: 11400000, guid: c21e37efb02251441921a866142e51f8, type: 2}
   addHint: 0
   clues: {fileID: 0}

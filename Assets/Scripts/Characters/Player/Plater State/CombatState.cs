@@ -51,9 +51,11 @@ namespace Player.State
 
         public void UpdateState(IPlayer player)
         {
+             RotateTowards(player, player.UserInput.MousePosition);
+             
             if (player.UserInput.Fire)
             {
-                RotateTowards(player, player.UserInput.MousePosition);
+               
                 
                 if (!_isReadyToShoot) return;
                 
