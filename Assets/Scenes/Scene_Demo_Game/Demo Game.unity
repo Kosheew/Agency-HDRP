@@ -29948,15 +29948,15 @@ MonoBehaviour:
   m_MaxDepthBias: 0.001
   m_ShadowResolution:
     m_Override: 512
-    m_UseOverride: 1
-    m_Level: 0
+    m_UseOverride: 0
+    m_Level: 2
   m_ShadowDimmer: 1
   m_VolumetricShadowDimmer: 1
   m_ShadowFadeDistance: 10000
   m_UseContactShadow:
-    m_Override: 0
-    m_UseOverride: 1
-    m_Level: 0
+    m_Override: 1
+    m_UseOverride: 0
+    m_Level: 1
   m_RayTracedContactShadow: 0
   m_ShadowTint: {r: 0, g: 0, b: 0, a: 1}
   m_PenumbraTint: 0
@@ -30015,7 +30015,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -30048,7 +30048,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
@@ -34520,7 +34520,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.90196085, g: 0.94117653, b: 1, a: 1}
-  m_Intensity: 25.46479
+  m_Intensity: 63.661976
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -34582,7 +34582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Intensity: 800
+  m_Intensity: 2000
   m_EnableSpotReflector: 1
   m_LuxAtDistance: 1
   m_InnerSpotPercent: 0
@@ -41549,7 +41549,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!198 &1655102854
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -41633,7 +41633,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.4
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -41686,7 +41686,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -41804,7 +41804,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 0.2
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -42387,7 +42387,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 30
+      scalar: 40
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -45138,7 +45138,7 @@ ParticleSystem:
   CollisionModule:
     enabled: 0
     serializedVersion: 4
-    type: 0
+    type: 1
     collisionMode: 0
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
@@ -46294,7 +46294,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 63e6439841632bb48be32345e8802912, type: 2}
+  - {fileID: 2100000, guid: b5edb1b6eaed6b544a1ca98548ec71dd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -46322,7 +46322,7 @@ ParticleSystemRenderer:
   m_MaxParticleSize: 0.5
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
-  m_LengthScale: 8
+  m_LengthScale: 10
   m_SortingFudge: 0
   m_NormalDirection: 1
   m_ShadowBias: 0
@@ -46357,7 +46357,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1768920803}
@@ -48029,7 +48029,7 @@ Transform:
   m_GameObject: {fileID: 1768920800}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.967}
+  m_LocalPosition: {x: 0, y: 0, z: 0.663}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -51815,7 +51815,7 @@ MonoBehaviour:
     type: 2}
   player: {fileID: 5974994334286462615}
   weaponController: {fileID: 7603793750098382793}
-  userInput: {fileID: 7421867327555254359}
+  userInput: {fileID: 323101379411718827}
   enemies:
   - {fileID: 1813002218}
   - {fileID: 2023472312}
@@ -68711,17 +68711,16 @@ GameObject:
   m_Component:
   - component: {fileID: 1277874708685573265}
   - component: {fileID: 4670208654748178017}
-  - component: {fileID: 7603793750098382793}
-  - component: {fileID: 502723240254725618}
-  - component: {fileID: 8111054168067605595}
   - component: {fileID: 5573786155393092707}
-  - component: {fileID: 7421867327555254359}
-  - component: {fileID: 5974994334286462615}
-  - component: {fileID: 323101379411718827}
   - component: {fileID: 1837726891738105459}
   - component: {fileID: 8765607847396673309}
   - component: {fileID: 870615999513140033}
   - component: {fileID: 7788819528549321957}
+  - component: {fileID: 7603793750098382793}
+  - component: {fileID: 502723240254725618}
+  - component: {fileID: 8111054168067605595}
+  - component: {fileID: 323101379411718827}
+  - component: {fileID: 5974994334286462615}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -74019,28 +74018,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &7421867327555254359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 739366717550245311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4374024249f05c54d99f5a8216817f34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jump: 0
-  sprint: 0
-  crouch: 0
-  fire: 0
-  reload: 0
-  pause: 0
-  use: 0
-  analogMovement: 0
-  cursorLocked: 1
-  cursorInputForLook: 1
 --- !u!4 &7488632190765703249
 Transform:
   m_ObjectHideFlags: 0

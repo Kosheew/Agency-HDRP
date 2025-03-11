@@ -26,7 +26,6 @@ public class AimRaycast : MonoBehaviour
            {
                lineRenderer.SetPosition(1, hit.point);
                particle.transform.position = hit.point;
-               particle.Play();
            }
        }
        else
