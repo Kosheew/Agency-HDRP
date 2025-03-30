@@ -21,7 +21,7 @@ public class Game : MonoBehaviour
     [SerializeField] private UserInput userInput;
     
     [Header("Enemy Settings")] 
-    [SerializeField] private EnemyController[] enemies;
+    [SerializeField] private EnemyContext[] enemies;
     [SerializeField] private BattleController battleController;
     
     [Header("Trigger Zone Settings")]

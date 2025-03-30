@@ -2,5 +2,5 @@
 
 public interface ICommandEnemy: ICommand
 {
-    public IEnemy Enemy { get; set; }
+    public EnemyContext Enemy { get; set; }
 }

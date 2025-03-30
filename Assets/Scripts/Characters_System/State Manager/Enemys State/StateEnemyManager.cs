@@ -4,11 +4,11 @@ using Characters.Enemy;
 
 public class StateEnemyManager
 {
-    private Dictionary<IEnemy, IEnemyState> _states = new();
+    private Dictionary<EnemyContext, IEnemyState> _states = new();
     
     public IEnemyState CurrentState { get; private set; }
     
-    public void SetState(IEnemyState newState, IEnemy enemy)
+    public void SetState(IEnemyState newState, EnemyContext enemy)
     {
         if (_states.ContainsKey(enemy))
         {
@@ -19,7 +19,7 @@ public class StateEnemyManager
         newState.EnterState(enemy);
     }
     
-    public void UpdateState(IEnemy enemy)
+    public void UpdateState(EnemyContext enemy)
     {
         if (_states.TryGetValue(enemy, out var state))
         {

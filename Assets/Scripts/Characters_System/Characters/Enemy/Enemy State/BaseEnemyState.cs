@@ -9,7 +9,7 @@ namespace Enemy.State
     public abstract class BaseEnemyState : IEnemyState
     {
         
-        protected virtual void RotateTowards(IEnemy enemy, Transform target)
+        protected virtual void RotateTowards(EnemyContext enemy, Transform target)
         {
             var direction = (target.position - enemy.MainPosition.position).normalized;
             
@@ -22,24 +22,24 @@ namespace Enemy.State
         }
 
 
-        protected virtual bool IsTargetInRange(IEnemy enemy, ITargetHandler target, float range)
+        protected virtual bool IsTargetInRange(EnemyContext enemy, ITargetHandler target, float range)
         {
             if (!target.TargetAlive) return false;
             return Vector3.Distance(enemy.MainPosition.position, target.TargetPosition.position) <= range;
         }
         
-        protected virtual ITargetHandler CheckTarget(IEnemy enemy)
+        protected virtual ITargetHandler CheckTarget(EnemyContext enemy)
         {
             return enemy.VisionChecker.CheckTarget(enemy);
         }
 
-        protected void ChangeSpeed(IEnemy enemy, float targetSpeed, float decelerationRate = 5f)
+        protected void ChangeSpeed(EnemyContext enemy, float targetSpeed, float decelerationRate = 5f)
         {
             enemy.Agent.speed = Mathf.Lerp(enemy.Agent.speed, targetSpeed, Time.deltaTime * decelerationRate);
         }
         
         
-        protected void SlowDownBeforeStopping(IEnemy enemy)
+        protected void SlowDownBeforeStopping(EnemyContext enemy)
         {
             float decelerationRate = 5f; 
             enemy.Agent.velocity = Vector3.Lerp(enemy.Agent.velocity, Vector3.zero, Time.deltaTime * decelerationRate);
@@ -51,8 +51,8 @@ namespace Enemy.State
             }
         }
         
-        public abstract void EnterState(IEnemy enemy);
-        public abstract void UpdateState(IEnemy enemy);
-        public abstract void ExitState(IEnemy enemy);
+        public abstract void EnterState(EnemyContext enemy);
+        public abstract void UpdateState(EnemyContext enemy);
+        public abstract void ExitState(EnemyContext enemy);
     }
 }

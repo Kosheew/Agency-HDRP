@@ -4,8 +4,8 @@ namespace Characters
 {
     public interface IEnemyState
     {
-        void EnterState(IEnemy enemy);
-        void UpdateState(IEnemy enemy);
-        void ExitState(IEnemy enemy);
+        void EnterState(EnemyContext enemy);
+        void UpdateState(EnemyContext enemy);
+        void ExitState(EnemyContext enemy);
     }
 }

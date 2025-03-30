@@ -6,7 +6,7 @@ namespace Enemy.State
 {
     public class DeathEnemyState: IEnemyState
     {
-        public void EnterState(IEnemy enemy)
+        public void EnterState(EnemyContext enemy)
         {
            //  Debug.Log("Enemy Death State Enter");
             enemy.CharacterAnimator.Death();
@@ -14,12 +14,12 @@ namespace Enemy.State
             enemy.Agent.isStopped = true;
         }
 
-        public void UpdateState(IEnemy enemy)
+        public void UpdateState(EnemyContext enemy)
         {
             
         }
 
-        public void ExitState(IEnemy enemy)
+        public void ExitState(EnemyContext enemy)
         {
            
         }

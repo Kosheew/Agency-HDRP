@@ -6,9 +6,9 @@ using Characters.Enemy;
 
 public class StateEnemyFactory 
 {
-    private readonly Dictionary<IEnemy, Dictionary<TypeEnemyStates, IEnemyState>> _statePools;
+    private readonly Dictionary<EnemyContext, Dictionary<TypeEnemyStates, IEnemyState>> _statePools;
 
-    public StateEnemyFactory(IEnemy[] enemies)
+    public StateEnemyFactory(EnemyContext[] enemies)
     {
         _statePools = new(enemies.Length);
         
@@ -18,9 +18,9 @@ public class StateEnemyFactory
             {
                 _statePools[enemy] = new Dictionary<TypeEnemyStates, IEnemyState>
                 {
-                    { TypeEnemyStates.Attacked, new AttackingEnemyState() },
-                    { TypeEnemyStates.Chased, new ChasingEnemyState() },
-                    { TypeEnemyStates.Patrolled, new PatrollingEnemyState() },
+                    { TypeEnemyStates.Attacked, new AttackEnemyState() },
+                    { TypeEnemyStates.Chased, new ChaseEnemyState() },
+                    { TypeEnemyStates.Patrolled, new PatrolEnemyState() },
                     { TypeEnemyStates.Idle, new IdleEnemyState() },
                     { TypeEnemyStates.Dead, new DeathEnemyState() }
                 };
@@ -28,7 +28,7 @@ public class StateEnemyFactory
         }
     }
     
-    public IEnemyState CreateState(IEnemy enemy, TypeEnemyStates stateName)
+    public IEnemyState CreateState(EnemyContext enemy, TypeEnemyStates stateName)
     {
         if (_statePools.ContainsKey(enemy))
         {

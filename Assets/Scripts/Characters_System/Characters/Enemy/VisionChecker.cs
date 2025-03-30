@@ -19,7 +19,7 @@ public class VisionChecker
     }
     
     
-    public ITargetHandler CheckTarget(IEnemy enemy)
+    public ITargetHandler CheckTarget(EnemyContext enemy)
     {
         if (!enemy.ShouldCheckTarget) return null;
 
@@ -56,7 +56,7 @@ public class VisionChecker
     {
         _targetHandler = handler;
     }
-    private void CanSeeTarget(IEnemy enemy)
+    private void CanSeeTarget(EnemyContext enemy)
     {
         var setting = enemy.EnemySetting;
         float stepAngle = setting.StepRayAngle; 

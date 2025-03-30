@@ -7,7 +7,7 @@ namespace Characters.Command
     {
         private readonly StateEnemyManager _stateEnemyManager;
         private readonly StateEnemyFactory _stateEnemyFactory;
-        public IEnemy Enemy { get; set; }
+        public EnemyContext Enemy { get; set; }
         
         public DeathCommand(DependencyContainer container)
         {

@@ -26,42 +26,42 @@ namespace Commands
             _commandEnemyIdle = new IdleCommand(container);
         }
         
-        public void CreateAttackCommand(IEnemy enemy)
+        public void CreateAttackCommand(EnemyContext enemy)
         {
             _commandEnemyAttack.Enemy = enemy;
             _invoker.SetCommand(_commandEnemyAttack);
             _invoker.ExecuteCommands();
         }
 
-        public void CreatePatrolledCommand(IEnemy enemy)
+        public void CreatePatrolledCommand(EnemyContext enemy)
         {
             _commandEnemyPatrol.Enemy = enemy;
             _invoker.SetCommand(_commandEnemyPatrol);
             _invoker.ExecuteCommands();
         }
 
-        public void CreateChasingCommand(IEnemy enemy)
+        public void CreateChasingCommand(EnemyContext enemy)
         {
             _commandEnemyChasing.Enemy = enemy;
             _invoker.SetCommand(_commandEnemyChasing);
             _invoker.ExecuteCommands();
         }
 
-        public void CharacterIdleCommand(IEnemy enemy)
+        public void CharacterIdleCommand(EnemyContext enemy)
         {
             _commandEnemyIdle.Enemy = enemy;
             _invoker.SetCommand(_commandEnemyIdle);
             _invoker.ExecuteCommands();
         }
 
-        public void CreateDeathCommand(IEnemy enemy)
+        public void CreateDeathCommand(EnemyContext enemy)
         {
             _commandEnemyDeath.Enemy = enemy;
             _invoker.SetCommand(_commandEnemyDeath);
             _invoker.ExecuteCommands();
         }
 
-        public void CreateToAttackedCommand(IEnemy enemy)
+        public void CreateToAttackedCommand(EnemyContext enemy)
         {
             _commandEnemyToAttacked.Enemy = enemy;
             _invoker.SetCommand(_commandEnemyToAttacked);

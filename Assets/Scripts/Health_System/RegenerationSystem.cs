@@ -19,7 +19,7 @@ namespace Characters.Health
             _regenDelay = regenDelay;
             _coroutineRunner = coroutineRunner;
             
-            _health.OnHealthChanged += OnDamageTaken; // Підписуємось на зміну HP
+            _health.OnHealthChanged += OnDamageTaken; 
         }
 
         private void OnDamageTaken(float health)
@@ -47,7 +47,7 @@ namespace Characters.Health
         {
             while (true)
             {
-                yield return new WaitForSeconds(0.5f); // Перевіряємо кожні 0.5 сек
+                yield return new WaitForSeconds(0.5f); 
 
                 if (Time.time - _lastDamageTime >= _regenDelay && _health.Health < _health.MaxHealth)
                 {
@@ -57,7 +57,7 @@ namespace Characters.Health
                 if (_health.Health >= _health.MaxHealth)
                 {
                     _regenCoroutine = null;
-                    yield break; // Завершуємо регенерацію
+                    yield break; 
                 }
             }
         }

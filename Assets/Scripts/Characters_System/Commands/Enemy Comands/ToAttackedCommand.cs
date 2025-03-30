@@ -8,7 +8,7 @@ namespace Characters.Command
         private readonly StateEnemyManager _stateEnemyManager;
         private readonly StateEnemyFactory _stateEnemyFactory;
         private readonly ITargetHandler _targetHandler;
-        public IEnemy Enemy {get; set;}
+        public EnemyContext Enemy {get; set;}
         
         public ToAttackedCommand(DependencyContainer container)
         {
