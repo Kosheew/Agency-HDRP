@@ -1,4 +1,4 @@
-using Characters;
+using Characters.Player;
 using InputActions;
 using UnityEngine;
 using Views;
@@ -10,7 +10,7 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private AmmoView ammoView;
     [SerializeField] private Weapon[] weapons;
 
-    private IPlayer player;
+    private PlayerContext  player;
     private int _currentWeaponIndex = 0;
 
     private bool _isSwitchingWeapon = false;
@@ -28,7 +28,7 @@ public class WeaponController : MonoBehaviour
         _ammoModel = new AmmoModel();
         _ammoModel.OnAmmoChanged += ammoView.UpdateAmmo;
         
-        player = container.Resolve<IPlayer>();
+        player = container.Resolve<PlayerContext>();
         _userInput = GetComponent<UserInput>();
         _playerAnimation = GetComponent<PlayerAnimation>();
         _holsterController = GetComponent<HolsterController>();

@@ -1,4 +1,5 @@
 using Characters;
+using Characters.Player;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,7 +11,7 @@ namespace Zones
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out IPlayer player))
+            if (other.TryGetComponent(out PlayerContext player))
             {
                 onTriggerEnter?.Invoke();
             }

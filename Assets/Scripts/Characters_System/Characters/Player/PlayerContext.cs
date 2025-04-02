@@ -2,6 +2,7 @@ using UnityEngine;
 using Commands;
 using CharacterSettings;
 using Audio;
+using Characters.Character_Interfaces;
 using Characters.Health;
 using InputActions;
 using Views;
@@ -11,7 +12,7 @@ namespace Characters.Player
 {
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(UserInput))]
-    public class PlayerController : MonoBehaviour, IPlayer
+    public class PlayerContext : MonoBehaviour, ITargetHandler, IFootstepCharacterAudio
     {
         [SerializeField] private PlayerSetting playerSetting;
         [SerializeField] private AudioSource audioSource;

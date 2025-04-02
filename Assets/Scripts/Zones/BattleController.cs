@@ -6,20 +6,20 @@ using UnityEngine;
 public class BattleController : MonoBehaviour
 {
    private CommandPlayerFactory _commandPlayerFactory;
-   private PlayerController _playerController;
+   private PlayerContext _playerContext;
    
    public void Inject(DependencyContainer container)
    {
       _commandPlayerFactory = container.Resolve<CommandPlayerFactory>();
-      _playerController = container.Resolve<PlayerController>();
+      _playerContext = container.Resolve<PlayerContext>();
    }
    public void StartBattle()
    {
-      _commandPlayerFactory.CreateCombatCommand(_playerController);
+      _commandPlayerFactory.CreateCombatCommand(_playerContext);
    }
 
    public void EndBattle()
    {
-         _commandPlayerFactory.CreateRegularCommand(_playerController);
+         _commandPlayerFactory.CreateRegularCommand(_playerContext);
    }
 }

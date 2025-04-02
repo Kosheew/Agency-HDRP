@@ -1,20 +1,21 @@
 ﻿using Characters;
+using Characters.Player;
 
 namespace Player.State
 {
     public class RegularState:  IPlayerState
     {
-        public void EnterState(IPlayer player)
+        public void EnterState(PlayerContext player)
         { 
            
         }
 
-        public void UpdateState(IPlayer player)
+        public void UpdateState(PlayerContext player)
         {
             
         }
 
-        public void ExitState(IPlayer player)
+        public void ExitState(PlayerContext  player)
         {
            
         }

@@ -1,9 +1,11 @@
+using Characters.Player;
+
 namespace Characters
 {
     public interface IPlayerState
     {
-        void EnterState(IPlayer player);
-        void UpdateState(IPlayer player);
-        void ExitState(IPlayer player);
+        void EnterState(PlayerContext  player);
+        void UpdateState(PlayerContext player);
+        void ExitState(PlayerContext  player);
     }
 }

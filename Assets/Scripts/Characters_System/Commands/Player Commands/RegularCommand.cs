@@ -1,10 +1,12 @@
+using Characters.Player;
+
 namespace Characters.Command
 {
     public class RegularCommand : ICommandPlayer
     {
         private readonly StatePlayerManager _stateEnemyManager;
         private readonly StatePlayerFactory _stateEnemyFactory;
-        public IPlayer Player { get; set; }
+        public PlayerContext Player { get; set; }
         
         public RegularCommand(DependencyContainer container)
         {

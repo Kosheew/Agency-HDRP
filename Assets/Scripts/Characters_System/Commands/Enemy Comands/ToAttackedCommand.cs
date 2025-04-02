@@ -1,5 +1,6 @@
 ﻿using Characters.Character_Interfaces;
 using Characters.Enemy;
+using Characters.Player;
 
 namespace Characters.Command
 {
@@ -14,7 +15,7 @@ namespace Characters.Command
         {
             _stateEnemyManager = container.Resolve<StateEnemyManager>();
             _stateEnemyFactory = container.Resolve<StateEnemyFactory>();
-            _targetHandler = container.Resolve<IPlayer>();
+            _targetHandler = container.Resolve<PlayerContext>();
         }
 
         public void Execute()

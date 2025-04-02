@@ -1,7 +1,5 @@
 ﻿using Characters;
-using Characters.Character_Interfaces;
-using Characters.Enemy;
-using Sirenix.Utilities;
+using Characters.Player;
 using UnityEngine;
 
 namespace Player.State
@@ -13,7 +11,7 @@ namespace Player.State
         private float _rotationThreshold = 5f; 
         private float _angleDifference;
         
-        protected void RotateTowards(IPlayer player, Vector2 mousePosition)
+        protected void RotateTowards(PlayerContext player, Vector2 mousePosition)
         {
             
             Ray ray = player.MainCamera.ScreenPointToRay(mousePosition); 
@@ -26,7 +24,7 @@ namespace Player.State
             }
         }
         
-        private void RotateToTarget(IPlayer player, Vector3 targetPosition)
+        private void RotateToTarget(PlayerContext  player, Vector3 targetPosition)
         {
             Transform pivotTransform = player.Pivot; 
             Vector3 direction = (targetPosition - pivotTransform.position).normalized;
@@ -44,22 +42,19 @@ namespace Player.State
             _isReadyToShoot = _angleDifference < _rotationThreshold; 
         }
         
-        public void EnterState(IPlayer player)
+        public void EnterState(PlayerContext player)
         { 
            player.PlayerAnimation.SetEquipped(true);
         }
 
-        public void UpdateState(IPlayer player)
+        public void UpdateState(PlayerContext player)
         {
              RotateTowards(player, player.UserInput.MousePosition);
              
             if (player.UserInput.Fire)
             {
-               
-                
                 if (!_isReadyToShoot) return;
                 
-               // player.Weapon.SetSpread(_speed);
                 player.Weapon.IncreaseSpread();
                 
                 if (player.Weapon.CheckShoot())
@@ -76,9 +71,8 @@ namespace Player.State
             player.PlayerAnimation.SetReload(player.Weapon.CheckReload());
         }
 
-        public void ExitState(IPlayer player)
+        public void ExitState(PlayerContext  player)
         {
-         //   base.ExitState(player);
          player.PlayerAnimation.SetEquipped(false);
         }
     }

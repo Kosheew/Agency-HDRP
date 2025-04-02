@@ -17,8 +17,6 @@ public class VisionChecker
     {
         _loseTargetTimer = loseTargetTimer;
     }
-    
-    
     public ITargetHandler CheckTarget(EnemyContext enemy)
     {
         if (!enemy.ShouldCheckTarget) return null;

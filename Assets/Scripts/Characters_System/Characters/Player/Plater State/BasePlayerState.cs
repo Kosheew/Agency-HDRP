@@ -1,5 +1,6 @@
 using CharacterSettings;
 using Characters;
+using Characters.Player;
 using InputActions;
 using UnityEngine;
 
@@ -21,7 +22,7 @@ namespace Player.State
 
         private bool _isFreeFall;
         
-        public virtual void EnterState(IPlayer player)
+        public virtual void EnterState(PlayerContext player)
         { 
             _playerSetting = player.PlayerSetting;
             _controller = player.Controller;
@@ -29,7 +30,7 @@ namespace Player.State
             _playerAnimation = player.PlayerAnimation;
         }
         
-        public virtual void UpdateState(IPlayer player)
+        public virtual void UpdateState(PlayerContext  player)
         {
             GroundedCheck(player);
             JumpAndGravity(player);
@@ -37,12 +38,12 @@ namespace Player.State
             Move(player);
         }
 
-        public virtual void ExitState(IPlayer player)
+        public virtual void ExitState(PlayerContext  player)
         {
           
         }
         
-        private void GroundedCheck(IPlayer player)
+        private void GroundedCheck(PlayerContext  player)
         {
             bool hasGround = Physics.Raycast(player.TransformMain.position + Vector3.up * 0.1f, Vector3.down, 0.4f);
 
@@ -51,7 +52,7 @@ namespace Player.State
             _playerAnimation.SetGrounded(player.Grounded);
         }
         
-        private void Move(IPlayer player)
+        private void Move(PlayerContext  player)
         {
             float targetSpeed = !player.Sneaked && _userInput.Sprint ? _playerSetting.SprintSpeed : _playerSetting.MoveSpeed;
 
@@ -106,7 +107,7 @@ namespace Player.State
             _playerAnimation.MovementAnim(_animationBlend, inputMagnitude);
         }
         
-        private void JumpAndGravity(IPlayer player)
+        private void JumpAndGravity(PlayerContext  player)
         {
             if (_verticalVelocity < _terminalVelocity)
             {
@@ -139,7 +140,7 @@ namespace Player.State
             _playerAnimation.SetFreeFall(_isFreeFall);
         }
         
-        private void Crouch(IPlayer player)
+        private void Crouch(PlayerContext  player)
         {
             if (_userInput.Crouch && player.Grounded)
             {

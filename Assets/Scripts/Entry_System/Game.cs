@@ -16,7 +16,7 @@ public class Game : MonoBehaviour
     [SerializeField] private CharacterAudioSettings characterAudioSettings;
     
     [Header("Player Settings")]
-    [SerializeField] private PlayerController player;
+    [SerializeField] private PlayerContext player;
     [SerializeField] private WeaponController weaponController;
     [SerializeField] private UserInput userInput;
     
@@ -124,8 +124,7 @@ public class Game : MonoBehaviour
         
         _container.Register(_commandEnemyFactory);
         _container.Register(_commandPlayerFactory);
-        _container.Register<IPlayer>(player);
-        _container.Register<PlayerController>(player);
+        _container.Register(player);
         _container.Register(userInput);
         _container.Register(_sceneController);
         

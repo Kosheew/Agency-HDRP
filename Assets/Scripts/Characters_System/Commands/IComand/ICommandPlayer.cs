@@ -1,6 +1,6 @@
-﻿using Characters;
+﻿using Characters.Player;
 
 public interface ICommandPlayer: ICommand
 { 
-    public IPlayer Player { get; set; }
+    public PlayerContext Player { get; set; }
 }

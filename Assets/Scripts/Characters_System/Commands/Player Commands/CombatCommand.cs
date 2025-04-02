@@ -1,10 +1,12 @@
-﻿namespace Characters.Command
+﻿using Characters.Player;
+
+namespace Characters.Command
 {
     public class CombatCommand: ICommandPlayer
     {
         private readonly StatePlayerManager _stateEnemyManager;
         private readonly StatePlayerFactory _stateEnemyFactory;
-        public IPlayer Player { get; set; }
+        public PlayerContext Player { get; set; }
         
         public CombatCommand(DependencyContainer container)
         {

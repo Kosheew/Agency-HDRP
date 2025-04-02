@@ -1,3 +1,5 @@
+using Characters.Player;
+
 namespace Characters
 {
     public class StatePlayerManager
@@ -5,13 +7,13 @@ namespace Characters
         private IPlayerState _baseState;
         private IPlayerState _currentState;
 
-        public void SetBaseState(IPlayerState baseState, IPlayer player)
+        public void SetBaseState(IPlayerState baseState, PlayerContext  player)
         {
             _baseState = baseState;
             _baseState.EnterState(player);
         }
         
-        public void SetState(IPlayerState newState, IPlayer player)
+        public void SetState(IPlayerState newState, PlayerContext  player)
         {
             _currentState?.ExitState(player);
             _currentState = newState;
@@ -19,7 +21,7 @@ namespace Characters
         }
         
     
-        public void UpdateState(IPlayer player)
+        public void UpdateState(PlayerContext player)
         {
             _baseState?.UpdateState(player);
             _currentState.UpdateState(player); 
