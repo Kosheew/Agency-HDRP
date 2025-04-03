@@ -30,8 +30,9 @@ namespace Characters.Player
         public IFootstepAudioHandler FootstepHandler { get; private set; }
         public Transform TransformMain => transform;
         public bool TargetAlive => Alive;
-        public Transform TargetPosition => transform;
-
+        public Transform TargetPosition { get; set; }
+        
+        public AlertController AlertController { get; private set; }
         public Weapon Weapon { get; set; }
         
         private CommandPlayerFactory _commandFactory;
@@ -49,6 +50,7 @@ namespace Characters.Player
             Controller = GetComponent<CharacterController>();
             UserInput = GetComponent<UserInput>();
             PlayerAnimation = GetComponent<PlayerAnimation>();
+            AlertController = GetComponent<AlertController>();
             
             PlayerAnimation.Init();
             
@@ -59,6 +61,8 @@ namespace Characters.Player
             healthView.SetHealth(100);
             _regenerationSystem = new RegenerationSystem(HealthComponent, 5, 2, this);
             MainCamera = Camera.main;
+            
+            TargetPosition = transform;
             
             _commandFactory.CreateBaseState(this);
             _commandFactory.CreateRegularCommand(this);

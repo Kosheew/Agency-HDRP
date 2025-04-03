@@ -13,6 +13,7 @@ namespace Enemy.State
      
         private float _checkInterval = 0.2f;
         private float _timeSinceLastCheck;
+        private bool _isRotating = false;
         
         public override void EnterState(EnemyContext enemy)
         {
@@ -38,6 +39,12 @@ namespace Enemy.State
                 return;
             }
             
+            /*if (_isRotating)
+            {
+                RotateTowards(enemy, enemy.PatrolTargets[_currentIndex]);
+                return; // Не починати рух, поки не завершиться поворот
+            }*/
+            
             if (enemy.Agent.remainingDistance < 1f)
             {
                 _currentIndex = (_currentIndex + 1) % enemy.PatrolTargets.Length;
@@ -51,6 +58,17 @@ namespace Enemy.State
         {
            // SlowDownBeforeStopping(enemy);
           //  enemy.Agent.isStopped = true;
+        }
+
+        protected virtual void RotateTowards(EnemyContext enemy, Transform target)
+        {
+            base.RotateTowards(enemy, target);
+            
+            /*if (Quaternion.Angle(enemy.MainPosition.rotation, target.position) < 5)
+            {
+                _isRotating = false; // Завершили поворот, можна рухатися
+                enemy.Agent.SetDestination(target.position);
+            }*/
         }
     }
 }

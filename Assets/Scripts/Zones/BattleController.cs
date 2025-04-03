@@ -20,6 +20,6 @@ public class BattleController : MonoBehaviour
 
    public void EndBattle()
    {
-         _commandPlayerFactory.CreateRegularCommand(_playerContext);
+      _commandPlayerFactory.CreateRegularCommand(_playerContext);
    }
 }

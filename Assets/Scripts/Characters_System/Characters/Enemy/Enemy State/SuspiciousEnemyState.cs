@@ -1,23 +1,35 @@
 ﻿using Characters;
 using Characters.Enemy;
+using UnityEngine;
 
 namespace Enemy.State
 {
-    public class SuspiciousEnemyState: IEnemyState
+    public class SuspiciousEnemyState: BaseEnemyState
     {
-        public void EnterState(EnemyContext enemy)
+        private float _decayDelay = 2f;
+        
+        public override void EnterState(EnemyContext enemy)
         {
-            throw new System.NotImplementedException();
+
         }
 
-        public void UpdateState(EnemyContext enemy)
+        public override void UpdateState(EnemyContext enemy)
         {
-            throw new System.NotImplementedException();
+            ChangeSpeed(enemy, 0, 5);  
+            SlowDownBeforeStopping(enemy);
+            
+            enemy.CharacterAnimator.Running(enemy.Agent.velocity.magnitude);
+            _decayDelay -= Time.deltaTime;
+            
+            if(_decayDelay > 0) return;
+            
+            enemy.CommandEnemy.CreateSearchCommand(enemy);
         }
 
-        public void ExitState(EnemyContext enemy)
+        public override void ExitState(EnemyContext enemy)
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Exit Suspicious State");
+            enemy.Agent.isStopped = false;
         }
     }
 }

@@ -53,6 +53,8 @@ namespace Characters.Enemy
         
         public ITargetHandler Target { get; set; }
         
+        public Transform TargetTransform { get; set; }
+        
         [SerializeField] private bool checkTarget;
 
         [SerializeField] private bool patrolled;

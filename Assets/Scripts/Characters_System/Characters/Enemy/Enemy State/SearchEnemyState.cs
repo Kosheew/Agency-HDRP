@@ -1,23 +1,57 @@
 ﻿using Characters;
 using Characters.Enemy;
+using UnityEngine;
 
 namespace Enemy.State
 {
-    public class SearchEnemyState: IEnemyState
+    public class SearchEnemyState: BaseEnemyState
     {
-        public void EnterState(EnemyContext enemy)
+        private float _decayDelay = 2f;
+        private float _currentDecayTime;
+        
+        public override void EnterState(EnemyContext enemy)
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Enter Search");
+            _currentDecayTime = _decayDelay;
         }
 
-        public void UpdateState(EnemyContext enemy)
+        public override void UpdateState(EnemyContext enemy)
         {
-            throw new System.NotImplementedException();
+            if (enemy.TargetTransform== null)
+            {
+                enemy.CommandEnemy.CreatePatrolledCommand(enemy);
+                return;
+            }
+            
+            enemy.FootstepHandler.PlayFootstepWalkSound();
+            ChangeSpeed(enemy, enemy.EnemySetting.MoveSpeed);  
+            
+            float distanceToTarget = Vector3.Distance(enemy.transform.position, enemy.TargetTransform.position);
+            
+            if (distanceToTarget > 3f)
+            {
+                enemy.Agent.SetDestination(enemy.TargetTransform.position);
+
+            }
+            else
+            {
+                ChangeSpeed(enemy, 0, 5);  
+                SlowDownBeforeStopping(enemy);
+                _currentDecayTime -= Time.deltaTime;
+                 
+                 if (_currentDecayTime <= 0)
+                 {
+                     enemy.CommandEnemy.CreatePatrolledCommand(enemy);
+                 }
+            }
+            
+            enemy.CharacterAnimator.Running(enemy.Agent.velocity.magnitude);
         }
 
-        public void ExitState(EnemyContext enemy)
+        public override void ExitState(EnemyContext enemy)
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Exit Search");
+            enemy.Agent.isStopped = false;
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using Characters;
 using Characters.Character_Interfaces;
 using Characters.Enemy;
@@ -22,13 +23,13 @@ namespace Enemy.State
         }
 
 
-        protected virtual bool IsTargetInRange(EnemyContext enemy, ITargetHandler target, float range)
+        protected bool IsTargetInRange(EnemyContext enemy, ITargetHandler target, float range)
         {
             if (!target.TargetAlive) return false;
             return Vector3.Distance(enemy.MainPosition.position, target.TargetPosition.position) <= range;
         }
         
-        protected virtual ITargetHandler CheckTarget(EnemyContext enemy)
+        protected ITargetHandler CheckTarget(EnemyContext enemy)
         {
             return enemy.VisionChecker.CheckTarget(enemy);
         }

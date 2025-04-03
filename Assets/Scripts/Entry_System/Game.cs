@@ -1,3 +1,4 @@
+using Alert_System;
 using Zones;
 using Characters;
 using Characters.Enemy;
@@ -30,7 +31,6 @@ public class Game : MonoBehaviour
     [Header("Audio Settings")]
     [SerializeField] private AudioManager audioManager;
     
-    [FormerlySerializedAs("questManager")]
     [Header("Quest Settings")]
     [SerializeField] private QuestController questController;
     [SerializeField] private QuestView questView;
@@ -44,18 +44,25 @@ public class Game : MonoBehaviour
     [Header("Other Views")]
     [SerializeField] private PauseView pauseView;
     
-    [FormerlySerializedAs("cluesManager")]
-    [FormerlySerializedAs("evidenceManager")]
     [Header("Evidence System")] 
     [SerializeField] private CluesController cluesController;
     
     [Header("Dialogue System")]
     [SerializeField] private DialogueView dialogueView;
     
-    [FormerlySerializedAs("dialogueManager")] [SerializeField] private DialogueController dialogueController; 
+    [SerializeField] private DialogueController dialogueController; 
     [SerializeField] private DialogProgressManager dialogProgressManager;
     
-     [SerializeField] private NPCDialogueController[] npcDialogueManagers;
+    [SerializeField] private NPCDialogueController[] npcDialogueManagers;
+    
+    [Header("Alert System")]
+    [SerializeField] private AlertController alertController;
+    [SerializeField] private AlertView alertView;
+    
+    [Header("Noise Sources")]
+    [SerializeField] private NoiseSource[] noiseSources;
+    
+    private AlertModel _alertModel;
     
     private CommandInvoker _commandInvoker;
     
@@ -78,27 +85,29 @@ public class Game : MonoBehaviour
     {
         Time.timeScale = 1f;
         
-        _saveSystem = new BinarySaveSystem();
-        
-        _container = new DependencyContainer();
-        _commandInvoker = new CommandInvoker();
-        
-        _stateEnemyManager = new StateEnemyManager();
-        _statePlayerManager = new StatePlayerManager();
-        
-        _stateEnemyFactory = new StateEnemyFactory(enemies);
-        _statePlayerFactory = new StatePlayerFactory();
-        
-        _commandEnemyFactory = new CommandEnemyFactory();
-        _commandPlayerFactory = new CommandPlayerFactory();
-        
-       // _saveSystem.ClearSaveData();
-        
+        CreateObject();
         RegisterDependency();
-            
         Injection();
-        
         OnEvent();
+    }
+
+    private void CreateObject()
+    {
+         _saveSystem = new BinarySaveSystem();
+                
+         _container = new DependencyContainer();
+         _commandInvoker = new CommandInvoker();
+                
+         _stateEnemyManager = new StateEnemyManager();
+         _statePlayerManager = new StatePlayerManager();
+                
+         _stateEnemyFactory = new StateEnemyFactory(enemies);
+         _statePlayerFactory = new StatePlayerFactory();
+                
+         _commandEnemyFactory = new CommandEnemyFactory();
+         _commandPlayerFactory = new CommandPlayerFactory();
+                
+         _alertModel = new AlertModel();
     }
 
     private void RegisterDependency()
@@ -132,6 +141,10 @@ public class Game : MonoBehaviour
         _container.Register(cluesController);
         _container.Register(dialogueView);
         _container.Register(dialogProgressManager);
+        
+        _container.Register(_alertModel);
+        _container.Register(alertController);
+        _container.Register(alertView);
     }
 
     private void Injection()
@@ -140,6 +153,9 @@ public class Game : MonoBehaviour
         _commandEnemyFactory.Inject(_container);
         
         gameSaveManager.Inject(_container);
+        
+        alertController.Inject(_container);
+        alertView.Inject(_container);
         
         questController.Inject(_container);
         questView.Inject(_container);
@@ -179,7 +195,10 @@ public class Game : MonoBehaviour
             npcDialogueTrigger.Inject(_container);
         }
         
-        
+        foreach (var noiseSource in noiseSources)
+        {
+            noiseSource.Inject(_container);
+        }
     }
     
     private void Update()

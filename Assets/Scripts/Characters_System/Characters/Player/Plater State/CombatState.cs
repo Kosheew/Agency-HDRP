@@ -49,7 +49,9 @@ namespace Player.State
 
         public void UpdateState(PlayerContext player)
         {
-             RotateTowards(player, player.UserInput.MousePosition);
+            player.AlertController.UpdateState();
+            
+            RotateTowards(player, player.UserInput.MousePosition);
              
             if (player.UserInput.Fire)
             {

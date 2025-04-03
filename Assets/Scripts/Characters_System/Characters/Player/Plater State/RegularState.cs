@@ -7,7 +7,7 @@ namespace Player.State
     {
         public void EnterState(PlayerContext player)
         { 
-           
+            player.AlertController.ResetAlert();
         }
 
         public void UpdateState(PlayerContext player)
