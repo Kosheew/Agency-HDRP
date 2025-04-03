@@ -21,7 +21,7 @@ namespace Characters.Command
         public void Execute()
         {
             Enemy.VisionChecker.SetTargetHandler(_targetHandler);
-            var characterState = _stateEnemyFactory.CreateState(Enemy,TypeEnemyStates.Chased);
+            var characterState = _stateEnemyFactory.CreateState(Enemy,TypeEnemyStates.Chase);
             _stateEnemyManager.SetState(characterState, Enemy);
         }
     }

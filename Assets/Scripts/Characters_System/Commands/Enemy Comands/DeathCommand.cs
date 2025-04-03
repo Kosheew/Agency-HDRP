@@ -17,7 +17,7 @@ namespace Characters.Command
 
         public void Execute()
         {
-            var characterState = _stateEnemyFactory.CreateState(Enemy,TypeEnemyStates.Dead);
+            var characterState = _stateEnemyFactory.CreateState(Enemy,TypeEnemyStates.Death);
             _stateEnemyManager.SetState(characterState, Enemy);
         }
     }

@@ -8,10 +8,13 @@ public enum TypePlayerStates
 
 public enum TypeEnemyStates
 {
-   Attacked,
-   Patrolled,
-   Chased,
+   Attack,
+   Patrol,
+   Chase,
    Idle,
-   Move,
-   Dead,
+   Death,
+   Alert,
+   Flee,
+   Search,
+   Suspicious,
 }

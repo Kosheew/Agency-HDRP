@@ -2,13 +2,13 @@
 
 namespace Characters.Command
 {
-    public class ChasingCommand: ICommandEnemy
+    public class ChaseCommand: ICommandEnemy
     {
         private readonly StateEnemyManager _stateEnemyManager;
         private readonly StateEnemyFactory _stateEnemyFactory;
         public EnemyContext Enemy { get; set; }
         
-        public ChasingCommand(DependencyContainer container)
+        public ChaseCommand(DependencyContainer container)
         {
             _stateEnemyManager = container.Resolve<StateEnemyManager>();
             _stateEnemyFactory = container.Resolve<StateEnemyFactory>();
@@ -16,7 +16,7 @@ namespace Characters.Command
 
         public void Execute()
         {
-            var characterState = _stateEnemyFactory.CreateState(Enemy,TypeEnemyStates.Chased);
+            var characterState = _stateEnemyFactory.CreateState(Enemy,TypeEnemyStates.Chase);
             _stateEnemyManager.SetState(characterState, Enemy);
         }
     }

@@ -18,11 +18,15 @@ public class StateEnemyFactory
             {
                 _statePools[enemy] = new Dictionary<TypeEnemyStates, IEnemyState>
                 {
-                    { TypeEnemyStates.Attacked, new AttackEnemyState() },
-                    { TypeEnemyStates.Chased, new ChaseEnemyState() },
-                    { TypeEnemyStates.Patrolled, new PatrolEnemyState() },
+                    { TypeEnemyStates.Attack, new AttackEnemyState() },
+                    { TypeEnemyStates.Chase, new ChaseEnemyState() },
+                    { TypeEnemyStates.Patrol, new PatrolEnemyState() },
                     { TypeEnemyStates.Idle, new IdleEnemyState() },
-                    { TypeEnemyStates.Dead, new DeathEnemyState() }
+                    { TypeEnemyStates.Death, new DeathEnemyState() },
+                    { TypeEnemyStates.Alert, new AlertEnemyState() },
+                    { TypeEnemyStates.Flee, new FleeEnemyState() },
+                    { TypeEnemyStates.Search , new SearchEnemyState() },
+                    { TypeEnemyStates.Suspicious, new SuspiciousEnemyState() },
                 };
             }
         }
