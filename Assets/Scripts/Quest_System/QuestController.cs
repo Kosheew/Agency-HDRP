@@ -78,7 +78,6 @@ public class QuestController : MonoBehaviour
         var newQuest = new Quest(questSettings);
                 
         _activeQuests.Add(questHashCode, newQuest);
-        Debug.Log($"Quest {questSettings.QuestName} activated!"); 
         questView.SetQuest(newQuest);
     }
     

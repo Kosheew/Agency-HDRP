@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Views
+namespace Health_System
 {
     public class HealthView : MonoBehaviour
     {

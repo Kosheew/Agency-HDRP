@@ -2,7 +2,7 @@ using Characters.Character_Interfaces;
 using UnityEngine;
 using WeaponSettings;
 using System;
-using UnityEngine.Serialization;
+using Health_System;
 
 namespace Weapons
 {
@@ -137,11 +137,11 @@ namespace Weapons
         
         protected virtual void HandleHit(RaycastHit hit)
         {
-            if (hit.collider.TryGetComponent(out IHealthCharacter healthCharacter))
+            if (hit.collider.TryGetComponent(out HealthComponent healthComponent))
             {
                 var damageCalculator = new DamageCalculatorSimple(this);
                 var damage = damageCalculator.CalculateDamage();
-                healthCharacter.HealthComponent.TakeDamage(damage);
+                healthComponent.TakeDamage(damage);
             }
         }
 

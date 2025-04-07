@@ -3,7 +3,7 @@ using Commands;
 using CharacterSettings;
 using Audio;
 using Characters.Character_Interfaces;
-using Characters.Health;
+using Health_System;
 using InputActions;
 using Views;
 using Weapons;
@@ -25,7 +25,6 @@ namespace Characters.Player
         public UserInput UserInput { get; private set; }
         public PlayerSetting PlayerSetting => playerSetting;
         public PlayerAnimation PlayerAnimation { get; private set; }
-        public HealthComponent HealthComponent { get; private set; }
         public Camera MainCamera { get; private set; }
         public IFootstepAudioHandler FootstepHandler { get; private set; }
         public Transform TransformMain => transform;
@@ -40,7 +39,6 @@ namespace Characters.Player
         public bool Sneaked { get; set; }
         public bool Grounded { get; set; }
         
-        private RegenerationSystem _regenerationSystem;
         
         public void Inject(DependencyContainer container)
         {
@@ -57,18 +55,18 @@ namespace Characters.Player
             CharacterAudioSettings = playerSetting.CharacterAudioSettings;
             
             FootstepHandler = new FootstepAudioAudioHandler(audioSource, CharacterAudioSettings);
-            HealthComponent = new HealthComponent(100);
-            healthView.SetHealth(100);
-            _regenerationSystem = new RegenerationSystem(HealthComponent, 5, 2, this);
+            
+            GetComponent<HealthComponent>().Init();
+            GetComponent<HealthRegenerationComponent>().Init();
+            
+            healthView.SetHealth(GetComponent<HealthComponent>().MaxHealth);
             MainCamera = Camera.main;
             
             TargetPosition = transform;
             
             _commandFactory.CreateBaseState(this);
             _commandFactory.CreateRegularCommand(this);
-            HealthComponent.OnHealthChanged += healthView.UpdateHealth;
-            HealthComponent.OnTakeDamage += OnHit;
-            HealthComponent.OnDeath += OnDeath;
+
         }
 
         private void LateUpdate()

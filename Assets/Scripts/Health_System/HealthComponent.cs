@@ -1,45 +1,50 @@
 using UnityEngine;
 using System;
+using UnityEngine.Events;
 
-namespace Characters.Health
+namespace Health_System
 {
-    public class HealthComponent
+    public class HealthComponent: MonoBehaviour
     {
-        public float Health { get; private set; }
-        public float MaxHealth {get; private set;}
+        [SerializeField] private float maxHealth = 100f;
+        private float _currentHealth;
         
-        public event Action<float> OnHealthChanged;
-        public event Action OnTakeDamage;
-        public event Action OnDeath;
+        public float Health => _currentHealth;
+        public float MaxHealth => maxHealth;
+        public bool IsAlive => _currentHealth > 0;
         
-        public HealthComponent(float health)
-        {
-            Health = health;
-            MaxHealth = health;
-        }
+        public UnityEvent<float> OnHealthChanged;
+        public UnityEvent OnTakeDamage;
+        public UnityEvent OnDeath;
 
+        public void Init()
+        {
+            _currentHealth = maxHealth;
+            
+            OnHealthChanged?.Invoke(_currentHealth);
+        }
+        
         public void TakeDamage(float damage)
         {
-            Health -= damage;
-            Health = Mathf.Max(0, Health);
+            if(!IsAlive || damage <= 0) return;
             
-            OnHealthChanged?.Invoke(Health);
+            _currentHealth -= damage;
+            _currentHealth = Mathf.Max(0, _currentHealth);
+            
+            OnHealthChanged?.Invoke(_currentHealth);
             OnTakeDamage?.Invoke();
             
-            if (Health <= 0)
+            if (_currentHealth <= 0)
             {
                 OnDeath?.Invoke();
             }
         }
 
-        public void Heal(float heal)
-        {
-            Health += heal;
-            OnHealthChanged?.Invoke(Health);
-            if (Health >= MaxHealth)
-            {
-                Health = MaxHealth;
-            }
+        public void Heal(float heal) {
+            if (!IsAlive) return;
+
+            _currentHealth = Mathf.Min(maxHealth, _currentHealth + heal);
+            OnHealthChanged?.Invoke(_currentHealth);
         }
     }
 }

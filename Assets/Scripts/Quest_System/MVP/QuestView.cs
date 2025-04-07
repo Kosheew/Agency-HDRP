@@ -51,8 +51,6 @@ public class QuestView : MonoBehaviour
             var stepId = questSteps[i].UniqueID;
             bool isCompleted = quest.IsStepCompleted(stepId);
             
-            Debug.Log(isCompleted);
-            
             if (isCompleted)
             {
                  questStepTitle[i].fontStyle = FontStyles.Strikethrough;

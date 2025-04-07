@@ -29,10 +29,11 @@ namespace Enemy.State
 
         public override void UpdateState(EnemyContext enemy)
         {
-            //SlowDownBeforeStopping(enemy);
+            Debug.Log("Attack State");
             
             ChangeSpeed(enemy, 0, 5);  
-            SlowDownBeforeStopping(enemy);
+            //SlowDownBeforeStopping(enemy);
+            
             if (CheckTarget(enemy) == null)
             {
                 enemy.CommandEnemy.CreatePatrolledCommand(enemy);
@@ -67,6 +68,7 @@ namespace Enemy.State
             }
             
             enemy.CharacterAnimator.Running(enemy.Agent.velocity.magnitude);
+            enemy.AgentController.MoveTo(_targetTransform);
         }
 
         public override void ExitState(EnemyContext enemy)
