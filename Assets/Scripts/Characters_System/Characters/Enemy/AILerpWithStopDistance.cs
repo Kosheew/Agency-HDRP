@@ -10,7 +10,7 @@ public class AILerpWithStopDistance : MonoBehaviour
     public float stopDistance = 2f; // Дистанція зупинки
     public float rotationSpeed = 5f; 
     private AIDestinationSetter aiDestinationSetter;
-    private Transform target;
+    [SerializeField] private Transform target;
     
     public float visionRange = 10f;   // Дальність зору
     public LayerMask obstacleMask;    // Шари, які вважаються перешкодами
@@ -29,7 +29,7 @@ public class AILerpWithStopDistance : MonoBehaviour
         aiDestinationSetter = GetComponent<AIDestinationSetter>();
         rb = GetComponent<Rigidbody>();
         seeker = GetComponent<Seeker>();
-        target = aiDestinationSetter.target; // Замініть на ваш об'єкт цілі
+        aiDestinationSetter.target = target; // Замініть на ваш об'єкт цілі
         rotationSpeed = aiLerp.rotationSpeed;
     }
 
@@ -40,8 +40,19 @@ public class AILerpWithStopDistance : MonoBehaviour
         float distance = Vector3.Distance(transform.position, target.position);
         
         isPlayerVisible = CheckPlayerVisibility();
-                   
-        if(distance <= stopDistance) aiLerp.canMove = !isPlayerVisible;
+
+        if (isPlayerVisible && distance <= stopDistance)
+        {
+            if (!isRetreating)
+            {
+                aiDestinationSetter.target = target;
+            }
+            
+            aiLerp.canMove = !(distance <= stopDistance) || isRetreating;
+            // aiLerp.canMove = !isPlayerVisible;
+            
+            CheckForBlockingAgents();
+        }
         
         if (!aiLerp.canMove)
         {
@@ -99,12 +110,7 @@ public class AILerpWithStopDistance : MonoBehaviour
     public float minPushForce = 1f;
     
     public List<Transform> tacticalPoints = new List<Transform>();
-
-    private void FixedUpdate()
-    {
-        CheckForBlockingAgents();
-    }
-
+    
     void CheckForBlockingAgents()
     {
         if (isRetreating) return;
@@ -142,9 +148,10 @@ public class AILerpWithStopDistance : MonoBehaviour
         // 3. Рухатись до позиції відступу
         aiLerp.destination = retreatPos;
         aiLerp.canMove = true;
-
-        // 4. Повернутись до оригінальної цілі після відступу
-        Invoke("ReturnToOriginalPath", 2f);
+        
+        aiDestinationSetter.target = bestPoint;
+        
+        Invoke(nameof(ReturnToOriginalPath), 2f);
     }
 
     Transform FindNearestTacticalPoint(Vector3 fromPosition)
@@ -166,7 +173,8 @@ public class AILerpWithStopDistance : MonoBehaviour
 
     bool IsPointOccupied(Vector3 point)
     {
-        return Physics.CheckSphere(point, 0.5f);
+        Collider[] colliders = Physics.OverlapSphere(point, 0.5f);
+        return colliders.Length > 0;
     }
 
     Vector3 CalculateRetreatPosition(Vector3 blockingPosition)
@@ -177,7 +185,10 @@ public class AILerpWithStopDistance : MonoBehaviour
 
     void ReturnToOriginalPath()
     {
-        aiLerp.destination = originalDestination;
+        aiLerp.destination = target.position;
+        aiDestinationSetter.target = target;
+        
+        aiLerp.canMove = !isPlayerVisible;
         isRetreating = false;
     }
 

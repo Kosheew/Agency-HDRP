@@ -7161,6 +7161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stopDistance: 10
   rotationSpeed: 5
+  target: {fileID: 73937086}
   visionRange: 10
   obstacleMask:
     serializedVersion: 2
@@ -8768,6 +8769,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stopDistance: 10
   rotationSpeed: 5
+  target: {fileID: 73937086}
   visionRange: 10
   obstacleMask:
     serializedVersion: 2
@@ -9871,6 +9873,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stopDistance: 10
   rotationSpeed: 5
+  target: {fileID: 73937086}
   visionRange: 10
   obstacleMask:
     serializedVersion: 2
@@ -11211,6 +11214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stopDistance: 10
   rotationSpeed: 5
+  target: {fileID: 73937086}
   visionRange: 10
   obstacleMask:
     serializedVersion: 2
@@ -12515,6 +12519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stopDistance: 10
   rotationSpeed: 5
+  target: {fileID: 73937086}
   visionRange: 10
   obstacleMask:
     serializedVersion: 2
@@ -13854,6 +13859,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stopDistance: 10
   rotationSpeed: 5
+  target: {fileID: 73937086}
   visionRange: 10
   obstacleMask:
     serializedVersion: 2
