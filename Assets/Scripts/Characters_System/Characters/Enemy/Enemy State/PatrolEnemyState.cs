@@ -20,7 +20,8 @@ namespace Enemy.State
             _currentIndex = 0;
 
             enemy.CharacterAnimator.Chasing(false);
-
+            
+            enemy.AgentController.Resume();
             enemy.AgentController.StartPatrol();
         }
 
@@ -36,7 +37,7 @@ namespace Enemy.State
                 return;
             }
             
-            enemy.AgentController.UpdateHandle();
+            enemy.AgentController.UpdatePatrol();
             
             enemy.CharacterAnimator.Running(enemy.Agent.velocity.magnitude);
         }

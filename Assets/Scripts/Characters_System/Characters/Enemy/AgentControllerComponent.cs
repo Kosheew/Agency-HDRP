@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Characters.Player;
 using UnityEngine;
 using UnityEngine.AI;
 using CharacterSettings;
@@ -8,83 +9,67 @@ using CharacterSettings;
 public class AgentControllerComponent : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [SerializeField] private float _stuckCheckDistance = 0.1f;
-    [SerializeField] private float _stuckTimeThreshold = 2f;
-    [SerializeField] private float _pathUpdateFrequency = 0.5f;
+  
     
     [Header("Patrol Settings")]
     [SerializeField] private Transform[] _patrolTargets;
     [SerializeField] private float _waypointThreshold = 1f;
-    [SerializeField] private float _targetThreshold = 3f;
     [SerializeField] private float _rotationSpeed = 5f;    
     [SerializeField] private float _facingAngleThreshold = 10f; 
 
-    [Header("Path Update Settings")]
-    [SerializeField] private float _minPathUpdateDistance = 1f; 
-    [SerializeField] private float _maxPathUpdateFrequency = 0.3f; 
-    
+
     [Header("Chase Settings")]
     [SerializeField] private float _pathUpdateMinDistance = 0.5f; // Мінімальна відстань для оновлення шляху
-    [SerializeField] private float _pathUpdateCooldown = 0.3f; 
+    [SerializeField] private float _pathUpdateCooldown = 0.3f;
     
+    [SerializeField] private float stopToTarget;
     private Vector3 _lastTargetPosition;
     private float _lastPathUpdateTime;
     
-        private NavMeshAgent _agent;
-        private EnemySetting _enemySetting;
+    private NavMeshAgent _agent;
+    private EnemySetting _enemySetting;
         
-        private Queue<Vector3> _waypoints;
-        private Vector3 _currentWaypoint;
-        private Vector3 _previousWaypoint;
+   [SerializeField] private List<Vector3> _waypoints;
+    private Vector3 _previousWaypoint;
+    
+    private Transform _currentTarget;
+    private int _currentPatrolTargetIndex = 0;
+    private int _currentWayPointIndex = 0;
+    
+    public bool IsMoving { get; private set; }
         
-        private Transform _currentTarget;
-        private int _currentPatrolTargetIndex = 0;
+    private bool _reversePatrolDirection = false;
 
-        public Transform[] PatrolTargets => _patrolTargets;
-        public bool IsMoving { get; private set; }
-        public bool IsRotating { get; private set; }
         
-        private bool _reversePatrolDirection = false;
-        private bool _isMovingToTarget = false;
-        
+    private bool isPlayerVisible;
+    
         public void Init(EnemySetting enemySetting)
         {
-            _waypoints = new Queue<Vector3>(15);
+            _waypoints = new List<Vector3>(15);
             _enemySetting = enemySetting;
             _agent = GetComponent<NavMeshAgent>();
-            _agent.speed = _enemySetting.MoveSpeed;
+            _agent.speed = _enemySetting.MoveSpeed; 
+            _agent.updateRotation = false;
         }
         
         public void StartPatrol()
         {
-            if (_patrolTargets.Length < 2)
-            {
-                Debug.LogWarning("Not enough patrol points assigned!");
-                return;
-            }
-
-            _currentPatrolTargetIndex = 0;
-            _isMovingToTarget = false;
-            IsMoving = true;
-            _waypoints = CalculatePath(transform.position, _patrolTargets[_currentPatrolTargetIndex].position);
+            if (_patrolTargets.Length < 2) return;
             
-            if (TryGetNextPoint(out _currentWaypoint))
-            {
-                _agent.SetDestination(_currentWaypoint);
-            }
+            _currentPatrolTargetIndex = 0;
+            _currentWayPointIndex = 0;
+            IsMoving = true;
+            CalculatePath(transform.position, _patrolTargets[_currentPatrolTargetIndex].position);
+            _agent.SetDestination(_patrolTargets[_currentPatrolTargetIndex].position);
         }
         
         public void MoveTo(Transform target)
         {
-            _isMovingToTarget = true;
             _currentTarget = target;
             _lastTargetPosition = _currentTarget.position;
-            _waypoints = CalculatePath(transform.position, target.position);
+            CalculatePath(transform.position, _currentTarget.position);
             
-            if (TryGetNextPoint(out _currentWaypoint))
-            {
-                _agent.SetDestination(_currentWaypoint);
-            }
+            _agent.SetDestination(_currentTarget.position);
         }
         
         public void Stop() 
@@ -95,92 +80,69 @@ public class AgentControllerComponent : MonoBehaviour
 
         public void Resume() 
         {
-            _isMovingToTarget = false;
             _agent.isStopped = false;
             IsMoving = true;
         }
-        
-        public void UpdateHandle()
-        {
-            if (!IsMoving) return;
-            
-            float distanceToWaypoint = Vector3.Distance(transform.position, _currentWaypoint);
-            
-            if (_isMovingToTarget)
-            {
-                HandleChaseMovement();
-            }
 
-            if (distanceToWaypoint < _waypointThreshold)
-            {
-                if (TryGetNextPoint(out _currentWaypoint))
-                {
-                    _agent.SetDestination(_currentWaypoint);
-                }
-                else
-                {
-                    CompleteCurrentPath();
-                    return;
-                }
-            }
+        public void UpdateChase()
+        {
+            float distanceToTarget = Vector3.Distance(_currentTarget.position, _lastTargetPosition);
             
+            UpdateWayPoints();            
+            
+            if (distanceToTarget >= _pathUpdateMinDistance && Time.time - _lastPathUpdateTime >= _pathUpdateCooldown)
+            {
+                _lastTargetPosition = _currentTarget.position;
+                _lastPathUpdateTime = Time.time;
+                CalculatePath(transform.position, _currentTarget.position);
+                _agent.SetDestination(_currentTarget.position);
+            }
             HandleRotation();
         }
         
-        private void HandleChaseMovement()
+        public void UpdatePatrol()
         {
-            if (Time.time - _lastPathUpdateTime < _pathUpdateCooldown) return;
+            if (!IsMoving) return;
 
-            float targetDisplacement = Vector3.Distance(_lastTargetPosition, _currentTarget.position);
-    
-            if (targetDisplacement > _pathUpdateMinDistance)
+            UpdateWayPoints();
+
+            if (_agent.remainingDistance <= _agent.stoppingDistance)
             {
-                _lastTargetPosition = _currentTarget.position;
-        
-                // Плавне оновлення шляху - додаємо нові точки до існуючої черги
-                var newPath = CalculatePath(transform.position, _lastTargetPosition);
-                if (newPath.Count > 0)
-                {
-                    // Зберігаємо поточну відстань до наступної точки
-                    float remainingDistance = _agent.remainingDistance;
-            
-                    // Оновлюємо чергу, зберігаючи актуальні точки
-                    _waypoints = newPath;
-            
-                    // Якщо агент вже близько до цілі, оновлюємо точку негайно
-                    if (remainingDistance < _waypointThreshold * 2f && TryGetNextPoint(out _currentWaypoint))
-                    {
-                        _agent.SetDestination(_currentWaypoint);
-                    }
-            
-                    _lastPathUpdateTime = Time.time;
-                }
+                CompleteCurrentPath();
+                return;
             }
+                
+            HandleRotation();
+        }
+
+        private void UpdateWayPoints()
+        {
+            float distanceToWaypoint = Vector3.Distance(transform.position, _waypoints[_currentWayPointIndex]);
+            if (distanceToWaypoint <= _waypointThreshold && _currentWayPointIndex < _waypoints.Count - 1) _currentWayPointIndex++;
         }
         
         private void CompleteCurrentPath()
         {
-            _currentPatrolTargetIndex = GetNextPatrolIndex();
-        
+            
             if ((!_reversePatrolDirection && _currentPatrolTargetIndex >= _patrolTargets.Length - 1) ||
                 (_reversePatrolDirection && _currentPatrolTargetIndex <= 0))
             {
                 _reversePatrolDirection = !_reversePatrolDirection;
             }
             
-            if(!_isMovingToTarget)
-                CalculateNextPatrolPath();
+            CalculateNextPatrolPath();
         }
         
         private void CalculateNextPatrolPath()
         {
-            int nextIndex = GetNextPatrolIndex();
-            _waypoints = CalculatePath(_patrolTargets[_currentPatrolTargetIndex].position, _patrolTargets[nextIndex].position);
-            
-            if (TryGetNextPoint(out _currentWaypoint))
-            {
-                _agent.SetDestination(_currentWaypoint);
-            }
+            int previousIndex = _currentPatrolTargetIndex;
+            _currentPatrolTargetIndex = GetNextPatrolIndex();
+
+            Vector3 from = _patrolTargets[previousIndex].position;
+            Vector3 to = _patrolTargets[_currentPatrolTargetIndex].position;
+
+            CalculatePath(from, to);
+            _agent.SetDestination(to);
         }
         
         private int GetNextPatrolIndex()
@@ -188,40 +150,41 @@ public class AgentControllerComponent : MonoBehaviour
             return Mathf.Clamp(_currentPatrolTargetIndex + (_reversePatrolDirection ? -1 : 1), 0, _patrolTargets.Length - 1);
         }
         
-        private Queue<Vector3> CalculatePath(Vector3 from, Vector3 to)
+        private void CalculatePath(Vector3 from, Vector3 to)
         {
-            Queue<Vector3> waypoints = new Queue<Vector3>(10);
+            _waypoints.Clear();
+            
             NavMeshPath tempPath = new NavMeshPath();
             
             if (NavMesh.CalculatePath(from, to, NavMesh.AllAreas, tempPath))
             {
                 foreach (var point in  tempPath.corners)
                 {
-                    waypoints.Enqueue(point);
+                    _waypoints.Add(point);
                 }
             }
 
-            return waypoints;
+            _currentWayPointIndex = 0;
         }
 
         private void HandleRotation()
         {
-            Vector3 targetDirection = (_currentWaypoint - transform.position).normalized;
+            if (_currentWayPointIndex >= _waypoints.Count) return;
+            
+            Vector3 targetDirection = (_waypoints[_currentWayPointIndex] - transform.position).normalized;
             float angle = Vector3.Angle(transform.forward, targetDirection);
 
             if (angle > _facingAngleThreshold)
             {
-                IsRotating = true;
                 RotateTowards(targetDirection);
-            }
-            else
-            {
-                IsRotating = false;
             }
         }
         
-        private void RotateTowards(Vector3 direction)
+        public void RotateTowards(Vector3 direction)
         {
+            direction.y = 0; // <--- це важливо
+            if (direction == Vector3.zero) return;
+            
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
@@ -230,15 +193,39 @@ public class AgentControllerComponent : MonoBehaviour
             );
         }
         
-        public bool TryGetNextPoint(out Vector3 nextPoint)
+        private void OnDrawGizmos()
         {
-            if (_waypoints.Count > 0)
-            {
-                nextPoint = _waypoints.Dequeue();
-                return true;
-            }
+            if (_waypoints == null || _waypoints.Count == 0) return;
 
-            nextPoint = default;
+            Gizmos.color = Color.yellow;
+            for (int i = 0; i < _waypoints.Count; i++)
+            {
+                Gizmos.DrawSphere(_waypoints[i], 0.2f);
+                if (i < _waypoints.Count - 1)
+                {
+                    Gizmos.DrawLine(_waypoints[i], _waypoints[i + 1]);
+                }
+            }
+        }
+
+        
+        public bool CheckPlayerVisibility()
+        {
+            RaycastHit hit;
+            Vector3 directionToPlayer = (_currentTarget.position - transform.position).normalized;
+        
+            Debug.DrawRay(transform.position, directionToPlayer * 10, Color.red);
+        
+            if (Physics.Raycast(transform.position, directionToPlayer, out hit, 10))
+            {
+                if (hit.transform.CompareTag("Player"))
+                {
+                    Debug.Log("Player is visible");
+                    return true;
+                }
+            }
+        
             return false;
         }
+    
 }

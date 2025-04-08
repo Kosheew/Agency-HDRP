@@ -25,18 +25,31 @@ namespace Enemy.State
             _enemyWeapon.transform.localRotation = Quaternion.Euler(176.87f, -100.96f, -81.22f);
             
             enemy.CharacterAnimator.Attacking(true);
+            enemy.AgentController.Stop();
+            
+            Debug.Log("Enter attack State");
         }
 
         public override void UpdateState(EnemyContext enemy)
         {
-            Debug.Log("Attack State");
+            // enemy.AgentController.RotateTowards(enemy.TargetTransform.position);
+
+            RotateTowards(enemy, enemy.TargetTransform);
             
             ChangeSpeed(enemy, 0, 5);  
-            //SlowDownBeforeStopping(enemy);
+            SlowDownBeforeStopping(enemy);
+
+            var playerVisibility = enemy.AgentController.CheckPlayerVisibility();
             
             if (CheckTarget(enemy) == null)
             {
                 enemy.CommandEnemy.CreatePatrolledCommand(enemy);
+                return;
+            }
+
+            /*if (!playerVisibility)
+            {
+                enemy.CommandEnemy.CreateChasingCommand(enemy);
                 return;
             }
             
@@ -44,9 +57,18 @@ namespace Enemy.State
             {
                 enemy.CommandEnemy.CreateChasingCommand(enemy);
                 return;
+            }*/
+            
+            float distanceToTarget = Vector3.Distance(enemy.transform.position, enemy.TargetTransform.position);
+            bool canSeePlayer = enemy.AgentController.CheckPlayerVisibility();
+    
+            if (distanceToTarget > enemy.EnemySetting.AttackDistance )
+            {
+                enemy.CommandEnemy.CreateChasingCommand(enemy);
+                return;
             }
             
-            RotateTowards(enemy, _targetTransform);
+            
 
             if (Time.time >= _nextAttackTime)
             {
@@ -68,7 +90,7 @@ namespace Enemy.State
             }
             
             enemy.CharacterAnimator.Running(enemy.Agent.velocity.magnitude);
-            enemy.AgentController.MoveTo(_targetTransform);
+            //enemy.AgentController.MoveTo();
         }
 
         public override void ExitState(EnemyContext enemy)
@@ -78,6 +100,7 @@ namespace Enemy.State
             
             enemy.Agent.isStopped = false;
             enemy.CharacterAnimator.Attacking(false);
+            enemy.AgentController.Resume();
         }
     }
 }

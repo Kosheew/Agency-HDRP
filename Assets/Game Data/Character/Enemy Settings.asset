@@ -19,13 +19,13 @@ MonoBehaviour:
   health: 100
   characterAudioSettings: {fileID: 11400000, guid: f39955d200b77dc449c27dab6d946f8b,
     type: 2}
-  attackDistance: 3
+  attackDistance: 10
   attackCooldown: 0.3
   visionDistance: 8
   fieldOfViewAngle: 100
   visionMask:
     serializedVersion: 2
     m_Bits: 384
-  loseTargetDelay: 4
+  loseTargetDelay: 15
   checkInterval: 0.2
   stepRayAngle: 10

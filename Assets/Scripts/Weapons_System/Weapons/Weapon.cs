@@ -107,7 +107,7 @@ namespace Weapons
 
             if (Physics.Raycast(ray, out var hit, weaponSetting.Range, _targetLayer))
             {
-                Debug.Log(hit.collider.gameObject.name);
+                //  Debug.Log(hit.collider.gameObject.name);
                 HandleHit(hit);
             }
             
