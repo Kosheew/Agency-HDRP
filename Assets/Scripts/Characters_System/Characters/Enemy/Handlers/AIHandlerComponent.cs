@@ -5,8 +5,9 @@ using Characters.Player;
 using UnityEngine;
 using UnityEngine.AI;
 using CharacterSettings;
+using CustomAI.Handlers;
 
-public class AgentControllerComponent : MonoBehaviour
+public class AIHandlerComponent : MonoBehaviour
 {
     [Header("Movement Settings")]
   
@@ -29,7 +30,7 @@ public class AgentControllerComponent : MonoBehaviour
     private NavMeshAgent _agent;
     private EnemySetting _enemySetting;
         
-   [SerializeField] private List<Vector3> _waypoints;
+    [SerializeField] private List<Vector3> _waypoints;
     private Vector3 _previousWaypoint;
     
     private Transform _currentTarget;
@@ -39,15 +40,17 @@ public class AgentControllerComponent : MonoBehaviour
     public bool IsMoving { get; private set; }
         
     private bool _reversePatrolDirection = false;
-
-        
+    
     private bool isPlayerVisible;
+    
+    private RotationHandler _rotationHandler;
     
         public void Init(EnemySetting enemySetting)
         {
             _waypoints = new List<Vector3>(15);
             _enemySetting = enemySetting;
             _agent = GetComponent<NavMeshAgent>();
+            _rotationHandler = GetComponent<RotationHandler>();
             _agent.speed = _enemySetting.MoveSpeed; 
             _agent.updateRotation = false;
         }
@@ -97,7 +100,9 @@ public class AgentControllerComponent : MonoBehaviour
                 CalculatePath(transform.position, _currentTarget.position);
                 _agent.SetDestination(_currentTarget.position);
             }
-            HandleRotation();
+            
+            if (_currentWayPointIndex >= _waypoints.Count) return;
+            _rotationHandler.HandleRotation(_waypoints[_currentWayPointIndex]);
         }
         
         public void UpdatePatrol()
@@ -111,8 +116,9 @@ public class AgentControllerComponent : MonoBehaviour
                 CompleteCurrentPath();
                 return;
             }
-                
-            HandleRotation();
+             
+            if (_currentWayPointIndex >= _waypoints.Count) return;
+            _rotationHandler.HandleRotation(_waypoints[_currentWayPointIndex]);
         }
 
         private void UpdateWayPoints()
@@ -167,32 +173,7 @@ public class AgentControllerComponent : MonoBehaviour
             _currentWayPointIndex = 0;
         }
 
-        private void HandleRotation()
-        {
-            if (_currentWayPointIndex >= _waypoints.Count) return;
-            
-            Vector3 targetDirection = (_waypoints[_currentWayPointIndex] - transform.position).normalized;
-            float angle = Vector3.Angle(transform.forward, targetDirection);
-
-            if (angle > _facingAngleThreshold)
-            {
-                RotateTowards(targetDirection);
-            }
-        }
-        
-        public void RotateTowards(Vector3 direction)
-        {
-            direction.y = 0; // <--- це важливо
-            if (direction == Vector3.zero) return;
-            
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                targetRotation,
-                _rotationSpeed * Time.deltaTime
-            );
-        }
-        
+   
         private void OnDrawGizmos()
         {
             if (_waypoints == null || _waypoints.Count == 0) return;

@@ -18,7 +18,7 @@ namespace Enemy.State
             enemy.CharacterAnimator.Chasing(true);
             enemy.TargetTransform = targetHandler.TargetPosition;
             
-            enemy.AgentController.MoveTo(enemy.TargetTransform);
+            enemy.AIHandler.MoveTo(enemy.TargetTransform);
             Debug.Log("Enter Chase State");
         }
 
@@ -35,7 +35,7 @@ namespace Enemy.State
             }
             
             float distanceToTarget = Vector3.Distance(enemy.transform.position, enemy.TargetTransform.position);
-            bool canSeePlayer = enemy.AgentController.CheckPlayerVisibility();
+            bool canSeePlayer = enemy.AIHandler.CheckPlayerVisibility();
     
             if (distanceToTarget <= enemy.EnemySetting.AttackDistance )
             {
@@ -43,14 +43,14 @@ namespace Enemy.State
                 return;
             }
             
-            enemy.AgentController.UpdateChase();
+            enemy.AIHandler.UpdateChase();
             enemy.CharacterAnimator.Running(enemy.Agent.velocity.magnitude);
             
         }
 
         public override void ExitState(EnemyContext enemy)
         {
-            enemy.AgentController.Resume();
+            enemy.AIHandler.Resume();
         }
         
     }

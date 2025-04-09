@@ -25,21 +25,21 @@ namespace Enemy.State
             _enemyWeapon.transform.localRotation = Quaternion.Euler(176.87f, -100.96f, -81.22f);
             
             enemy.CharacterAnimator.Attacking(true);
-            enemy.AgentController.Stop();
+            enemy.AIHandler.Stop();
             
             Debug.Log("Enter attack State");
         }
 
         public override void UpdateState(EnemyContext enemy)
         {
-            // enemy.AgentController.RotateTowards(enemy.TargetTransform.position);
+            enemy.RotationHandler.HandleRotation(enemy.TargetTransform.position);
 
-            RotateTowards(enemy, enemy.TargetTransform);
+            //RotateTowards(enemy, enemy.TargetTransform);
             
             ChangeSpeed(enemy, 0, 5);  
             SlowDownBeforeStopping(enemy);
 
-            var playerVisibility = enemy.AgentController.CheckPlayerVisibility();
+            var playerVisibility = enemy.AIHandler.CheckPlayerVisibility();
             
             if (CheckTarget(enemy) == null)
             {
@@ -60,7 +60,7 @@ namespace Enemy.State
             }*/
             
             float distanceToTarget = Vector3.Distance(enemy.transform.position, enemy.TargetTransform.position);
-            bool canSeePlayer = enemy.AgentController.CheckPlayerVisibility();
+            bool canSeePlayer = enemy.AIHandler.CheckPlayerVisibility();
     
             if (distanceToTarget > enemy.EnemySetting.AttackDistance )
             {
@@ -100,7 +100,7 @@ namespace Enemy.State
             
             enemy.Agent.isStopped = false;
             enemy.CharacterAnimator.Attacking(false);
-            enemy.AgentController.Resume();
+            enemy.AIHandler.Resume();
         }
     }
 }

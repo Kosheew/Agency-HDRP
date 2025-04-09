@@ -21,8 +21,8 @@ namespace Enemy.State
 
             enemy.CharacterAnimator.Chasing(false);
             
-            enemy.AgentController.Resume();
-            enemy.AgentController.StartPatrol();
+            enemy.AIHandler.Resume();
+            enemy.AIHandler.StartPatrol();
         }
 
         public override void UpdateState(EnemyContext enemy)
@@ -37,7 +37,7 @@ namespace Enemy.State
                 return;
             }
             
-            enemy.AgentController.UpdatePatrol();
+            enemy.AIHandler.UpdatePatrol();
             
             enemy.CharacterAnimator.Running(enemy.Agent.velocity.magnitude);
         }

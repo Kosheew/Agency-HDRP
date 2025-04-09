@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Audio;
 using Characters.Character_Interfaces;
+using CustomAI.Handlers;
 using Health_System;
 using Weapons;
 
@@ -28,7 +29,8 @@ namespace Characters.Enemy
         private AudioSource AudioSource;
         public NavMeshAgent Agent {get; set;}
         private Animator Animator;
-        public AgentControllerComponent AgentController {get; set;}
+        public AIHandlerComponent AIHandler {get; set;}
+        public RotationHandler RotationHandler {get; set;}
 
         public HealthComponent HealthComponent { get; private set; }
         public CharacterAnimator CharacterAnimator { get; private set; }
@@ -78,7 +80,8 @@ namespace Characters.Enemy
             AudioSource = GetComponent<AudioSource>();
             Agent = GetComponent<NavMeshAgent>();
             Animator = GetComponent<Animator>();
-            AgentController = GetComponent<AgentControllerComponent>();
+            AIHandler = GetComponent<AIHandlerComponent>();
+            RotationHandler = GetComponent<RotationHandler>();
         }
 
         private void SetSettings()
@@ -89,7 +92,7 @@ namespace Characters.Enemy
 
         private void InitState()
         {
-            AgentController.Init(enemySetting);
+            AIHandler.Init(enemySetting);
             weapon.Init();
             
             if(patrolled)
