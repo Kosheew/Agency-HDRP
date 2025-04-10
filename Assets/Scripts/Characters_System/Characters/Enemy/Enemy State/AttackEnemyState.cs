@@ -39,7 +39,7 @@ namespace Enemy.State
             ChangeSpeed(enemy, 0, 5);  
             SlowDownBeforeStopping(enemy);
 
-            var playerVisibility = enemy.AIHandler.CheckPlayerVisibility();
+            var playerVisibility = enemy.AIHandler.CheckTargetVisibility(enemy.TargetTransform);
             
             if (CheckTarget(enemy) == null)
             {
@@ -60,7 +60,7 @@ namespace Enemy.State
             }*/
             
             float distanceToTarget = Vector3.Distance(enemy.transform.position, enemy.TargetTransform.position);
-            bool canSeePlayer = enemy.AIHandler.CheckPlayerVisibility();
+            bool canSeePlayer = enemy.AIHandler.CheckTargetVisibility(enemy.TargetTransform);
     
             if (distanceToTarget > enemy.EnemySetting.AttackDistance )
             {
