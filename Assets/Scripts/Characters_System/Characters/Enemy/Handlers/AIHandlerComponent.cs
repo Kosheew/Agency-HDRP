@@ -9,27 +9,22 @@ using CustomAI.Handlers;
 
 public class AIHandlerComponent : MonoBehaviour
 {
-    [Header("Movement Settings")]
-  
-    
     [Header("Patrol Settings")]
     [SerializeField] private Transform[] _patrolTargets;
     [SerializeField] private float _waypointThreshold = 1f;
     [SerializeField] private float _rotationSpeed = 5f;    
     [SerializeField] private float _facingAngleThreshold = 10f; 
-
-
+    
     [Header("Chase Settings")]
-    [SerializeField] private float _pathUpdateMinDistance = 0.5f; // Мінімальна відстань для оновлення шляху
+    [SerializeField] private float _pathUpdateMinDistance = 0.5f; 
     [SerializeField] private float _pathUpdateCooldown = 0.3f;
     
     [SerializeField] private float stopToTarget;
     private Vector3 _lastTargetPosition;
     private float _lastPathUpdateTime;
     
-    private NavMeshAgent _agent;
-    private EnemySetting _enemySetting;
-        
+    private DestinationHandler _destinationHandler;
+    
     [SerializeField] private List<Vector3> _waypoints;
     private Vector3 _previousWaypoint;
     
@@ -37,7 +32,6 @@ public class AIHandlerComponent : MonoBehaviour
     private int _currentPatrolTargetIndex = 0;
     private int _currentWayPointIndex = 0;
     
-    public bool IsMoving { get; private set; }
         
     private bool _reversePatrolDirection = false;
     
@@ -48,11 +42,10 @@ public class AIHandlerComponent : MonoBehaviour
         public void Init(EnemySetting enemySetting)
         {
             _waypoints = new List<Vector3>(15);
-            _enemySetting = enemySetting;
-            _agent = GetComponent<NavMeshAgent>();
+            
             _rotationHandler = GetComponent<RotationHandler>();
-            _agent.speed = _enemySetting.MoveSpeed; 
-            _agent.updateRotation = false;
+            _destinationHandler = GetComponent<DestinationHandler>();
+            _destinationHandler.Init();
         }
         
         public void StartPatrol()
@@ -61,30 +54,34 @@ public class AIHandlerComponent : MonoBehaviour
             
             _currentPatrolTargetIndex = 0;
             _currentWayPointIndex = 0;
-            IsMoving = true;
+            
             CalculatePath(transform.position, _patrolTargets[_currentPatrolTargetIndex].position);
-            _agent.SetDestination(_patrolTargets[_currentPatrolTargetIndex].position);
+            
+            _destinationHandler.SetDestinationAgent(_patrolTargets[_currentPatrolTargetIndex]);
+            //_agent.SetDestination(_patrolTargets[_currentPatrolTargetIndex].position);
         }
         
-        public void MoveTo(Transform target)
+        public void ChaseMainTarget()
         {
-            _currentTarget = target;
+            // MB problems - ?
+            _destinationHandler.ResetMainDestination();
+
+            _currentTarget = _destinationHandler.CurrentTarget;
             _lastTargetPosition = _currentTarget.position;
             CalculatePath(transform.position, _currentTarget.position);
             
-            _agent.SetDestination(_currentTarget.position);
+            
+            //_agent.SetDestination(_currentTarget.position);
         }
         
         public void Stop() 
         {
-            _agent.isStopped = true;
-            IsMoving = false;
+            _destinationHandler.SetAgentStopped(true);
         }
 
         public void Resume() 
         {
-            _agent.isStopped = false;
-            IsMoving = true;
+            _destinationHandler.SetAgentStopped(false);
         }
 
         public void UpdateChase()
@@ -98,7 +95,7 @@ public class AIHandlerComponent : MonoBehaviour
                 _lastTargetPosition = _currentTarget.position;
                 _lastPathUpdateTime = Time.time;
                 CalculatePath(transform.position, _currentTarget.position);
-                _agent.SetDestination(_currentTarget.position);
+                _destinationHandler.ResetMainDestination();
             }
             
             if (_currentWayPointIndex >= _waypoints.Count) return;
@@ -107,11 +104,9 @@ public class AIHandlerComponent : MonoBehaviour
         
         public void UpdatePatrol()
         {
-            if (!IsMoving) return;
-
             UpdateWayPoints();
 
-            if (_agent.remainingDistance <= _agent.stoppingDistance)
+            if (_destinationHandler.IsDestinationReached())
             {
                 CompleteCurrentPath();
                 return;
@@ -144,11 +139,12 @@ public class AIHandlerComponent : MonoBehaviour
             int previousIndex = _currentPatrolTargetIndex;
             _currentPatrolTargetIndex = GetNextPatrolIndex();
 
-            Vector3 from = _patrolTargets[previousIndex].position;
-            Vector3 to = _patrolTargets[_currentPatrolTargetIndex].position;
+            var from = _patrolTargets[previousIndex];
+            var to = _patrolTargets[_currentPatrolTargetIndex];
 
-            CalculatePath(from, to);
-            _agent.SetDestination(to);
+            CalculatePath(from.position, to.position);
+            _destinationHandler.SetDestinationAgent(to);
+            //_agent.SetDestination(to);
         }
         
         private int GetNextPatrolIndex()
@@ -188,22 +184,16 @@ public class AIHandlerComponent : MonoBehaviour
                 }
             }
         }
-
         
-        public bool CheckPlayerVisibility()
+        public bool CheckTargetVisibility(Transform target)
         {
-            RaycastHit hit;
-            Vector3 directionToPlayer = (_currentTarget.position - transform.position).normalized;
+            var directionToTarget = (target.position - transform.position).normalized;
         
-            Debug.DrawRay(transform.position, directionToPlayer * 10, Color.red);
+            Debug.DrawRay(transform.position, directionToTarget * 10, Color.red);
         
-            if (Physics.Raycast(transform.position, directionToPlayer, out hit, 10))
+            if (Physics.Raycast(transform.position, directionToTarget, out var hit, 10))
             {
-                if (hit.transform.CompareTag("Player"))
-                {
-                    Debug.Log("Player is visible");
-                    return true;
-                }
+                if (hit.transform.TryGetComponent(out PlayerContext playerContext)) return true;
             }
         
             return false;
